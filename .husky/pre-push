@@ -1,0 +1,6 @@
+#!/usr/bin/env sh
+. "$(dirname -- "$0")/_/husky.sh"
+
+echo "🐶 husky script: [pre-push]"
+echo "✅ husky script: [pre-push]"
+echo ""
