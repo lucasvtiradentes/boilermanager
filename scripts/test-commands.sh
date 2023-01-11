@@ -3,11 +3,11 @@
 folder='C:\\Users\lucasvtiradentes\wsl\_lucasvtiradentes'
 bpm_='ts-node --esm src/index.ts'
 
-$bpm_                 # DEFAULT EXEC
+# $bpm_                 # DEFAULT EXEC
 # $bpm_ -V            # VERSION
 # $bpm_ -fb           # FAMOUS BOILERPLATES
 # $bpm_ -sb           # STARRED BOILERPLATES
-# $bpm_ -pb "$folder" # BOILERPLATES FROM PATH
+$bpm_ -pb "$folder" # BOILERPLATES FROM PATH
 # $bpm_ -f ts         # FILTERING WORDS
 # $bpm_ -l            # LISTING CURRENT BOILERPLATES
 # $bpm_ -l            # LISTING CURRENT BOILERPLATES WITH DETAILS

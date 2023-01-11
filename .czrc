@@ -146,12 +146,6 @@
           "code": ":bookmark:",
           "name": "tags",
           "description": "Release / Version tags."
-        },
-        {
-          "emoji": "🔊",
-          "code": ":loud_sound:",
-          "name": "addlogs",
-          "description": "Add or update logs."
         }
       ]
     }

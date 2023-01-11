@@ -1,12 +1,12 @@
-import inquirer from 'inquirer'
-import { Boilerplate } from '../types/Boilerplate.js'
-import { coloredMessage } from '../utils/colored-message.js'
+import inquirer from 'inquirer';
+import { Boilerplate } from '../types/Boilerplate.js';
+import { coloredMessage } from '../utils/colored-message.js';
 
 function manageStarredBoilerplates() {
-  const starredBoilerplates: Boilerplate[] = []
+  const starredBoilerplates: Boilerplate[] = [];
   if (starredBoilerplates.length === 0) {
-    coloredMessage.error('there are no starred boilerplates to manage')
-    process.exit(1)
+    coloredMessage.error('there are no starred boilerplates to manage');
+    process.exit(1);
   }
 
   inquirer
@@ -15,12 +15,12 @@ function manageStarredBoilerplates() {
         type: 'checkbox',
         name: 'boilerplatesToRemove',
         message: 'select all boilerplates you want to remove from starred ones: ',
-        choices: starredBoilerplates.map((item) => item.name),
-      },
+        choices: starredBoilerplates.map((item) => item.name)
+      }
     ])
     .then((answers) => {
-      console.log(answers)
-    })
+      console.log(answers);
+    });
 }
 
-export { manageStarredBoilerplates }
+export { manageStarredBoilerplates };

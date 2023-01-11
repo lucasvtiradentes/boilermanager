@@ -1,5 +1,5 @@
-import inquirer from 'inquirer'
-import { Boilerplate } from '../types/Boilerplate.js'
+import inquirer from 'inquirer';
+import { Boilerplate } from '../types/Boilerplate.js';
 
 function starBoilerplates(boilerArr: Boilerplate[]) {
   inquirer
@@ -8,12 +8,12 @@ function starBoilerplates(boilerArr: Boilerplate[]) {
         type: 'checkbox',
         name: 'starredBoilerplates',
         message: 'select all boilerplates you want to star: ',
-        choices: boilerArr.map((item) => item.name),
-      },
+        choices: boilerArr.map((item) => item.name)
+      }
     ])
     .then((answers) => {
-      console.log(answers)
-    })
+      console.log(answers);
+    });
 }
 
-export { starBoilerplates }
+export { starBoilerplates };

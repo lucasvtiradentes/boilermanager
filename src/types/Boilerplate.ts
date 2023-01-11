@@ -1,7 +1,7 @@
 type Boilerplate = {
-  name: string
-  description: string
-  link: string
-}
+  name: string;
+  description: string;
+  link: string;
+};
 
-export { Boilerplate }
+export { Boilerplate };

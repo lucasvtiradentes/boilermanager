@@ -29,8 +29,7 @@
         "fixci",
         "revert",
         "merge",
-        "tags",
-        "addlogs"
+        "tags"
       ]
     ]
   }

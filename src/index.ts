@@ -90,7 +90,7 @@ async function initBoilerplateManager() {
   if (options.listDetailed) {
     const detailedList = CURRENT_BOILERPLATES.map((item) => ({
       name: item.name,
-      description: item.description,
+      description: item.description
     }));
     console.table(detailedList);
     process.exit(0);

@@ -1,6 +1,7 @@
 # https://eslint.org/docs/latest/user-guide/configuring/ignoring-code
 
 # FILES #################################
+
 .commitlintrc
 .czrc
 .editorconfig
@@ -13,11 +14,10 @@ package.json
 tsconfig.json
 
 # FOLDERS ###############################
+
 .git
 .husky
 .vscode
+lib
 node_modules
 offline
-dist
-build
-lib

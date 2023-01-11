@@ -680,7 +680,6 @@ class UpdateGitConfigs {
       return;
     }
     cb(JSON.parse(readFileSync(file, 'utf8'))).then((updatedContent: any) => {
-      console.log(updatedContent);
       writeFileSync(file, JSON.stringify(updatedContent, null, 2));
     });
   }
@@ -713,6 +712,7 @@ class UpdateGitConfigs {
       return new Promise((resolve) => {
         content.config.commitizenEmoji.types = this.getCommitzenTypesArray();
         resolve(content);
+        console.log('updated commitizen configs!');
       });
     });
   }
@@ -723,6 +723,7 @@ class UpdateGitConfigs {
       return new Promise((resolve) => {
         content.rules['type-enum'] = [2, 'always', this.getCommitlintTypesArray()];
         resolve(content);
+        console.log('updated commitlint configs!');
       });
     });
   }
@@ -753,8 +754,7 @@ commitsConfigs.setupUsedTypes([
   'fixci',
   'revert',
   'merge',
-  'tags',
-  'addlogs'
+  'tags'
 ]);
 
 commitsConfigs.updateCommitlintConfigs();

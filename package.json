@@ -1,13 +1,14 @@
 {
   "name": "boilermanager",
-  "version": "1.0.0",
-  "description": "This is node boilerplate that uses eslint, prettier, editor config and typescript.",
+  "version": "0.0.2",
+  "description": "A typescript boilerplate manager to quick start all your projects.",
   "license": "MIT",
   "type": "module",
   "keywords": [
     "cli",
-    "tailwindcss",
-    "nodejs"
+    "typescript",
+    "boilerplate-manager",
+    "boilerplate"
   ],
   "homepage": "https://github.com/js-boilerplate-land/boilermanager",
   "repository": {
@@ -26,13 +27,18 @@
     "bpm": "./lib/index.js"
   },
   "scripts": {
-    "postinstall": "git init && husky install",
+    "postinstall": "husky install",
     "commit": "cz",
     "commit:configs": "ts-node --esm ./scripts/update-commits-configs.ts",
+    "prettier:check": "prettier --check .",
+    "prettier:fix": "prettier --write .",
+    "lint:check": "eslint .",
+    "lint:fix": "eslint . --fix",
+    "lint:staged": "lint-staged --concurrent false --quiet",
     "build": "tsc",
     "dev": "ts-node --esm ./src/index.ts",
     "start": "node ./lib/index.js",
-    "lint:staged": "lint-staged --concurrent false --quiet"
+    "test": "bash ./scripts/test-commands.sh"
   },
   "dependencies": {
     "axios": "^1.2.2",

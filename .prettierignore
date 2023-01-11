@@ -1,23 +1,24 @@
 # https://prettier.io/docs/en/ignore.html
 
 # FILES #################################
+
 .commitlintrc
 .czrc
 .editorconfig
 .eslintignore
 .eslintrc
 .gitignore
+.lintstagedrc
 .prettierignore
 .prettierrc
 package.json
 tsconfig.json
 
 # FOLDERS ###############################
+
 .git
 .husky
 .vscode
+lib
 node_modules
 offline
-dist
-build
-lib
