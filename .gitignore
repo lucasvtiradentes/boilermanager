@@ -1,0 +1,12 @@
+#https://git-scm.com/docs/gitignore
+
+# FOLDERS ###############################
+lib/
+node_modules/
+offline/
+
+# FILES #################################
+pnpm-lock.yaml
+package-lock.json
+yarn.lock
+.env

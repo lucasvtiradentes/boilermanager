@@ -1,0 +1,16 @@
+# https://EditorConfig.org
+
+# GENERAL ###############################
+root = true
+charset = utf-8
+trim_trailing_whitespace = true
+
+[*]
+# NEW LINE ##############################
+end_of_line = LF
+insert_final_newline = true
+
+# IDENTATION ############################
+indent_style = space
+indent_size = 2
+

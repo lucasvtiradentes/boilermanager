@@ -1,0 +1,159 @@
+{
+  "path": "./node_modules/commitizen-emoji",
+  "config": {
+    "commitizenEmoji": {
+      "replaceTypes": true,
+      "conventionalFormat": true,
+      "skipQuestions": [
+        "breakingBody",
+        "issues"
+      ],
+      "types": [
+        {
+          "emoji": "🎉",
+          "code": ":tada:",
+          "name": "init",
+          "description": "Begin a project."
+        },
+        {
+          "emoji": "✨",
+          "code": ":sparkles:",
+          "name": "feature",
+          "description": "Introduce new features."
+        },
+        {
+          "emoji": "✅",
+          "code": ":white_check_mark:",
+          "name": "tests",
+          "description": "Add, update, or pass tests."
+        },
+        {
+          "emoji": "📝",
+          "code": ":memo:",
+          "name": "docs",
+          "description": "Add or update documentation."
+        },
+        {
+          "emoji": "🏷️",
+          "code": ":label:",
+          "name": "types",
+          "description": "Add or update types."
+        },
+        {
+          "emoji": "🔧",
+          "code": ":wrench:",
+          "name": "config",
+          "description": "Add or update configuration files."
+        },
+        {
+          "emoji": "🔨",
+          "code": ":hammer:",
+          "name": "devscripts",
+          "description": "Add or update development scripts."
+        },
+        {
+          "emoji": "📦️",
+          "code": ":package:",
+          "name": "binary",
+          "description": "Add or update compiled files or packages."
+        },
+        {
+          "emoji": "🍱",
+          "code": ":bento:",
+          "name": "assets",
+          "description": "Add or update assets."
+        },
+        {
+          "emoji": "💄",
+          "code": ":lipstick:",
+          "name": "ui",
+          "description": "Add or update the UI and style files."
+        },
+        {
+          "emoji": "🌐",
+          "code": ":globe_with_meridians:",
+          "name": "i18n",
+          "description": "Internationalization and localization."
+        },
+        {
+          "emoji": "🐛",
+          "code": ":bug:",
+          "name": "bugfix",
+          "description": "Fix a bug."
+        },
+        {
+          "emoji": "🚑️",
+          "code": ":ambulance:",
+          "name": "hotfix",
+          "description": "Critical hotfix."
+        },
+        {
+          "emoji": "🩹",
+          "code": ":adhesive_bandage:",
+          "name": "fix",
+          "description": "Simple fix for a non-critical issue."
+        },
+        {
+          "emoji": "🥅",
+          "code": ":goal_net:",
+          "name": "detect",
+          "description": "Catch errors."
+        },
+        {
+          "emoji": "🏗️",
+          "code": ":building_construction:",
+          "name": "arch",
+          "description": "Make architectural changes."
+        },
+        {
+          "emoji": "🎨",
+          "code": ":art:",
+          "name": "codestyle",
+          "description": "Improve structure / format of the code."
+        },
+        {
+          "emoji": "♻️",
+          "code": ":recycle:",
+          "name": "refactor",
+          "description": "Refactor code."
+        },
+        {
+          "emoji": "🚀",
+          "code": ":rocket:",
+          "name": "deploy",
+          "description": "Deploy stuff."
+        },
+        {
+          "emoji": "💚",
+          "code": ":green_heart:",
+          "name": "fixci",
+          "description": "Fix CI Build."
+        },
+        {
+          "emoji": "⏪️",
+          "code": ":rewind:",
+          "name": "revert",
+          "description": "Revert changes."
+        },
+        {
+          "emoji": "🔀",
+          "code": ":twisted_rightwards_arrows:",
+          "name": "merge",
+          "description": "Merge branches."
+        },
+        {
+          "emoji": "🔖",
+          "code": ":bookmark:",
+          "name": "tags",
+          "description": "Release / Version tags."
+        },
+        {
+          "emoji": "🔊",
+          "code": ":loud_sound:",
+          "name": "addlogs",
+          "description": "Add or update logs."
+        }
+      ]
+    }
+  }
+}
