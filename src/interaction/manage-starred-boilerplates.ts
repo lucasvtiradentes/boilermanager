@@ -1,11 +1,11 @@
 import inquirer from 'inquirer';
 import { Boilerplate } from '../types/Boilerplate.js';
-import { coloredMessage } from '../utils/colored-message.js';
+import { logger } from '../utils/colored-message.js';
 
 function manageStarredBoilerplates() {
   const starredBoilerplates: Boilerplate[] = [];
   if (starredBoilerplates.length === 0) {
-    coloredMessage.error('there are no starred boilerplates to manage');
+    logger.error('there are no starred boilerplates to manage');
     process.exit(1);
   }
 

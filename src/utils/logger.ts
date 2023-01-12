@@ -1,6 +1,6 @@
 import chalk from 'chalk';
 
-class ColoredMessage {
+class Logger {
   error(msg: string) {
     console.log(chalk.red('error: ') + msg);
   }
@@ -10,5 +10,5 @@ class ColoredMessage {
   }
 }
 
-const coloredMessage = new ColoredMessage();
-export { coloredMessage };
+const logger = new Logger();
+export { logger };

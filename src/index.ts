@@ -11,7 +11,7 @@ import { Boilerplate } from './types/Boilerplate.js';
 import { starBoilerplates } from './interaction/star-boilerplates.js';
 import { selectBoilerplate } from './interaction/select-boilerplate.js';
 import { manageStarredBoilerplates } from './interaction/manage-starred-boilerplates.js';
-import { coloredMessage } from './utils/colored-message.js';
+import { logger } from './utils/logger.js';
 
 async function initBoilerplateManager() {
   let CURRENT_BOILERPALTE_NAME = 'DEFAULT';
@@ -41,7 +41,7 @@ async function initBoilerplateManager() {
   if (options.famous) {
     CURRENT_BOILERPALTE_NAME = 'famous';
     CURRENT_BOILERPLATES = [];
-    coloredMessage.info('using [famous] boilerplates');
+    logger.info('using [famous] boilerplates');
   }
 
   /* ========================================================================== */
@@ -49,7 +49,7 @@ async function initBoilerplateManager() {
   if (options.starred) {
     CURRENT_BOILERPALTE_NAME = 'starred';
     CURRENT_BOILERPLATES = [];
-    coloredMessage.info('using [starred] boilerplates');
+    logger.info('using [starred] boilerplates');
   }
 
   /* ========================================================================== */
@@ -57,19 +57,19 @@ async function initBoilerplateManager() {
   if (options.path) {
     const folderPath = resolve(options.path);
     if (!existsSync(folderPath)) {
-      coloredMessage.error(`folder path [${options.path}] does not exists`);
+      logger.error(`folder path [${options.path}] does not exists`);
       process.exit(1);
     }
 
     const localBoilerplatesArr = getBoilerplatesFromFolder(folderPath) ?? [];
     if (localBoilerplatesArr.length === 0) {
-      coloredMessage.error('no boilerplates were found in the specified path.');
+      logger.error('no boilerplates were found in the specified path.');
       process.exit(1);
     }
 
     CURRENT_BOILERPALTE_NAME = `local folder`;
     CURRENT_BOILERPLATES = localBoilerplatesArr;
-    coloredMessage.info(`using boilerplates from folder: [${options.path}]`);
+    logger.info(`using boilerplates from folder: [${options.path}]`);
   }
 
   /* ========================================================================== */
@@ -77,7 +77,7 @@ async function initBoilerplateManager() {
   if (options.filter) {
     const filteredBoilerplates = CURRENT_BOILERPLATES.filter((item: Boilerplate) => item.name.search(options.filter) > -1);
     CURRENT_BOILERPLATES = filteredBoilerplates;
-    coloredMessage.info(`filtered boilerplates with: [${options.filter}]`);
+    logger.info(`filtered boilerplates with: [${options.filter}]`);
   }
 
   /* ========================================================================== */
@@ -99,7 +99,7 @@ async function initBoilerplateManager() {
   /* ========================================================================== */
 
   if (CURRENT_BOILERPLATES.length === 0) {
-    coloredMessage.error('current boilerplate list has no items!');
+    logger.error('current boilerplate list has no items!');
     process.exit(1);
   }
 
@@ -109,11 +109,11 @@ async function initBoilerplateManager() {
     console.log('');
     manageStarredBoilerplates();
   } else if (options.addStarred) {
-    coloredMessage.info(`current boilerpalte list: [${CURRENT_BOILERPALTE_NAME}]`);
+    logger.info(`current boilerpalte list: [${CURRENT_BOILERPALTE_NAME}]`);
     console.log('');
     starBoilerplates(CURRENT_BOILERPLATES);
   } else {
-    coloredMessage.info(`current boilerpalte list: [${CURRENT_BOILERPALTE_NAME}]`);
+    logger.info(`current boilerpalte list: [${CURRENT_BOILERPALTE_NAME}]`);
     console.log('');
     selectBoilerplate(CURRENT_BOILERPLATES);
   }

@@ -1,7 +1,7 @@
 {
   "name": "boilermanager",
   "version": "0.0.2",
-  "description": "A typescript boilerplate manager to quick start all your projects.",
+  "description": "⚡ a boilerplate manager to start you typescript projects lightning fast.",
   "license": "MIT",
   "type": "module",
   "keywords": [
@@ -38,7 +38,8 @@
     "build": "tsc",
     "dev": "ts-node --esm ./src/index.ts",
     "start": "node ./lib/index.js",
-    "test": "bash ./scripts/test-commands.sh"
+    "test": "bash ./scripts/test-commands.sh",
+    "sc": "ts-node --esm ./scripts/scrapper.ts"
   },
   "dependencies": {
     "axios": "^1.2.2",
