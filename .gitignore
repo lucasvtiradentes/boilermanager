@@ -3,7 +3,7 @@
 # FOLDERS ###############################
 lib/
 node_modules/
-offline/
+ignore/
 
 # FILES #################################
 pnpm-lock.yaml

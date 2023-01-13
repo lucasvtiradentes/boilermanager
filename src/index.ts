@@ -3,23 +3,23 @@
 import chalk from 'chalk';
 import figlet from 'figlet';
 import { program } from 'commander';
-import { resolve } from 'node:path';
 import { existsSync } from 'node:fs';
-import { getBoilerplatesFromFolder } from './utils/get-boilerplates-from-folder.js';
-import { getGithubBoilerplates } from './utils/get-github-boilerplates.js';
-import { Boilerplate } from './types/Boilerplate.js';
-import { starBoilerplates } from './interaction/star-boilerplates.js';
-import { selectBoilerplate } from './interaction/select-boilerplate.js';
+import { resolve } from 'node:path';
+import { DESCRIPTION, GITHUB_BOILERPLATES_REPOSITORY, VERSION } from './configs/configs.js';
 import { manageStarredBoilerplates } from './interaction/manage-starred-boilerplates.js';
+import { selectBoilerplate } from './interaction/select-boilerplate.js';
+import { starBoilerplates } from './interaction/star-boilerplates.js';
+import githubBoilerplatehandler from './models/GithubBoilerplate.js';
+import pathBoilerplatehandler from './models/PathBoilerplate.js';
 import { logger } from './utils/logger.js';
 
 async function initBoilerplateManager() {
   let CURRENT_BOILERPALTE_NAME = 'DEFAULT';
-  let CURRENT_BOILERPLATES: Boilerplate[] = await getGithubBoilerplates();
+  let CURRENT_BOILERPLATES: string[] = await githubBoilerplatehandler.list(GITHUB_BOILERPLATES_REPOSITORY);
 
   console.log(chalk.red(figlet.textSync('boilermanager', { horizontalLayout: 'full' })));
 
-  program.name('boilermanager').version('0.0.1').description('A complete typescript boilerplate library to fast quick start your projects.');
+  program.name('boilermanager').version(VERSION).description(DESCRIPTION);
 
   program
     .option('-fb, --famous', 'use only famous boilerplates')
@@ -61,7 +61,7 @@ async function initBoilerplateManager() {
       process.exit(1);
     }
 
-    const localBoilerplatesArr = getBoilerplatesFromFolder(folderPath) ?? [];
+    const localBoilerplatesArr = (await pathBoilerplatehandler.list(folderPath)) ?? [];
     if (localBoilerplatesArr.length === 0) {
       logger.error('no boilerplates were found in the specified path.');
       process.exit(1);
@@ -75,7 +75,7 @@ async function initBoilerplateManager() {
   /* ========================================================================== */
 
   if (options.filter) {
-    const filteredBoilerplates = CURRENT_BOILERPLATES.filter((item: Boilerplate) => item.name.search(options.filter) > -1);
+    const filteredBoilerplates = CURRENT_BOILERPLATES.filter((item: string) => item.search(options.filter) > -1);
     CURRENT_BOILERPLATES = filteredBoilerplates;
     logger.info(`filtered boilerplates with: [${options.filter}]`);
   }
@@ -83,15 +83,12 @@ async function initBoilerplateManager() {
   /* ========================================================================== */
 
   if (options.list) {
-    console.table(CURRENT_BOILERPLATES.map((item) => item.name));
+    console.table(CURRENT_BOILERPLATES.map((item) => item));
     process.exit(0);
   }
 
   if (options.listDetailed) {
-    const detailedList = CURRENT_BOILERPLATES.map((item) => ({
-      name: item.name,
-      description: item.description
-    }));
+    const detailedList = CURRENT_BOILERPLATES.map((item) => item);
     console.table(detailedList);
     process.exit(0);
   }

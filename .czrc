@@ -5,6 +5,7 @@
       "replaceTypes": true,
       "conventionalFormat": true,
       "skipQuestions": [
+        "scope",
         "breakingBody",
         "issues"
       ],

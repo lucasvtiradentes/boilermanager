@@ -1,14 +1,13 @@
 import inquirer from 'inquirer';
-import { Boilerplate } from '../types/Boilerplate.js';
 
-function selectBoilerplate(boilerArr: Boilerplate[]) {
+async function selectBoilerplate(boilerArr: string[]) {
   inquirer
     .prompt([
       {
         type: 'list',
         name: 'boilerplate',
         message: 'Choose the desired boilerplate to start with: ',
-        choices: boilerArr.map((item) => item.name)
+        choices: boilerArr.map((item) => item)
       }
     ])
     .then((answers) => {

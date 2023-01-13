@@ -6,11 +6,12 @@
   "extends": [
     "eslint:recommended",
     "plugin:@typescript-eslint/recommended",
-    "eslint-config-prettier"
+    "prettier"
   ],
   "plugins": [
     "@typescript-eslint",
-    "eslint-config-prettier"
+    "eslint-config-prettier",
+    "prettier"
   ],
   "rules": {
     "prettier/prettier": "error"
