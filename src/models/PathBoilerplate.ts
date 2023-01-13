@@ -1,4 +1,4 @@
-import { BoilerplatesHandler } from '../entities/BoilerplatesHandler.js';
+import { BoilerplatesHandler } from '../entities/BoilerplatesHandler';
 import { readdirSync } from 'node:fs';
 
 class PathBoilerplatehandler implements BoilerplatesHandler {
@@ -14,8 +14,9 @@ class PathBoilerplatehandler implements BoilerplatesHandler {
     return getDirectories(location).map((item) => item);
   }
 
-  select(): void {
-    throw new Error('Method not implemented.');
+  select(name: string): boolean {
+    console.log(`select from github ${name}`);
+    return true;
   }
 
   addAsStarred(): void {

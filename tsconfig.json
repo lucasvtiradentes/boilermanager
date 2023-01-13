@@ -9,5 +9,8 @@
     "rootDir": "./",
     "outDir": "./lib",
     "strict": true
-  }
+  },
+  "include": [
+    "src"
+  ]
 }

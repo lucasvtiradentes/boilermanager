@@ -28,23 +28,24 @@
   "scripts": {
     "postinstall": "husky install",
     "commit": "cz",
-    "commit:configs": "ts-node ./scripts/update-commits-configs.ts",
+    "prebuild": "rimraf ./lib",
+    "build": "tsc",
+    "start": "node ./lib/src/index.js",
+    "dev": "ts-node ./src/index.ts",
+    "dev:install": "npm install -g .",
     "prettier:check": "prettier --check .",
     "prettier:fix": "prettier --write .",
     "lint:check": "eslint .",
     "lint:fix": "eslint . --fix",
     "lint:staged": "lint-staged --concurrent false --quiet",
-    "build": "tsc",
-    "dev": "ts-node ./src/index.ts",
-    "start": "node ./lib/src/index.js",
-    "test": "bash ./scripts/test-commands.sh",
-    "sc": "ts-node ./scripts/scrapper.ts"
+    "scripts:test": "bash ./scripts/test-commands.sh",
+    "scripts:commits": "ts-node ./scripts/update-commits-configs.ts",
+    "scripts:issues": "ts-node ./scripts/show-all-open-issues.ts"
   },
   "dependencies": {
     "axios": "^1.2.2",
     "chalk": "^4.1.2",
     "commander": "^9.5.0",
-    "dotenv": "^16.0.3",
     "figlet": "^1.5.2",
     "inquirer": "^8.2.3"
   },
@@ -65,6 +66,7 @@
     "lint-staged": "^13.1.0",
     "prettier": "^2.8.0",
     "ts-node": "^10.9.1",
-    "typescript": "^4.9.3"
+    "typescript": "^4.9.3",
+    "rimraf": "^4.0.4"
   }
 }

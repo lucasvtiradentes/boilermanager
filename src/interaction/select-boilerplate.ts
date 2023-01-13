@@ -1,6 +1,7 @@
 import inquirer from 'inquirer';
+import { BoilerplatesHandler } from '../entities/BoilerplatesHandler';
 
-async function selectBoilerplate(boilerArr: string[]) {
+async function selectBoilerplate(boilerArr: string[], boilerHandler: BoilerplatesHandler) {
   inquirer
     .prompt([
       {
@@ -12,6 +13,7 @@ async function selectBoilerplate(boilerArr: string[]) {
     ])
     .then((answers) => {
       console.log(answers);
+      boilerHandler.select(answers['boilerplate']);
     });
 }
 

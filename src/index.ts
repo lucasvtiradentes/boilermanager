@@ -5,17 +5,27 @@ import figlet from 'figlet';
 import { program } from 'commander';
 import { existsSync } from 'node:fs';
 import { resolve } from 'node:path';
-import { DESCRIPTION, GITHUB_BOILERPLATES_REPOSITORY, VERSION } from './configs/configs.js';
-import { manageStarredBoilerplates } from './interaction/manage-starred-boilerplates.js';
-import { selectBoilerplate } from './interaction/select-boilerplate.js';
-import { starBoilerplates } from './interaction/star-boilerplates.js';
-import githubBoilerplatehandler from './models/GithubBoilerplate.js';
-import pathBoilerplatehandler from './models/PathBoilerplate.js';
-import { logger } from './utils/logger.js';
+import { DESCRIPTION, GITHUB_BOILERPLATES_REPOSITORY, VERSION } from './configs/configs';
+import { manageStarredBoilerplates } from './interaction/manage-starred-boilerplates';
+import { selectBoilerplate } from './interaction/select-boilerplate';
+import { starBoilerplates } from './interaction/star-boilerplates';
+import githubBoilerplatehandler from './models/GithubBoilerplate';
+import pathBoilerplatehandler from './models/PathBoilerplate';
+import { logger } from './utils/logger';
+import { BoilerplatesHandler } from './entities/BoilerplatesHandler';
+
+interface runTimeProperties {
+  boilerHandler: BoilerplatesHandler;
+  boilerplateOrigin: 'default' | 'famous' | 'starred' | 'path';
+  boilerplatesArr: string[];
+}
 
 async function initBoilerplateManager() {
-  let CURRENT_BOILERPALTE_NAME = 'DEFAULT';
-  let CURRENT_BOILERPLATES: string[] = await githubBoilerplatehandler.list(GITHUB_BOILERPLATES_REPOSITORY);
+  let runtimeObj: runTimeProperties = {
+    boilerHandler: githubBoilerplatehandler,
+    boilerplateOrigin: 'default',
+    boilerplatesArr: await githubBoilerplatehandler.list(GITHUB_BOILERPLATES_REPOSITORY)
+  };
 
   console.log(chalk.red(figlet.textSync('boilermanager', { horizontalLayout: 'full' })));
 
@@ -39,16 +49,16 @@ async function initBoilerplateManager() {
   /* ========================================================================== */
 
   if (options.famous) {
-    CURRENT_BOILERPALTE_NAME = 'famous';
-    CURRENT_BOILERPLATES = [];
+    runtimeObj.boilerplateOrigin = 'famous';
+    runtimeObj.boilerplatesArr = [];
     logger.info('using [famous] boilerplates');
   }
 
   /* ========================================================================== */
 
   if (options.starred) {
-    CURRENT_BOILERPALTE_NAME = 'starred';
-    CURRENT_BOILERPLATES = [];
+    runtimeObj.boilerplateOrigin = 'starred';
+    runtimeObj.boilerplatesArr = [];
     logger.info('using [starred] boilerplates');
   }
 
@@ -67,35 +77,37 @@ async function initBoilerplateManager() {
       process.exit(1);
     }
 
-    CURRENT_BOILERPALTE_NAME = `local folder`;
-    CURRENT_BOILERPLATES = localBoilerplatesArr;
+    runtimeObj.boilerplateOrigin = `path`;
+    runtimeObj.boilerHandler = pathBoilerplatehandler;
+    runtimeObj.boilerplatesArr = localBoilerplatesArr;
+
     logger.info(`using boilerplates from folder: [${options.path}]`);
   }
 
   /* ========================================================================== */
 
   if (options.filter) {
-    const filteredBoilerplates = CURRENT_BOILERPLATES.filter((item: string) => item.search(options.filter) > -1);
-    CURRENT_BOILERPLATES = filteredBoilerplates;
+    const filteredBoilerplates = runtimeObj.boilerplatesArr.filter((item: string) => item.search(options.filter) > -1);
+    runtimeObj.boilerplatesArr = filteredBoilerplates;
     logger.info(`filtered boilerplates with: [${options.filter}]`);
   }
 
   /* ========================================================================== */
 
   if (options.list) {
-    console.table(CURRENT_BOILERPLATES.map((item) => item));
+    console.table(runtimeObj.boilerplatesArr.map((item) => item));
     process.exit(0);
   }
 
   if (options.listDetailed) {
-    const detailedList = CURRENT_BOILERPLATES.map((item) => item);
+    const detailedList = runtimeObj.boilerplatesArr.map((item) => item);
     console.table(detailedList);
     process.exit(0);
   }
 
   /* ========================================================================== */
 
-  if (CURRENT_BOILERPLATES.length === 0) {
+  if (runtimeObj.boilerplatesArr.length === 0) {
     logger.error('current boilerplate list has no items!');
     process.exit(1);
   }
@@ -106,13 +118,13 @@ async function initBoilerplateManager() {
     console.log('');
     manageStarredBoilerplates();
   } else if (options.addStarred) {
-    logger.info(`current boilerpalte list: [${CURRENT_BOILERPALTE_NAME}]`);
+    logger.info(`current boilerpalte list: [${runtimeObj.boilerplateOrigin}]`);
     console.log('');
-    starBoilerplates(CURRENT_BOILERPLATES);
+    starBoilerplates(runtimeObj.boilerplatesArr);
   } else {
-    logger.info(`current boilerpalte list: [${CURRENT_BOILERPALTE_NAME}]`);
+    logger.info(`current boilerpalte list: [${runtimeObj.boilerplateOrigin}]`);
     console.log('');
-    selectBoilerplate(CURRENT_BOILERPLATES);
+    selectBoilerplate(runtimeObj.boilerplatesArr, runtimeObj.boilerHandler);
   }
 }
 

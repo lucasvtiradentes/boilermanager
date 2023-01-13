@@ -1,5 +1,5 @@
 import inquirer from 'inquirer';
-import { logger } from '../utils/logger.js';
+import { logger } from '../utils/logger';
 
 function manageStarredBoilerplates() {
   const starredBoilerplates: string[] = [];

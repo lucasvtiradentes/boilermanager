@@ -1,5 +1,5 @@
 import axios from 'axios';
-import { BoilerplatesHandler } from '../entities/BoilerplatesHandler.js';
+import { BoilerplatesHandler } from '../entities/BoilerplatesHandler';
 
 class GithubBoilerplatehandler implements BoilerplatesHandler {
   source: string = '';
@@ -9,7 +9,6 @@ class GithubBoilerplatehandler implements BoilerplatesHandler {
     this.source = repoLink;
     // const folderUrl = `https://api.github.com/repos/${repo}/contents/`;
     const treeUrl = `https://api.github.com/repos/${repoLink}/git/trees/master?recursive=1`;
-    console.log(treeUrl);
     const boilerplateList = await axios.get(treeUrl);
     const parsedResults = boilerplateList.data.tree.filter((item: any) => item.path.split('/').length === 2 && item.type === 'tree').map((item: any) => item.path.split('/')[1]);
     this.curlist = parsedResults;
@@ -17,8 +16,9 @@ class GithubBoilerplatehandler implements BoilerplatesHandler {
     return parsedResults;
   }
 
-  select(): void {
-    throw new Error('Method not implemented.');
+  select(name: string): boolean {
+    console.log(`select from github ${name}`);
+    return true;
   }
 
   addAsStarred(): void {

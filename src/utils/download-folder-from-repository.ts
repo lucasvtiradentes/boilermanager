@@ -3,7 +3,7 @@ import { randomUUID } from 'node:crypto';
 import { copyFileSync, existsSync, lstatSync, mkdirSync, readdirSync, rmSync } from 'node:fs';
 import { tmpdir } from 'node:os';
 import { join } from 'node:path';
-import { logger } from './logger.js';
+import { logger } from './logger';
 
 class UseGithubBoilerplate {
   private copyFolderSync(from: string, to: string) {

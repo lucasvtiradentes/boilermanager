@@ -666,7 +666,7 @@ const ALL_GITMOJI_ARR = [
 
 type ValidTypes = (typeof ALL_GITMOJI_ARR)[number]['type'];
 
-class UpdateGitConfigs {
+class CommitsConfigs {
   private allgitmojiArr: typeof ALL_GITMOJI_ARR;
   usedCommits: ValidTypes[] = [];
 
@@ -729,7 +729,9 @@ class UpdateGitConfigs {
   }
 }
 
-const commitsConfigs = new UpdateGitConfigs(ALL_GITMOJI_ARR);
+/* ########################################################################## */
+
+const commitsConfigs = new CommitsConfigs(ALL_GITMOJI_ARR);
 
 commitsConfigs.setupUsedTypes([
   'init',
