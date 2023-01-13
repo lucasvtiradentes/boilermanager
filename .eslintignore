@@ -16,11 +16,15 @@ node_modules/
 .czrc
 .editorconfig
 .eslintignore
-.eslintrc
+.eslintrc.json
 .gitignore
 .lintstagedrc
 .npmignore
 .prettierignore
-.prettierrc
+.prettierrc.json
 package.json
 tsconfig.json
+
+package-lock.json
+yarn.lock
+pnpm-lock.yaml

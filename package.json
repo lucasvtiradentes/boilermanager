@@ -1,7 +1,6 @@
 {
   "name": "boilermanager",
   "version": "0.0.0-development",
-  "private": "false",
   "description": "⚡ a boilerplate manager to start you typescript projects lightning fast.",
   "license": "MIT",
   "keywords": [
@@ -22,9 +21,7 @@
   "bugs": {
     "url": "https://github.com/ts-boilerplate-land/boilermanager/issues"
   },
-  "exports": "./lib/src/index.js",
   "types": "./lib/src/index.d.ts",
-  "main": "./lib/src/index.js",
   "bin": {
     "bpm": "./lib/src/index.js"
   },
@@ -63,17 +60,18 @@
     "@types/figlet": "^1.5.5",
     "@types/inquirer": "^9.0.3",
     "@types/node": "^18.11.9",
-    "@typescript-eslint/eslint-plugin": "^5.45.0",
-    "@typescript-eslint/parser": "^5.45.0",
+    "@typescript-eslint/eslint-plugin": "^5.48.1",
+    "@typescript-eslint/parser": "^5.48.1",
     "commitizen": "^4.2.6",
     "commitizen-emoji": "^1.0.5",
     "commitlint": "^17.4.1",
     "commitlint-config-gitmoji": "^2.2.9",
-    "eslint": "^8.28.0",
-    "eslint-config-prettier": "^8.5.0",
+    "eslint": "^8.31.0",
+    "eslint-config-prettier": "^8.6.0",
+    "eslint-plugin-prettier": "^4.2.1",
     "husky": "^8.0.3",
     "lint-staged": "^13.1.0",
-    "prettier": "^2.8.0",
+    "prettier": "^2.8.2",
     "rimraf": "^4.0.4",
     "semantic-release": "^19.0.5",
     "ts-node": "^10.9.1",

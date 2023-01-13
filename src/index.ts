@@ -1,5 +1,3 @@
-#! /usr/bin/env node
-
 import { BoilerplateItem } from './entities/BoilerplateItem';
 import chalk from 'chalk';
 import figlet from 'figlet';
@@ -14,11 +12,8 @@ import { logger } from './utils/logger';
 import { RuntimeSettings } from './entities/RuntimeSettings';
 import { BoilerplateHandlerContext, githubStrategy, localpathStrategy } from './entities/BoilerplateHandler';
 
-// sourceType: sourceOptions;
-// source: string;
-
 async function initBoilerplateManager() {
-  let runtimeObj: RuntimeSettings = {
+  const runtimeObj: RuntimeSettings = {
     source: GITHUB_BOILERPLATES_REPOSITORY,
     sourceType: 'default',
     context: new BoilerplateHandlerContext(githubStrategy),

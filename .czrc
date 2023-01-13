@@ -6,8 +6,7 @@
       "conventionalFormat": true,
       "skipQuestions": [
         "scope",
-        "breakingBody",
-        "issues"
+        "breakingBody"
       ],
       "types": [
         {
