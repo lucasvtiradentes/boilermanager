@@ -6,12 +6,16 @@
     "resolveJsonModule": true,
     "declaration": true,
     "esModuleInterop": true,
-    "rootDir": "./",
+    "rootDir": ".",
     "outDir": "./lib",
     "strict": true,
     "skipLibCheck": true
   },
-  "include": [
-    "./src/**/*"
+  "exclude": [
+    "ignore",
+    "node_modules",
+    "lib",
+    "scripts",
+    "tests"
   ]
 }

@@ -2,6 +2,7 @@
 
 # FOLDERS ###############################
 
+coverage/
 ignore/
 lib/
 node_modules/

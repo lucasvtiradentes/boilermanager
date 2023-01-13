@@ -6,6 +6,7 @@
 .github/
 .husky/
 .vscode/
+coverage/
 ignore/
 lib/
 node_modules/

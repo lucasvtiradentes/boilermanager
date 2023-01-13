@@ -1,6 +1,6 @@
 {
   "name": "boilermanager",
-  "version": "0.0.0-development",
+  "version": "0.0.2",
   "description": "⚡ a boilerplate manager to start you typescript projects lightning fast.",
   "license": "MIT",
   "keywords": [
@@ -31,6 +31,10 @@
     "prebuild": "rimraf ./lib",
     "build": "tsc",
     "build:check": "tsc --noEmit",
+    "test": "jest --passWithNoTests",
+    "test:watch": "jest --passWithNoTests --watchAll",
+    "test:staged": "jest --passWithNoTests --findRelatedTests",
+    "test:coverage": "jest --passWithNoTests --coverage",
     "pub": "semantic-release",
     "pub:check": "npm publish --dry-run",
     "pub:build": "npm pack && tar -xvzf *.tgz",
@@ -59,6 +63,7 @@
     "@semantic-release/git": "^10.0.1",
     "@types/figlet": "^1.5.5",
     "@types/inquirer": "^9.0.3",
+    "@types/jest": "^29.2.5",
     "@types/node": "^18.11.9",
     "@typescript-eslint/eslint-plugin": "^5.48.1",
     "@typescript-eslint/parser": "^5.48.1",
@@ -70,10 +75,12 @@
     "eslint-config-prettier": "^8.6.0",
     "eslint-plugin-prettier": "^4.2.1",
     "husky": "^8.0.3",
+    "jest": "^29.3.1",
     "lint-staged": "^13.1.0",
     "prettier": "^2.8.2",
     "rimraf": "^4.0.4",
     "semantic-release": "^19.0.5",
+    "ts-jest": "^29.0.5",
     "ts-node": "^10.9.1",
     "typescript": "^4.9.3"
   }
