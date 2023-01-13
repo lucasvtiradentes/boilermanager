@@ -5,13 +5,13 @@
 </p>
 
 <div align="center">
+  <a href="https://www.npmjs.com/package/boilermanager"><img src="https://img.shields.io/npm/v/ticktick-api-lvt.svg?style=flat" alt="npm version"></a>
   <a href=""><img src="https://img.shields.io/badge/made%20with-node-1f425f?logo=node.js&.svg" /></a>
-  <a href="https://www.npmjs.com/package/ticktick-api-lvt"><img src="https://img.shields.io/npm/v/ticktick-api-lvt.svg?style=flat" alt="npm version"></a>
   <a href="https://www.github.com/ts-boilerplate-land/boilermanager/commits/master"><img src="https://img.shields.io/github/last-commit/ts-boilerplate-land/boilermanager?color=green&label=updated"></a>
   <br>
-  <a href="https://github.com/semantic-release/semantic-release"><img src="https://img.shields.io/badge/%20%20%F0%9F%93%A6%F0%9F%9A%80-semantic--release-e10079.svg?style=flat-square" alt="semantic-release"/></a>
-  <a href="https://gitter.im/ts_boilerplate_land/community"><img src="https://badges.gitter.im/Join%20Chat.svg"></a>
   <a href="https://www.github.com/lucasvtiradentes"><img src="https://img.shields.io/badge/maintainer-%40lucasvtiradentes-yellow"></a>
+  <a href="#"><img src="https://img.shields.io/badge/contributions-welcome-brightgreen.svg?style=flat" alt="contributions" /></a>
+  <a href="https://gitter.im/ts_boilerplate_land/community"><img src="https://badges.gitter.im/Join%20Chat.svg"></a>
 </div>
 
 <p align="center">
@@ -23,8 +23,7 @@
   <p align="center">
     <br>
     <a href="#"><img src="https://img.shields.io/badge/maintained%3F-yes-green.svg" alt="maintance" /></a>
-    <a href="#"><img src="https://img.shields.io/badge/contributions-welcome-brightgreen.svg?style=flat" alt="contributions" /></a>
-    <a href="#"><img src="https://img.shields.io/github/contributors/ts-boilerplate-land/boilermanager.svg" /></a>
+    <a href="https://github.com/ts-boilerplate-land/boilermanager/graphs/contributors"><img src="https://img.shields.io/github/contributors/ts-boilerplate-land/boilermanager.svg" /></a>
     <br>
     <a href="#"><img src="https://badges.frapsoft.com/os/v2/open-source.svg?v=103"></a>
     <a href="https://saythanks.io/to/lucasvtiradentes"><img src="https://img.shields.io/badge/Say%20Thanks-!-1EAEDB.svg"></a>
@@ -32,18 +31,18 @@
   </p>
   <p align="center">
     <br>
-    <a href="#"><img src="https://img.shields.io/badge/code_style-prettier-ff69b4.svg?style=flat-square" /></a>
     <a href="https://github.com/commitizen/cz-cli"><img src="https://img.shields.io/badge/commitizen-friendly-brightgreen.svg?style=flat-square" alt="commitzen" /></a>
     <a href="https://gitmoji.dev"><img src="https://img.shields.io/badge/gitmoji-%20😜%20😍-FFDD67.svg?style=flat-square" alt="Gitmoji" /></a>
+    <a href="https://github.com/semantic-release/semantic-release"><img src="https://img.shields.io/badge/%20%20%F0%9F%93%A6%F0%9F%9A%80-semantic--release-e10079.svg?style=flat-square" alt="semantic-release"/></a>
     <br>
-    <a href="#"><img src="https://badgen.net/badge/icon/git?icon=git&label"></a>
-    <a href="#"><img src="https://badgen.net/badge/icon/github?icon=github&label"></a>
-    <a href="#"><img src="https://badgen.net/badge/icon/typescript?icon=typescript&label"></a>
+    <a href="https://git-scm.com/"><img src="https://badgen.net/badge/icon/git?icon=git&label"></a>
+    <a href="https://github.com/"><img src="https://badgen.net/badge/icon/github?icon=github&label"></a>
+    <a href="https://www.typescriptlang.org/"><img src="https://badgen.net/badge/icon/typescript?icon=typescript&label"></a>
   </p>
   <p align="center">
     <br>
-    <a href="#"><img src="https://img.shields.io/github/v/release/djcb/mu.svg" /></a>
-    <a href="https://github.com/sulu/sulu/releases" target="_blank"><img src="https://img.shields.io/github/tag/sulu/sulu.svg" alt="GitHub tag (latest SemVer)"></a>
+    <a href="https://github.com/ts-boilerplate-land/boilermanager/releases"><img src="https://img.shields.io/github/v/release/djcb/mu.svg" /></a>
+    <a href="https://github.com/ts-boilerplate-land/boilermanager/tags" target="_blank"><img src="https://img.shields.io/github/tag/sulu/sulu.svg" alt="GitHub tag (latest SemVer)"></a>
     <br>
     <a href="https://github.com/ts-boilerplate-land/boilermanager/pulls" target="_blank"><img src="https://badgen.net/github/prs/ts-boilerplate-land/boilermanager?label=open%20PR" alt="GitHub"></a>
     <a href="https://github.com/ts-boilerplate-land/boilermanager/commits/master" target="_blank"><img src="https://badgen.net/github/commits/ts-boilerplate-land/boilermanager" alt="GitHub"></a>
@@ -402,7 +401,7 @@ This project uses the best of two main conventions to commit messages validation
 
 So a typically valid commit message has this pattern:
 
-> 🔧 config(setup): add lint-staged to the project (#2)
+> 🔧 config: add lint-staged to the project (#2)
 
 Also, in order to have this integration working correctly, I buld a [script](../scripts/update-commits-configs.ts) that we can specify only allowed types and it take care to update both commitizen and commitlint settings.
 

@@ -1,19 +1,20 @@
 import inquirer from 'inquirer';
-import { BoilerplatesHandler } from '../entities/BoilerplatesHandler';
+import { BoilerplateHandlerContext } from '../entities/BoilerplateHandler';
+import { BoilerplateItem } from '../entities/BoilerplateItem';
+import { RuntimeSettings } from '../entities/RuntimeSettings';
 
-async function selectBoilerplate(boilerArr: string[], boilerHandler: BoilerplatesHandler) {
+async function selectBoilerplate(runtime: RuntimeSettings) {
   inquirer
     .prompt([
       {
         type: 'list',
         name: 'boilerplate',
         message: 'Choose the desired boilerplate to start with: ',
-        choices: boilerArr.map((item) => item)
+        choices: runtime.boilerplatesArr.map((item) => item)
       }
     ])
     .then((answers) => {
-      console.log(answers);
-      boilerHandler.select(answers['boilerplate']);
+      runtime.context.choose(runtime.source, answers['boilerplate']);
     });
 }
 

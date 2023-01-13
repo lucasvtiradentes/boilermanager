@@ -1,36 +1,32 @@
 #! /usr/bin/env node
 
+import { BoilerplateItem } from './entities/BoilerplateItem';
 import chalk from 'chalk';
 import figlet from 'figlet';
 import { program } from 'commander';
 import { existsSync } from 'node:fs';
 import { resolve } from 'node:path';
-import { DESCRIPTION, GITHUB_BOILERPLATES_REPOSITORY, VERSION } from './configs/configs';
+import { APP_NAME, APP_DESCRIPTION, APP_VERSION, GITHUB_BOILERPLATES_REPOSITORY } from './configs/configs';
 import { manageStarredBoilerplates } from './interaction/manage-starred-boilerplates';
 import { selectBoilerplate } from './interaction/select-boilerplate';
 import { starBoilerplates } from './interaction/star-boilerplates';
-import githubBoilerplatehandler from './models/GithubBoilerplate';
-import pathBoilerplatehandler from './models/PathBoilerplate';
 import { logger } from './utils/logger';
-import { BoilerplatesHandler } from './entities/BoilerplatesHandler';
+import { RuntimeSettings } from './entities/RuntimeSettings';
+import { BoilerplateHandlerContext, githubStrategy, localpathStrategy } from './entities/BoilerplateHandler';
 
-interface runTimeProperties {
-  boilerHandler: BoilerplatesHandler;
-  boilerplateOrigin: 'default' | 'famous' | 'starred' | 'path';
-  boilerplatesArr: string[];
-}
+// sourceType: sourceOptions;
+// source: string;
 
 async function initBoilerplateManager() {
-  let runtimeObj: runTimeProperties = {
-    boilerHandler: githubBoilerplatehandler,
-    boilerplateOrigin: 'default',
-    boilerplatesArr: await githubBoilerplatehandler.list(GITHUB_BOILERPLATES_REPOSITORY)
+  let runtimeObj: RuntimeSettings = {
+    source: GITHUB_BOILERPLATES_REPOSITORY,
+    sourceType: 'default',
+    context: new BoilerplateHandlerContext(githubStrategy),
+    boilerplatesArr: [] // await githubBoilerplatehandler.list(GITHUB_BOILERPLATES_REPOSITORY)
   };
 
-  console.log(chalk.red(figlet.textSync('boilermanager', { horizontalLayout: 'full' })));
-
-  program.name('boilermanager').version(VERSION).description(DESCRIPTION);
-
+  console.log(chalk.red(figlet.textSync(APP_NAME, { horizontalLayout: 'full' })));
+  program.name(APP_NAME).version(APP_VERSION).description(APP_DESCRIPTION);
   program
     .option('-fb, --famous', 'use only famous boilerplates')
     .option('-sb, --starred', 'use only starred boilerplates')
@@ -42,14 +38,13 @@ async function initBoilerplateManager() {
     .option('-ms, --manage-starred', 'manage the current starred boilerplate list in order to remove the unused ones');
 
   program.parse();
-
   const options = program.opts();
   // console.log('options: ', options)
 
   /* ========================================================================== */
 
   if (options.famous) {
-    runtimeObj.boilerplateOrigin = 'famous';
+    runtimeObj.sourceType = 'famous';
     runtimeObj.boilerplatesArr = [];
     logger.info('using [famous] boilerplates');
   }
@@ -57,7 +52,7 @@ async function initBoilerplateManager() {
   /* ========================================================================== */
 
   if (options.starred) {
-    runtimeObj.boilerplateOrigin = 'starred';
+    runtimeObj.sourceType = 'starred';
     runtimeObj.boilerplatesArr = [];
     logger.info('using [starred] boilerplates');
   }
@@ -71,14 +66,15 @@ async function initBoilerplateManager() {
       process.exit(1);
     }
 
-    const localBoilerplatesArr = (await pathBoilerplatehandler.list(folderPath)) ?? [];
+    runtimeObj.sourceType = `path`;
+    runtimeObj.context.setStrategy(localpathStrategy);
+
+    const localBoilerplatesArr = (await runtimeObj.context.list(folderPath)) ?? [];
     if (localBoilerplatesArr.length === 0) {
       logger.error('no boilerplates were found in the specified path.');
       process.exit(1);
     }
 
-    runtimeObj.boilerplateOrigin = `path`;
-    runtimeObj.boilerHandler = pathBoilerplatehandler;
     runtimeObj.boilerplatesArr = localBoilerplatesArr;
 
     logger.info(`using boilerplates from folder: [${options.path}]`);
@@ -87,7 +83,14 @@ async function initBoilerplateManager() {
   /* ========================================================================== */
 
   if (options.filter) {
-    const filteredBoilerplates = runtimeObj.boilerplatesArr.filter((item: string) => item.search(options.filter) > -1);
+    // prettier-ignore
+    const filteredBoilerplates = runtimeObj.boilerplatesArr.filter((item: BoilerplateItem) => {
+      const foundOnName = item.name.search(options.filter) > -1
+      const foundOnCategory = item.category.search(options.filter) > -1
+      const foundOnDescription = (item.description && item.description.search(options.filter) > -1)
+      return foundOnName || foundOnCategory || foundOnDescription
+    });
+
     runtimeObj.boilerplatesArr = filteredBoilerplates;
     logger.info(`filtered boilerplates with: [${options.filter}]`);
   }
@@ -107,24 +110,27 @@ async function initBoilerplateManager() {
 
   /* ========================================================================== */
 
-  if (runtimeObj.boilerplatesArr.length === 0) {
-    logger.error('current boilerplate list has no items!');
-    process.exit(1);
-  }
-
-  /* ========================================================================== */
-
   if (options.manageStarred) {
     console.log('');
     manageStarredBoilerplates();
-  } else if (options.addStarred) {
-    logger.info(`current boilerplate list: [${runtimeObj.boilerplateOrigin}]`);
-    console.log('');
-    starBoilerplates(runtimeObj.boilerplatesArr);
   } else {
-    logger.info(`current boilerplate list: [${runtimeObj.boilerplateOrigin}]`);
+    if (runtimeObj.sourceType === `default`) {
+      runtimeObj.boilerplatesArr = await runtimeObj.context.list(runtimeObj.source);
+    }
+
+    if (runtimeObj.boilerplatesArr.length === 0) {
+      logger.error('current boilerplate list has no items!');
+      process.exit(1);
+    }
+
+    logger.info(`current boilerplate list: [${runtimeObj.sourceType}]`);
     console.log('');
-    selectBoilerplate(runtimeObj.boilerplatesArr, runtimeObj.boilerHandler);
+
+    if (options.addStarred) {
+      starBoilerplates(runtimeObj); // .boilerplatesArr
+    } else {
+      selectBoilerplate(runtimeObj); // .boilerplatesArr, runtimeObj.context
+    }
   }
 }
 

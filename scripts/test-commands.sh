@@ -1,6 +1,6 @@
 #! /usr/bin/env bash
 
-folder='C:\\Users\lucasvtiradentes\wsl\_lucasvtiradentes'
+folder='C:\Users\lucasvtiradentes\wsl\_lucasvtiradentes\other projects\development-utils\boilerplate-projects'
 bpm_='ts-node --esm src/index.ts'
 
 # $bpm_                 # DEFAULT EXEC
