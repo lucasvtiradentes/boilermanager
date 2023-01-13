@@ -1,5 +1,7 @@
 import axios from 'axios';
+import { GITHUB_BOILERPLATES_REPOSITORY } from '../configs/configs';
 import { BoilerplatesHandler } from '../entities/BoilerplatesHandler';
+import downloadRepositoryFolder from './DownloadRepositoryFolder';
 
 class GithubBoilerplatehandler implements BoilerplatesHandler {
   source: string = '';
@@ -18,6 +20,8 @@ class GithubBoilerplatehandler implements BoilerplatesHandler {
 
   select(name: string): boolean {
     console.log(`select from github ${name}`);
+
+    downloadRepositoryFolder.execute(GITHUB_BOILERPLATES_REPOSITORY, name);
     return true;
   }
 

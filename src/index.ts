@@ -118,11 +118,11 @@ async function initBoilerplateManager() {
     console.log('');
     manageStarredBoilerplates();
   } else if (options.addStarred) {
-    logger.info(`current boilerpalte list: [${runtimeObj.boilerplateOrigin}]`);
+    logger.info(`current boilerplate list: [${runtimeObj.boilerplateOrigin}]`);
     console.log('');
     starBoilerplates(runtimeObj.boilerplatesArr);
   } else {
-    logger.info(`current boilerpalte list: [${runtimeObj.boilerplateOrigin}]`);
+    logger.info(`current boilerplate list: [${runtimeObj.boilerplateOrigin}]`);
     console.log('');
     selectBoilerplate(runtimeObj.boilerplatesArr, runtimeObj.boilerHandler);
   }
