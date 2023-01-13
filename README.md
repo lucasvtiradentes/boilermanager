@@ -1,7 +1,7 @@
 <a name="TOC"></a>
 
 <p align="center">
-  <img alt="posthoglogo" src="./images/repo_banner_2428_332.png">
+  <img alt="posthoglogo" src="./.github/images/repo_banner_2428_332.png">
 </p>
 
 <div align="center">
@@ -105,14 +105,14 @@
   </p>
 </details>
 
-<img src="./images/divider.png" />
+<img src="./.github/images/divider.png" />
 
 ## :trumpet: Overview
 
 In 1537, a study involving developers around the world showned that if we could `take back the time spent on setting every project up`, at the end of our lives we would `live 10 years longer`. That's why I made BPM! 🤪
 
 <p align="center">
-  <img alt="posthoglogo" src="./images/app/intro.png" width="650">
+  <img alt="posthoglogo" src="./.github/images/app/intro.png" width="650">
 </p>
 
 The `main goal` of boilermanager is to provide a way to start projects with `almost zero time spent on project setup`, which includes:
@@ -125,7 +125,7 @@ The `main goal` of boilermanager is to provide a way to start projects with `alm
 
 All this, while providing a way to the `user also have the freedom to make his own boilerplate lists`, with his own projects and settings.
 
-## :dart: Features<a href="#TOC"><img align="right" src="./images/up_arrow.png" width="22"></a>
+## :dart: Features<a href="#TOC"><img align="right" src="./.github/images/up_arrow.png" width="22"></a>
 
 &nbsp;&nbsp;&nbsp;✔️ choose which boilerplate to start from;<br>
 &nbsp;&nbsp;&nbsp;✔️ choose the boilerplate source from three options: default, famous and local path;<br>
@@ -134,7 +134,7 @@ All this, while providing a way to the `user also have the freedom to make his o
 &nbsp;&nbsp;&nbsp;✔️ show available boilerplates with description;<br>
 &nbsp;&nbsp;&nbsp;✔️ filter boilerplates list with a term;<br>
 
-## :warning: Requirements<a href="#TOC"><img align="right" src="./images/up_arrow.png" width="22"></a>
+## :warning: Requirements<a href="#TOC"><img align="right" src="./.github/images/up_arrow.png" width="22"></a>
 
 In order to use this project in your computer, you need to have the following items:
 
@@ -146,7 +146,7 @@ If you want to make changes to the source code, it is recommended to also instal
 - [git](https://git-scm.com/): To work with version controlling;
 - [vscode](https://code.visualstudio.com/): Useful for editing the code. You can choose a similar editor as you wish.
 
-## :bulb: Usage<a href="#TOC"><img align="right" src="./images/up_arrow.png" width="22"></a>
+## :bulb: Usage<a href="#TOC"><img align="right" src="./.github/images/up_arrow.png" width="22"></a>
 
 ### Installation
 
@@ -236,7 +236,7 @@ $ bpm -f react -ld # shows the react boilerplates with description;
 $ bpm -f react -as # show all react boilerplates so you can add to you starred the most useful ones;
 ```
 
-## :wrench: Development<a href="#TOC"><img align="right" src="./images/up_arrow.png" width="22"></a>
+## :wrench: Development<a href="#TOC"><img align="right" src="./.github/images/up_arrow.png" width="22"></a>
 
 ### Development setup
 
@@ -409,9 +409,9 @@ Also, in order to have this integration working correctly, I buld a [script](../
 
 > :warning: This project does not have tests yet, but you in the future we will be adding some.
 
-<img src="./images/divider.png" />
+<img src="./.github/images/divider.png" />
 
-## :pray: Help<a href="#TOC"><img align="right" src="./images/up_arrow.png" width="22"></a>
+## :pray: Help<a href="#TOC"><img align="right" src="./.github/images/up_arrow.png" width="22"></a>
 
 ## FAQ
 
@@ -423,9 +423,9 @@ The first point of call should be our [Github discussions](https://github.com/ts
 Ask your questions about bugs or specific use cases, and someone from the [core team](https://github.com/orgs/ts-boilerplate-land/people) will respond.
 Or, if you prefer, [open an issue](https://github.com/ts-boilerplate-land/boilermanager/issues) on our GitHub repo.
 
-<img src="./images/divider.png" />
+<img src="./.github/images/divider.png" />
 
-## :books: About<a href="#TOC"><img align="right" src="./images/up_arrow.png" width="22"></a>
+## :books: About<a href="#TOC"><img align="right" src="./.github/images/up_arrow.png" width="22"></a>
 
 ## Roadmap
 
@@ -448,9 +448,9 @@ The most related links to this project are:
 
 **Boilermanager** is distributed under the terms of the MIT License Version 2.0. A complete version of the license is available in the [LICENSE](LICENSE) file in this repository. Any contribution made to this project will be licensed under the MIT License Version 2.0.
 
-<img src="./images/divider.png" />
+<img src="./.github/images/divider.png" />
 
-## :family: Community<a href="#TOC"><img align="right" src="./images/up_arrow.png" width="22"></a>
+## :family: Community<a href="#TOC"><img align="right" src="./.github/images/up_arrow.png" width="22"></a>
 
 ## Contributing
 
@@ -533,7 +533,7 @@ This project is an idea of [@lucasvtiradentes](https://github.com/lucasvtiradent
   </table>
 </div>
 
-<img src="./images/divider.png" />
+<img src="./.github/images/divider.png" />
 
 ## Links
 
