@@ -1,4 +1,4 @@
-# https://eslint.org/docs/latest/user-guide/configuring/ignoring-code
+# https://docs.npmjs.com/cli/v7/using-npm/developers#keeping-files-out-of-your-package
 
 # FOLDERS ###############################
 
@@ -9,6 +9,7 @@
 ignore/
 lib/
 node_modules/
+scripts/
 
 # FILES #################################
 
@@ -22,5 +23,5 @@ node_modules/
 .npmignore
 .prettierignore
 .prettierrc
-package.json
-tsconfig.json
+# package.json
+# tsconfig.json
