@@ -1,5 +1,5 @@
-import { copyFileSync, lstatSync, mkdirSync, readdirSync, statSync } from 'node:fs';
-import { join } from 'node:path';
+import { copyFileSync, lstatSync, mkdirSync, readdirSync, statSync, readdir } from 'node:fs';
+import { join, resolve } from 'node:path';
 
 function copyFolderSync(from: string, to: string) {
   mkdirSync(to);
@@ -22,5 +22,16 @@ function getDirectoriesRecursive(srcpath: string): string[] {
       .reduce((a: any, b: any) => a.concat(b), [])
   ];
 }
+
+// async function getAllFolderFiles(dir: string) {
+//   const dirents = await readdir(dir, { withFileTypes: true });
+//   const files: any = await Promise.all(
+//     dirents.map((dirent: any) => {
+//       const res = resolve(dir, dirent.name);
+//       return dirent.isDirectory() ? getAllFolderFiles(res) : res;
+//     })
+//   );
+//   return Array.prototype.concat(...files);
+// }
 
 export { copyFolderSync, getDirectoriesRecursive };

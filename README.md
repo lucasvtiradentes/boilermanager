@@ -407,7 +407,7 @@ Also, in order to have this integration working correctly, I buld a [script](../
 
 ### Tests
 
-> :warning: This project does not have tests yet, but you in the future we will be adding some.
+> **Warning** :warning: This project does not have tests yet, but you in the future we will be adding some.
 
 <img src="./.github/images/divider.png" />
 

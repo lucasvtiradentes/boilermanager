@@ -29,7 +29,7 @@
         "fixci",
         "revert",
         "merge",
-        "tags"
+        "breaking"
       ]
     ]
   }

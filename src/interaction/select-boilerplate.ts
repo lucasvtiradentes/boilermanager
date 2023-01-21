@@ -1,6 +1,4 @@
 import inquirer from 'inquirer';
-import { BoilerplateHandlerContext } from '../entities/BoilerplateHandler';
-import { BoilerplateItem } from '../entities/BoilerplateItem';
 import { RuntimeSettings } from '../entities/RuntimeSettings';
 
 async function selectBoilerplate(runtime: RuntimeSettings) {

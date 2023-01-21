@@ -17,7 +17,7 @@ async function initBoilerplateManager() {
     source: GITHUB_BOILERPLATES_REPOSITORY,
     sourceType: 'default',
     context: new BoilerplateHandlerContext(githubStrategy),
-    boilerplatesArr: [] // await githubBoilerplatehandler.list(GITHUB_BOILERPLATES_REPOSITORY)
+    boilerplatesArr: []
   };
 
   console.log(chalk.red(figlet.textSync(APP_NAME, { horizontalLayout: 'full' })));
@@ -71,7 +71,6 @@ async function initBoilerplateManager() {
     }
 
     runtimeObj.boilerplatesArr = localBoilerplatesArr;
-
     logger.info(`using boilerplates from folder: [${options.path}]`);
   }
 
@@ -122,9 +121,9 @@ async function initBoilerplateManager() {
     console.log('');
 
     if (options.addStarred) {
-      starBoilerplates(runtimeObj); // .boilerplatesArr
+      starBoilerplates(runtimeObj);
     } else {
-      selectBoilerplate(runtimeObj); // .boilerplatesArr, runtimeObj.context
+      selectBoilerplate(runtimeObj);
     }
   }
 }

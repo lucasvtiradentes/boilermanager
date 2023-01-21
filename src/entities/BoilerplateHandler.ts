@@ -1,6 +1,5 @@
 import axios from 'axios';
 import { downloadGithubRepositoryFolder } from '../utils/download-github-repository-folder';
-import { logger } from '../utils/logger';
 import { BoilerplateItem } from './BoilerplateItem';
 
 interface BoilerplateHandlerStrategy {
@@ -53,7 +52,7 @@ class GithubStrategy implements BoilerplateHandlerStrategy {
         description: ''
       };
     });
-    console.log(finalResults);
+    // console.log(finalResults);
     return finalResults;
   }
 

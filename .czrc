@@ -5,8 +5,7 @@
       "replaceTypes": true,
       "conventionalFormat": true,
       "skipQuestions": [
-        "scope",
-        "breakingBody"
+        "scope"
       ],
       "types": [
         {
@@ -142,10 +141,10 @@
           "description": "Merge branches."
         },
         {
-          "emoji": "🔖",
-          "code": ":bookmark:",
-          "name": "tags",
-          "description": "Release / Version tags."
+          "emoji": "💥",
+          "code": ":boom:",
+          "name": "breaking",
+          "description": "Introduce breaking changes."
         }
       ]
     }

@@ -47,7 +47,7 @@
     "lint:fix": "eslint . --fix",
     "lint:staged": "lint-staged --concurrent false --quiet",
     "scripts:test": "bash ./scripts/test-commands.sh",
-    "scripts:commits": "ts-node ./scripts/update-commits-configs.ts",
+    "scripts:commits": "ts-node ./scripts/gitmoji-utils.ts",
     "scripts:issues": "ts-node ./scripts/show-all-open-issues.ts"
   },
   "dependencies": {
@@ -60,7 +60,9 @@
   "devDependencies": {
     "@commitlint/cli": "^17.3.0",
     "@semantic-release/changelog": "^6.0.2",
+    "@semantic-release/commit-analyzer": "^9.0.2",
     "@semantic-release/git": "^10.0.1",
+    "@semantic-release/release-notes-generator": "^10.0.3",
     "@types/figlet": "^1.5.5",
     "@types/inquirer": "^9.0.3",
     "@types/jest": "^29.2.5",
@@ -71,6 +73,7 @@
     "commitizen-emoji": "^1.0.5",
     "commitlint": "^17.4.1",
     "commitlint-config-gitmoji": "^2.2.9",
+    "conventional-changelog-conventionalcommits": "^5.0.0",
     "eslint": "^8.31.0",
     "eslint-config-prettier": "^8.6.0",
     "eslint-plugin-prettier": "^4.2.1",
