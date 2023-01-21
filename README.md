@@ -105,7 +105,7 @@
   </p>
 </details>
 
-<img src="./.github/images/divider.png" />
+<a src="#"><img src="./.github/images/divider.png" /></a>
 
 ## :trumpet: Overview
 
@@ -409,13 +409,13 @@ Also, in order to have this integration working correctly, I buld a [script](../
 
 > **Warning** :warning: This project does not have tests yet, but you in the future we will be adding some.
 
-<img src="./.github/images/divider.png" />
+<a src="#"><img src="./.github/images/divider.png" /></a>
 
 ## :pray: Help<a href="#TOC"><img align="right" src="./.github/images/up_arrow.png" width="22"></a>
 
 ## FAQ
 
-You can check our most common questions and awnsers in this [link](./FAQ.MD).
+You can check our most common questions and awnsers in this [link](./docs/FAQ.MD).
 
 ## Docs and support
 
@@ -423,7 +423,7 @@ The first point of call should be our [Github discussions](https://github.com/ts
 Ask your questions about bugs or specific use cases, and someone from the [core team](https://github.com/orgs/ts-boilerplate-land/people) will respond.
 Or, if you prefer, [open an issue](https://github.com/ts-boilerplate-land/boilermanager/issues) on our GitHub repo.
 
-<img src="./.github/images/divider.png" />
+<a src="#"><img src="./.github/images/divider.png" /></a>
 
 ## :books: About<a href="#TOC"><img align="right" src="./.github/images/up_arrow.png" width="22"></a>
 
@@ -448,7 +448,7 @@ The most related links to this project are:
 
 **Boilermanager** is distributed under the terms of the MIT License Version 2.0. A complete version of the license is available in the [LICENSE](LICENSE) file in this repository. Any contribution made to this project will be licensed under the MIT License Version 2.0.
 
-<img src="./.github/images/divider.png" />
+<a src="#"><img src="./.github/images/divider.png" /></a>
 
 ## :family: Community<a href="#TOC"><img align="right" src="./.github/images/up_arrow.png" width="22"></a>
 
@@ -457,7 +457,7 @@ The most related links to this project are:
 If you are a typescript developer, we would kind and happy accept your help:
 
 - The best way to get started is to select any issue from the [`good-first-issue` label](https://github.com/ts-boilerplate-land/boilermanager/labels/good%20first%20issue);
-- If you would like to contribute, please review our [Contributing Guide](./CONTRIBUTING.md) for all relevant details.
+- If you would like to contribute, please review our [Contributing Guide](docs/CONTRIBUTING.md) for all relevant details.
 
 Another ways to positivily impact this project is to:
 
@@ -477,78 +477,3 @@ Any questions or suggestions? You are welcome to discuss it on:
 ## Acknowledgements
 
 This project is an idea of [@lucasvtiradentes](https://github.com/lucasvtiradentes) to `return some value to the world` after years of consuming a lot of useful tools provided by this `amazing open source community`.
-
-<!--
-
-### Screenshots
-
-<table>
-  <tr>
-    <th>Description</th>
-    <th>Screenshot</th>
-  </tr>
-  <tr>
-    <td>Desktop App Login</td>
-    <td><img src="https://raw.githubusercontent.com/supunlakmal/thismypc/master/thisMyPCWeb/angular-deprecated/src/assets/images/screen/app-login.PNG" title="Desktop App  Login " width="100%" crossorigin></td>
-  </tr>
-  <tr>
-    <td>Desktop App Open</td>
-    <td><img src="https://raw.githubusercontent.com/supunlakmal/thismypc/master/thisMyPCWeb/angular-deprecated/src/assets/images/screen/app-home.PNG" title="Desktop App Open" width="100%" crossorigin></td>
-  </tr>
-  <tr>
-    <td>Web App computer hard drives</td>
-    <td><img src="https://raw.githubusercontent.com/supunlakmal/thismypc/master/thisMyPCWeb/angular-deprecated/src/assets/images/screen/web-system.PNG" title="Web App  PC  Drivers" width="100%" crossorigin></td>
-  </tr>
-  <tr>
-    <td>Web App computer hard drives Open</td>
-    <td><img src="https://raw.githubusercontent.com/supunlakmal/thismypc/master/thisMyPCWeb/angular-deprecated/src/assets/images/screen/web-system.PNG" title="Web App  PC  Drivers" width="100%" crossorigin></td>
-  </tr>
-
-</table>
-
--->
-
-<!--
-
-<h2 id="overview"> :cloud: Acknowledgements</h2>
-
-<div align="center">
-  <table>
-    <tr>
-      <th>Boilerplate</th>
-      <th>Description</th>
-    </tr>
-    <tr>
-      <td>beloved users</td>
-      <td>
-        <a href="/stargazers"><img src="https://reporoster.com/stars/ts-boilerplate-land/boilermanager" /></a>
-      </td>
-    </tr>
-    <tr>
-      <td>brave contributors</td>
-      <td>
-        <a href="/graphs/contributors"><img src="https://contrib.rocks/image?repo=ts-boilerplate-land/boilermanager" /></a>
-      </td>
-    </tr>
-  </table>
-</div>
-
-<img src="./.github/images/divider.png" />
-
-## Links
-
-The different hosted versions of the website can be found at the following locations, where the canary server is the automatically-generated [GitHub Pages](https://pages.github.com/) site based-on the latest `master`, the staging area is a subdomain of the live website that we deploy to manually when we want to test-out new features and the production site is the current publicly-available website (also deployed to manually):
-
-- 🐥 **Canary:** https://stack-in-a-box.github.io/triumphmayflowerclub.com
-- 🧪 **Staging:** https://beta.triumphmayflowerclub.com/
-- 🌐 **Production:** https://www.triumphmayflowerclub.com/
-
-Oh, and just for the fun of it, here’s what the old website looked like for comparison!
-
-- ☠ **Legacy:** https://legacy.triumphmayflowerclub.com/
-
-## Versions
-
-The [GitHub Releases](https://help.github.com/en/github/administering-a-repository/managing-releases-in-a-repository) system is used to increment the version of, tag and publish releases, and is the single source of truth for what the current version of the website is. No version numbers are explicitly held in the repo’s files.
-
--->

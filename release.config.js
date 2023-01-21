@@ -32,7 +32,7 @@ module.exports = {
     [
       '@semantic-release/changelog',
       {
-        changelogFile: '.github/CHANGELOG.md',
+        changelogFile: 'docs/CHANGELOG.MD',
         changelogTitle: '# CHANGELOG HISTORY'
       }
     ],
@@ -48,7 +48,7 @@ module.exports = {
         presetConfig: {
           types: [
             { type: 'feature', section: '✨ feature:', hidden: false },
-            { type: 'tests', section: '✅ tests:', hidden: true },
+            { type: 'tests', section: '✅ tests:', hidden: false },
             { type: 'docs', section: '📝 docs:', hidden: true },
             { type: 'types', section: '🏷️ types:', hidden: true },
             { type: 'config', section: '🔧 config:', hidden: true },
@@ -71,7 +71,7 @@ module.exports = {
     [
       '@semantic-release/git',
       {
-        assets: ['.github/CHANGELOG.md', 'package.json'],
+        assets: ['docs/CHANGELOG.MD', 'package.json'],
         message: ':memo: docs: update changelog files ${nextRelease.version} [skip ci]\n\n${nextRelease.notes}'
       }
     ]

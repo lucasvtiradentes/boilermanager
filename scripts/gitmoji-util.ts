@@ -1,40 +1,48 @@
-// GITMOJI: https://gitmoji.dev/
-// GITMOJI JSON: https://github.com/carloscuesta/gitmoji/blob/master/packages/gitmojis/src/gitmojis.json
+// Utility for updating gitmoji commits in these tools: commitzen, commitlint and semantic-release.
+// REFS: https://gitmoji.dev/ | https://github.com/carloscuesta/gitmoji/blob/master/packages/gitmojis/src/gitmojis.json
 
-import { readFileSync, writeFileSync, existsSync } from 'node:fs';
+import { existsSync, readFileSync, writeFileSync } from 'node:fs';
 import { join, resolve } from 'node:path';
 
 const ALL_GITMOJI_ARR = [...getEmojiCommitTypesArr()] as const;
 type IEmojiCommitTypes = (typeof ALL_GITMOJI_ARR)[number]['type'];
 
-class CommitsConfigs {
+class GitmojiUtils {
   private allgitmojiArr: typeof ALL_GITMOJI_ARR;
-  usedCommits: IEmojiCommitTypes[] = [];
+  private usedCommits: IEmojiCommitTypes[] = [];
 
   constructor(allGitmojiArr: typeof ALL_GITMOJI_ARR) {
     this.allgitmojiArr = allGitmojiArr;
   }
 
   setupUsedTypes(usedCommits: IEmojiCommitTypes[]) {
-    this.usedCommits = usedCommits;
+    this.usedCommits = [...new Set(usedCommits)];
   }
 
-  private updateJsonContent(file: string, cb: (content: string) => Promise<any>) {
-    if (!existsSync(file)) {
-      console.log(`${file} file was not found!`);
-      return;
-    }
-    cb(JSON.parse(readFileSync(file, 'utf8'))).then((updatedContent: string) => {
-      writeFileSync(file, JSON.stringify(updatedContent, null, 2));
-    });
-  }
-
-  getOnlySpecifiedTypesItems() {
+  private getOnlySpecifiedTypesItems() {
     const validCommits = [...this.usedCommits].filter((type) => this.allgitmojiArr.find((gitMojiItem) => gitMojiItem.type === type) !== null);
     return validCommits;
   }
 
-  getSemanicReleaseTypesArray() {
+  /* ======================================================================== */
+
+  private getCommitlintTypesArray() {
+    return this.usedCommits;
+  }
+
+  private getCommitzenTypesArray() {
+    return [...this.getOnlySpecifiedTypesItems()].map((type) => {
+      const gitmojiItem = this.allgitmojiArr.find((gitMojiItem) => gitMojiItem.type === type);
+      return {
+        emoji: gitmojiItem?.emoji,
+        code: gitmojiItem?.code,
+        name: gitmojiItem?.type,
+        description: gitmojiItem?.description
+      };
+    });
+  }
+
+  private getSemanicReleaseCommitAnalyzerTypesArray() {
     return [...this.getOnlySpecifiedTypesItems()]
       .filter((type) => {
         const gitmojiItem = this.allgitmojiArr.find((gitMojiItem) => gitMojiItem.type === type);
@@ -49,7 +57,7 @@ class CommitsConfigs {
       });
   }
 
-  getSemanicReleaseChangelogTypesArray() {
+  private getSemanicReleaseChangelogTypesArray() {
     return [...this.getOnlySpecifiedTypesItems()]
       .filter((type) => {
         const gitmojiItem = this.allgitmojiArr.find((gitMojiItem) => gitMojiItem.type === type);
@@ -57,32 +65,45 @@ class CommitsConfigs {
       })
       .map((type) => {
         const gitmojiItem = this.allgitmojiArr.find((gitMojiItem) => gitMojiItem.type === type);
-        const showInChangelog = gitmojiItem?.semver === 'patch' ? true : false;
         return {
           type: gitmojiItem?.type,
           section: `${gitmojiItem?.emoji} ${gitmojiItem?.type}:`,
-          hidden: showInChangelog
+          hidden: !gitmojiItem?.showChangelog
         };
       });
   }
 
-  getCommitzenTypesArray() {
-    return [...this.getOnlySpecifiedTypesItems()].map((type) => {
-      const gitmojiItem = this.allgitmojiArr.find((gitMojiItem) => gitMojiItem.type === type);
-      return {
-        emoji: gitmojiItem?.emoji,
-        code: gitmojiItem?.code,
-        name: gitmojiItem?.type,
-        description: gitmojiItem?.description
-      };
+  exportConfigs(to: 'specified' | 'commitzen' | 'commitlint' | 'semantic-release-commit-analyzer' | 'semantic-release-changelog', jsonFormat?: true) {
+    let resultArr: any[] = [];
+
+    if (to === 'specified') {
+      resultArr = this.getOnlySpecifiedTypesItems();
+    } else if (to === 'commitlint') {
+      resultArr = this.getCommitlintTypesArray();
+    } else if (to === 'commitzen') {
+      resultArr = this.getCommitzenTypesArray();
+    } else if (to === 'semantic-release-commit-analyzer') {
+      resultArr = this.getSemanicReleaseCommitAnalyzerTypesArray();
+    } else if (to === 'semantic-release-changelog') {
+      resultArr = this.getSemanicReleaseChangelogTypesArray();
+    }
+
+    return jsonFormat ? JSON.stringify(resultArr, null, 2) : resultArr;
+  }
+
+  /* ======================================================================== */
+
+  private updateJsonContent(file: string, cb: (content: string) => Promise<any>) {
+    if (!existsSync(file)) {
+      console.log(`${file} file was not found!`);
+      return;
+    }
+    cb(JSON.parse(readFileSync(file, 'utf8'))).then((updatedContent: string) => {
+      writeFileSync(file, JSON.stringify(updatedContent, null, 2));
     });
   }
 
-  getCommitlintTypesArray() {
-    return this.usedCommits;
-  }
-
-  updateCommitizenConfigs() {
+  private updateCommitizenConfigs() {
     const commitlintFile = resolve(join('.czrc'));
     this.updateJsonContent(commitlintFile, (content: any) => {
       return new Promise((resolve) => {
@@ -93,7 +114,7 @@ class CommitsConfigs {
     });
   }
 
-  updateCommitlintConfigs() {
+  private updateCommitlintConfigs() {
     const commitlintFile = resolve(join('.commitlintrc'));
     this.updateJsonContent(commitlintFile, (content: any) => {
       return new Promise((resolve) => {
@@ -104,14 +125,20 @@ class CommitsConfigs {
     });
   }
 
-  // updateSemmanticConfigs() {}
+  updateConfigs(to: 'commitzen' | 'commitlint') {
+    if (to === 'commitlint') {
+      this.updateCommitlintConfigs();
+    } else if (to === 'commitzen') {
+      this.updateCommitizenConfigs();
+    }
+  }
 }
 
 /* ########################################################################## */
 
-const commitsConfigs = new CommitsConfigs(ALL_GITMOJI_ARR);
+const gitmoji = new GitmojiUtils(ALL_GITMOJI_ARR);
 
-commitsConfigs.setupUsedTypes([
+gitmoji.setupUsedTypes([
   'init',
   'feature',
   'tests',
@@ -137,16 +164,16 @@ commitsConfigs.setupUsedTypes([
   'breaking'
 ]);
 
-console.log(commitsConfigs.getOnlySpecifiedTypesItems());
-console.log(commitsConfigs.getCommitzenTypesArray());
-console.log(commitsConfigs.getCommitlintTypesArray());
-console.log(commitsConfigs.getSemanicReleaseTypesArray());
-console.log(commitsConfigs.getSemanicReleaseChangelogTypesArray());
+console.log(gitmoji.exportConfigs('specified'));
+console.log(gitmoji.exportConfigs('commitzen', true));
+console.log(gitmoji.exportConfigs('commitlint', true));
+console.log(gitmoji.exportConfigs('semantic-release-commit-analyzer'));
+console.log(gitmoji.exportConfigs('semantic-release-changelog'));
 
-commitsConfigs.updateCommitlintConfigs();
-commitsConfigs.updateCommitizenConfigs();
+gitmoji.updateConfigs('commitlint');
+gitmoji.updateConfigs('commitzen');
 
-/* ========================================================================== */
+/* ########################################################################## */
 
 function getEmojiCommitTypesArr() {
   const result = [
@@ -157,6 +184,7 @@ function getEmojiCommitTypesArr() {
       description: 'Improve structure / format of the code.',
       name: 'art',
       semver: null,
+      showChangelog: false,
       type: 'codestyle'
     },
     {
@@ -166,6 +194,7 @@ function getEmojiCommitTypesArr() {
       description: 'Improve performance.',
       name: 'zap',
       semver: 'patch',
+      showChangelog: false,
       type: 'perf'
     },
     {
@@ -175,6 +204,7 @@ function getEmojiCommitTypesArr() {
       description: 'Remove code or files.',
       name: 'fire',
       semver: null,
+      showChangelog: false,
       type: 'prune'
     },
     {
@@ -184,6 +214,7 @@ function getEmojiCommitTypesArr() {
       description: 'Fix a bug.',
       name: 'bug',
       semver: 'patch',
+      showChangelog: true,
       type: 'bugfix'
     },
     {
@@ -193,6 +224,7 @@ function getEmojiCommitTypesArr() {
       description: 'Critical hotfix.',
       name: 'ambulance',
       semver: 'patch',
+      showChangelog: false,
       type: 'hotfix'
     },
     {
@@ -202,6 +234,7 @@ function getEmojiCommitTypesArr() {
       description: 'Introduce new features.',
       name: 'sparkles',
       semver: 'minor',
+      showChangelog: true,
       type: 'feature'
     },
     {
@@ -211,6 +244,7 @@ function getEmojiCommitTypesArr() {
       description: 'Add or update documentation.',
       name: 'memo',
       semver: 'patch',
+      showChangelog: false,
       type: 'docs'
     },
     {
@@ -220,6 +254,7 @@ function getEmojiCommitTypesArr() {
       description: 'Deploy stuff.',
       name: 'rocket',
       semver: null,
+      showChangelog: false,
       type: 'deploy'
     },
     {
@@ -229,6 +264,7 @@ function getEmojiCommitTypesArr() {
       description: 'Add or update the UI and style files.',
       name: 'lipstick',
       semver: 'patch',
+      showChangelog: false,
       type: 'ui'
     },
     {
@@ -238,6 +274,7 @@ function getEmojiCommitTypesArr() {
       description: 'Begin a project.',
       name: 'tada',
       semver: null,
+      showChangelog: false,
       type: 'init'
     },
     {
@@ -247,6 +284,7 @@ function getEmojiCommitTypesArr() {
       description: 'Add, update, or pass tests.',
       name: 'white-check-mark',
       semver: 'patch',
+      showChangelog: true,
       type: 'tests'
     },
     {
@@ -256,6 +294,7 @@ function getEmojiCommitTypesArr() {
       description: 'Fix security issues.',
       name: 'lock',
       semver: 'patch',
+      showChangelog: false,
       type: 'security'
     },
     {
@@ -265,6 +304,7 @@ function getEmojiCommitTypesArr() {
       description: 'Add or update secrets.',
       name: 'closed-lock-with-key',
       semver: null,
+      showChangelog: false,
       type: null
     },
     {
@@ -274,6 +314,7 @@ function getEmojiCommitTypesArr() {
       description: 'Release / Version tags.',
       name: 'bookmark',
       semver: null,
+      showChangelog: false,
       type: 'tags'
     },
     {
@@ -283,6 +324,7 @@ function getEmojiCommitTypesArr() {
       description: 'Fix compiler / linter warnings.',
       name: 'rotating-light',
       semver: null,
+      showChangelog: false,
       type: 'lint'
     },
     {
@@ -292,6 +334,7 @@ function getEmojiCommitTypesArr() {
       description: 'Work in progress.',
       name: 'construction',
       semver: null,
+      showChangelog: false,
       type: 'wip'
     },
     {
@@ -301,6 +344,7 @@ function getEmojiCommitTypesArr() {
       description: 'Fix CI Build.',
       name: 'green-heart',
       semver: null,
+      showChangelog: false,
       type: 'fixci'
     },
     {
@@ -310,6 +354,7 @@ function getEmojiCommitTypesArr() {
       description: 'Downgrade dependencies.',
       name: 'arrow-down',
       semver: 'patch',
+      showChangelog: false,
       type: 'downgrade'
     },
     {
@@ -319,6 +364,7 @@ function getEmojiCommitTypesArr() {
       description: 'Upgrade dependencies.',
       name: 'arrow-up',
       semver: 'patch',
+      showChangelog: false,
       type: 'upgrade'
     },
     {
@@ -328,6 +374,7 @@ function getEmojiCommitTypesArr() {
       description: 'Pin dependencies to specific versions.',
       name: 'pushpin',
       semver: 'patch',
+      showChangelog: false,
       type: 'depver'
     },
     {
@@ -337,6 +384,7 @@ function getEmojiCommitTypesArr() {
       description: 'Add or update CI build system.',
       name: 'construction-worker',
       semver: null,
+      showChangelog: false,
       type: 'ci'
     },
     {
@@ -346,6 +394,7 @@ function getEmojiCommitTypesArr() {
       description: 'Add or update analytics or track code.',
       name: 'chart-with-upwards-trend',
       semver: 'patch',
+      showChangelog: false,
       type: 'analytics'
     },
     {
@@ -355,6 +404,7 @@ function getEmojiCommitTypesArr() {
       description: 'Refactor code.',
       name: 'recycle',
       semver: null,
+      showChangelog: false,
       type: 'refactor'
     },
     {
@@ -364,6 +414,7 @@ function getEmojiCommitTypesArr() {
       description: 'Add a dependency.',
       name: 'heavy-plus-sign',
       semver: 'patch',
+      showChangelog: false,
       type: 'depadd'
     },
     {
@@ -373,6 +424,7 @@ function getEmojiCommitTypesArr() {
       description: 'Remove a dependency.',
       name: 'heavy-minus-sign',
       semver: 'patch',
+      showChangelog: false,
       type: 'deprm'
     },
     {
@@ -382,6 +434,7 @@ function getEmojiCommitTypesArr() {
       description: 'Add or update configuration files.',
       name: 'wrench',
       semver: 'patch',
+      showChangelog: false,
       type: 'config'
     },
     {
@@ -391,6 +444,7 @@ function getEmojiCommitTypesArr() {
       description: 'Add or update development scripts.',
       name: 'hammer',
       semver: null,
+      showChangelog: false,
       type: 'devscripts'
     },
     {
@@ -400,6 +454,7 @@ function getEmojiCommitTypesArr() {
       description: 'Internationalization and localization.',
       name: 'globe-with-meridians',
       semver: 'patch',
+      showChangelog: false,
       type: 'i18n'
     },
     {
@@ -409,6 +464,7 @@ function getEmojiCommitTypesArr() {
       description: 'Fix typos.',
       name: 'pencil2',
       semver: 'patch',
+      showChangelog: false,
       type: 'typo'
     },
     {
@@ -418,6 +474,7 @@ function getEmojiCommitTypesArr() {
       description: 'Write bad code that needs to be improved.',
       name: 'poop',
       semver: null,
+      showChangelog: false,
       type: 'flaky'
     },
     {
@@ -427,6 +484,7 @@ function getEmojiCommitTypesArr() {
       description: 'Revert changes.',
       name: 'rewind',
       semver: 'patch',
+      showChangelog: false,
       type: 'revert'
     },
     {
@@ -436,6 +494,7 @@ function getEmojiCommitTypesArr() {
       description: 'Merge branches.',
       name: 'twisted-rightwards-arrows',
       semver: null,
+      showChangelog: false,
       type: 'merge'
     },
     {
@@ -445,6 +504,7 @@ function getEmojiCommitTypesArr() {
       description: 'Add or update compiled files or packages.',
       name: 'package',
       semver: 'patch',
+      showChangelog: false,
       type: 'binary'
     },
     {
@@ -454,6 +514,7 @@ function getEmojiCommitTypesArr() {
       description: 'Update code due to external API changes.',
       name: 'alien',
       semver: 'patch',
+      showChangelog: false,
       type: 'contract'
     },
     {
@@ -463,6 +524,7 @@ function getEmojiCommitTypesArr() {
       description: 'Move or rename resources (e.g.: files, paths, routes).',
       name: 'truck',
       semver: null,
+      showChangelog: false,
       type: 'relocate'
     },
     {
@@ -472,6 +534,7 @@ function getEmojiCommitTypesArr() {
       description: 'Add or update license.',
       name: 'page-facing-up',
       semver: null,
+      showChangelog: false,
       type: 'license'
     },
     {
@@ -481,6 +544,7 @@ function getEmojiCommitTypesArr() {
       description: 'Introduce breaking changes.',
       name: 'boom',
       semver: 'major',
+      showChangelog: true,
       type: 'breaking'
     },
     {
@@ -490,6 +554,7 @@ function getEmojiCommitTypesArr() {
       description: 'Add or update assets.',
       name: 'bento',
       semver: 'patch',
+      showChangelog: false,
       type: 'assets'
     },
     {
@@ -499,6 +564,7 @@ function getEmojiCommitTypesArr() {
       description: 'Improve accessibility.',
       name: 'wheelchair',
       semver: 'patch',
+      showChangelog: false,
       type: 'a11y'
     },
     {
@@ -508,6 +574,7 @@ function getEmojiCommitTypesArr() {
       description: 'Add or update comments in source code.',
       name: 'bulb',
       semver: null,
+      showChangelog: false,
       type: 'comment'
     },
     {
@@ -517,6 +584,7 @@ function getEmojiCommitTypesArr() {
       description: 'Write code drunkenly.',
       name: 'beers',
       semver: null,
+      showChangelog: false,
       type: 'gibberish'
     },
     {
@@ -526,6 +594,7 @@ function getEmojiCommitTypesArr() {
       description: 'Add or update text and literals.',
       name: 'speech-balloon',
       semver: 'patch',
+      showChangelog: false,
       type: 'text'
     },
     {
@@ -535,6 +604,7 @@ function getEmojiCommitTypesArr() {
       description: 'Perform database related changes.',
       name: 'card-file-box',
       semver: 'patch',
+      showChangelog: false,
       type: 'db'
     },
     {
@@ -544,6 +614,7 @@ function getEmojiCommitTypesArr() {
       description: 'Add or update logs.',
       name: 'loud-sound',
       semver: null,
+      showChangelog: false,
       type: 'addlogs'
     },
     {
@@ -553,6 +624,7 @@ function getEmojiCommitTypesArr() {
       description: 'Remove logs.',
       name: 'mute',
       semver: null,
+      showChangelog: false,
       type: 'rmlogs'
     },
     {
@@ -562,6 +634,7 @@ function getEmojiCommitTypesArr() {
       description: 'Add or update contributor(s).',
       name: 'busts-in-silhouette',
       semver: null,
+      showChangelog: false,
       type: 'contrib'
     },
     {
@@ -571,6 +644,7 @@ function getEmojiCommitTypesArr() {
       description: 'Improve user experience / usability.',
       name: 'children-crossing',
       semver: 'patch',
+      showChangelog: false,
       type: 'ux'
     },
     {
@@ -580,6 +654,7 @@ function getEmojiCommitTypesArr() {
       description: 'Make architectural changes.',
       name: 'building-construction',
       semver: null,
+      showChangelog: false,
       type: 'arch'
     },
     {
@@ -589,6 +664,7 @@ function getEmojiCommitTypesArr() {
       description: 'Work on responsive design.',
       name: 'iphone',
       semver: 'patch',
+      showChangelog: false,
       type: 'responsive'
     },
     {
@@ -598,6 +674,7 @@ function getEmojiCommitTypesArr() {
       description: 'Mock things.',
       name: 'clown-face',
       semver: null,
+      showChangelog: false,
       type: 'mock'
     },
     {
@@ -607,6 +684,7 @@ function getEmojiCommitTypesArr() {
       description: 'Add or update an easter egg.',
       name: 'egg',
       semver: 'patch',
+      showChangelog: false,
       type: 'joke'
     },
     {
@@ -616,6 +694,7 @@ function getEmojiCommitTypesArr() {
       description: 'Add or update a .gitignore file.',
       name: 'see-no-evil',
       semver: null,
+      showChangelog: false,
       type: 'gitignore'
     },
     {
@@ -625,6 +704,7 @@ function getEmojiCommitTypesArr() {
       description: 'Add or update snapshots.',
       name: 'camera-flash',
       semver: null,
+      showChangelog: false,
       type: 'snapshots'
     },
     {
@@ -634,6 +714,7 @@ function getEmojiCommitTypesArr() {
       description: 'Perform experiments.',
       name: 'alembic',
       semver: 'patch',
+      showChangelog: false,
       type: 'poc'
     },
     {
@@ -643,6 +724,7 @@ function getEmojiCommitTypesArr() {
       description: 'Improve SEO.',
       name: 'mag',
       semver: 'patch',
+      showChangelog: false,
       type: 'seo'
     },
     {
@@ -652,6 +734,7 @@ function getEmojiCommitTypesArr() {
       description: 'Add or update types.',
       name: 'label',
       semver: 'patch',
+      showChangelog: false,
       type: 'types'
     },
     {
@@ -661,6 +744,7 @@ function getEmojiCommitTypesArr() {
       description: 'Add or update seed files.',
       name: 'seedling',
       semver: null,
+      showChangelog: false,
       type: 'seed'
     },
     {
@@ -670,6 +754,7 @@ function getEmojiCommitTypesArr() {
       description: 'Add, update, or remove feature flags.',
       name: 'triangular-flag-on-post',
       semver: 'patch',
+      showChangelog: false,
       type: 'flags'
     },
     {
@@ -679,6 +764,7 @@ function getEmojiCommitTypesArr() {
       description: 'Catch errors.',
       name: 'goal-net',
       semver: 'patch',
+      showChangelog: false,
       type: 'detect'
     },
     {
@@ -688,6 +774,7 @@ function getEmojiCommitTypesArr() {
       description: 'Add or update animations and transitions.',
       name: 'animation',
       semver: 'patch',
+      showChangelog: false,
       type: 'animation'
     },
     {
@@ -697,6 +784,7 @@ function getEmojiCommitTypesArr() {
       description: 'Deprecate code that needs to be cleaned up.',
       name: 'wastebasket',
       semver: 'patch',
+      showChangelog: false,
       type: 'deprecate'
     },
     {
@@ -706,6 +794,7 @@ function getEmojiCommitTypesArr() {
       description: 'Work on code related to authorization, roles and permissions.',
       name: 'passport-control',
       semver: 'patch',
+      showChangelog: false,
       type: 'auth'
     },
     {
@@ -715,6 +804,7 @@ function getEmojiCommitTypesArr() {
       description: 'Simple fix for a non-critical issue.',
       name: 'adhesive-bandage',
       semver: 'patch',
+      showChangelog: false,
       type: 'fix'
     },
     {
@@ -724,6 +814,7 @@ function getEmojiCommitTypesArr() {
       description: 'Data exploration/inspection.',
       name: 'monocle-face',
       semver: null,
+      showChangelog: false,
       type: 'explore'
     },
     {
@@ -733,6 +824,7 @@ function getEmojiCommitTypesArr() {
       description: 'Remove dead code.',
       name: 'coffin',
       semver: null,
+      showChangelog: false,
       type: 'clean'
     },
     {
@@ -742,6 +834,7 @@ function getEmojiCommitTypesArr() {
       description: 'Add a failing test.',
       name: 'test-tube',
       semver: null,
+      showChangelog: false,
       type: 'fall'
     },
     {
@@ -751,6 +844,7 @@ function getEmojiCommitTypesArr() {
       description: 'Add or update business logic.',
       name: 'necktie',
       semver: 'patch',
+      showChangelog: false,
       type: null
     },
     {
@@ -760,6 +854,7 @@ function getEmojiCommitTypesArr() {
       description: 'Add or update healthcheck.',
       name: 'stethoscope',
       semver: null,
+      showChangelog: false,
       type: null
     },
     {
@@ -769,6 +864,7 @@ function getEmojiCommitTypesArr() {
       description: 'Infrastructure related changes.',
       name: 'bricks',
       semver: null,
+      showChangelog: false,
       type: null
     },
     {
@@ -778,6 +874,7 @@ function getEmojiCommitTypesArr() {
       description: 'Improve developer experience.',
       name: 'technologist',
       semver: null,
+      showChangelog: false,
       type: null
     },
     {
@@ -787,6 +884,7 @@ function getEmojiCommitTypesArr() {
       description: 'Add sponsorships or money related infrastructure.',
       name: 'money-with-wings',
       semver: null,
+      showChangelog: false,
       type: null
     },
     {
@@ -796,6 +894,7 @@ function getEmojiCommitTypesArr() {
       description: 'Add or update code related to multithreading or concurrency.',
       name: 'thread',
       semver: null,
+      showChangelog: false,
       type: null
     },
     {
@@ -805,6 +904,7 @@ function getEmojiCommitTypesArr() {
       description: 'Add or update code related to validation.',
       name: 'safety-vest',
       semver: null,
+      showChangelog: false,
       type: null
     }
   ] as const;

@@ -32,6 +32,7 @@
     "build": "tsc",
     "build:check": "tsc --noEmit",
     "test": "jest --passWithNoTests",
+    "test:commands": "bash ./tests/test-commands.sh",
     "test:watch": "jest --passWithNoTests --watchAll",
     "test:staged": "jest --passWithNoTests --findRelatedTests",
     "test:coverage": "jest --passWithNoTests --coverage",
@@ -46,9 +47,8 @@
     "lint:check": "eslint .",
     "lint:fix": "eslint . --fix",
     "lint:staged": "lint-staged --concurrent false --quiet",
-    "scripts:test": "bash ./scripts/test-commands.sh",
-    "scripts:commits": "ts-node ./scripts/gitmoji-utils.ts",
-    "scripts:issues": "ts-node ./scripts/show-all-open-issues.ts"
+    "scripts:gitmoji": "ts-node ./scripts/gitmoji-util.ts",
+    "scripts:issues": "ts-node ./scripts/github-issues-util.ts"
   },
   "dependencies": {
     "axios": "^1.2.2",
