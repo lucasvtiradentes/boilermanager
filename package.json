@@ -1,6 +1,6 @@
 {
   "name": "boilermanager",
-  "version": "0.0.0-development",
+  "version": "1.0.0",
   "description": "⚡ a boilerplate manager to start you typescript projects lightning fast.",
   "license": "MIT",
   "keywords": [
