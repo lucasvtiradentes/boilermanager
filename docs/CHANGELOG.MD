@@ -1,5 +1,12 @@
 # CHANGELOG HISTORY
 
+## [1.1.2](https://github.com/ts-boilerplate-land/boilermanager/compare/v1.1.1...v1.1.2) (2023-01-22)
+
+
+### 🐛 bugfix:
+
+* fix error when reading package.json in production ([#24](https://github.com/ts-boilerplate-land/boilermanager/issues/24)) ([6a4bddb](https://github.com/ts-boilerplate-land/boilermanager/commit/6a4bddb7d66804c0e5a0f39f826b5275df1a2703))
+
 ## [1.1.1](https://github.com/ts-boilerplate-land/boilermanager/compare/v1.1.0...v1.1.1) (2023-01-22)
 
 
