@@ -1,5 +1,12 @@
 # CHANGELOG HISTORY
 
+## [1.0.2](https://github.com/ts-boilerplate-land/boilermanager/compare/v1.0.1...v1.0.2) (2023-01-22)
+
+
+### 🐛 bugfix:
+
+* fix package husky bug ([#19](https://github.com/ts-boilerplate-land/boilermanager/issues/19)) ([1792e81](https://github.com/ts-boilerplate-land/boilermanager/commit/1792e815dfc8304416c936bf920fe2588e86d640))
+
 ## [1.0.1](https://github.com/ts-boilerplate-land/boilermanager/compare/v1.0.0...v1.0.1) (2023-01-21)
 
 ## 1.0.0 (2023-01-21)
