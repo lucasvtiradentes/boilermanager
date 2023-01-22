@@ -1,8 +1,5 @@
 blank_issues_enabled: false
 contact_links:
-  - name: GitHub Community Support
-    url: https://github.com/orgs/community/discussions
-    about: Please ask and answer questions here.
-  - name: GitHub Security Bug Bounty
-    url: https://bounty.github.com/
-    about: Please report security vulnerabilities here.
+  - name: FAQ - Frequently answered questions
+    url: https://github.com/ts-boilerplate-land/boilermanager/blob/master/docs/FAQ.MD
+    about: Please, check if your question has not already been answered here before open a question issue.

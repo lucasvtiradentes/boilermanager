@@ -23,7 +23,9 @@ node_modules/
 .npmignore
 .prettierignore
 .prettierrc.json
+jest.config.js
 package.json
+release.config.js
 tsconfig.json
 
 package-lock.json

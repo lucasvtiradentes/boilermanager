@@ -42,17 +42,21 @@ class GithubStrategy implements BoilerplateHandlerStrategy {
     // const folderUrl = `https://api.github.com/repos/${repo}/contents/`;
     const treeUrl = `https://api.github.com/repos/${repoLink}/git/trees/master?recursive=1`;
     const boilerplateList = await axios.get(treeUrl);
-    const parsedResults = boilerplateList.data.tree.filter((item: any) => item.path.split('/').length === 2 && item.type === 'tree').map((item: any) => item.path);
+    const parsedResults = boilerplateList.data.tree
+      .filter((item: any) => {
+        const pathArr = item.path.split('/');
+        return pathArr.length === 3 && pathArr[0] === 'boilerplates' && item.type === 'tree';
+      })
+      .map((item: any) => item.path);
     const finalResults = parsedResults.map((item: string) => {
       return {
         origin: 'github',
         source: repoLink,
-        category: item.split('/')[0],
-        name: item.split('/')[1],
+        category: item.split('/')[1],
+        name: item.split('/')[2],
         description: ''
       };
     });
-    // console.log(finalResults);
     return finalResults;
   }
 
@@ -61,28 +65,35 @@ class GithubStrategy implements BoilerplateHandlerStrategy {
   }
 
   star(name: string): boolean {
+    console.log('name: ', name);
     return true;
   }
 
   removeFromStarreds(name: string): boolean {
+    console.log('name: ', name);
     return true;
   }
 }
 
 class LocalpathStrategy implements BoilerplateHandlerStrategy {
   async list(path: string): Promise<BoilerplateItem[]> {
+    console.log('path: ', path);
     return new Promise((resolve) => resolve([]));
   }
 
   choose(source: string, name: string): Promise<boolean> {
+    console.log('name: ', name);
+    console.log('source: ', source);
     return new Promise((resolve) => resolve(true));
   }
 
   star(name: string): boolean {
+    console.log('name: ', name);
     return true;
   }
 
   removeFromStarreds(name: string): boolean {
+    console.log('name: ', name);
     return true;
   }
 }

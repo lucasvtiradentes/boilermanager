@@ -7,10 +7,12 @@
 .husky/
 .vscode/
 coverage/
+docs/
 ignore/
-lib/
 node_modules/
 scripts/
+tests/
+src/
 
 # FILES #################################
 
@@ -18,11 +20,14 @@ scripts/
 .czrc
 .editorconfig
 .eslintignore
-.eslintrc
+.eslintrc.json
 .gitignore
 .lintstagedrc
 .npmignore
 .prettierignore
-.prettierrc
+.prettierrc.json
+jest.config.js
 # package.json
-# tsconfig.json
+pnpm-lock.yaml
+release.config.js
+tsconfig.json

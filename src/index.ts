@@ -1,16 +1,16 @@
-import { BoilerplateItem } from './entities/BoilerplateItem';
 import chalk from 'chalk';
-import figlet from 'figlet';
 import { program } from 'commander';
+import figlet from 'figlet';
 import { existsSync } from 'node:fs';
 import { resolve } from 'node:path';
-import { APP_NAME, APP_DESCRIPTION, APP_VERSION, GITHUB_BOILERPLATES_REPOSITORY } from './configs/configs';
+import { APP_DESCRIPTION, APP_NAME, APP_VERSION, GITHUB_BOILERPLATES_REPOSITORY } from './configs/configs';
+import { BoilerplateHandlerContext, githubStrategy, localpathStrategy } from './entities/BoilerplateHandler';
+import { BoilerplateItem } from './entities/BoilerplateItem';
+import { RuntimeSettings } from './entities/RuntimeSettings';
 import { manageStarredBoilerplates } from './interaction/manage-starred-boilerplates';
 import { selectBoilerplate } from './interaction/select-boilerplate';
 import { starBoilerplates } from './interaction/star-boilerplates';
 import { logger } from './utils/logger';
-import { RuntimeSettings } from './entities/RuntimeSettings';
-import { BoilerplateHandlerContext, githubStrategy, localpathStrategy } from './entities/BoilerplateHandler';
 
 async function initBoilerplateManager() {
   const runtimeObj: RuntimeSettings = {

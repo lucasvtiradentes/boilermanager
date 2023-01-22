@@ -5,12 +5,12 @@
 </p>
 
 <div align="center">
-  <a href="https://www.npmjs.com/package/boilermanager"><img src="https://img.shields.io/npm/v/ticktick-api-lvt.svg?style=flat" alt="npm version"></a>
-  <a href=""><img src="https://img.shields.io/badge/made%20with-node-1f425f?logo=node.js&.svg" /></a>
+  <a href="https://www.npmjs.com/package/boilermanager"><img src="https://img.shields.io/npm/v/boilermanager.svg?style=flat" alt="npm version"></a>
+  <a href="https://nodejs.org/en/"><img src="https://img.shields.io/badge/made%20with-node-1f425f?logo=node.js&.svg" /></a>
   <a href="https://www.github.com/ts-boilerplate-land/boilermanager/commits/master"><img src="https://img.shields.io/github/last-commit/ts-boilerplate-land/boilermanager?color=green&label=updated"></a>
   <br>
   <a href="https://www.github.com/lucasvtiradentes"><img src="https://img.shields.io/badge/maintainer-%40lucasvtiradentes-yellow"></a>
-  <a href="#"><img src="https://img.shields.io/badge/contributions-welcome-brightgreen.svg?style=flat" alt="contributions" /></a>
+  <a href="https://github.com/ts-boilerplate-land/boilermanager#contributing"><img src="https://img.shields.io/badge/contributions-welcome-brightgreen.svg?style=flat" alt="contributions" /></a>
   <a href="https://gitter.im/ts_boilerplate_land/community"><img src="https://badges.gitter.im/Join%20Chat.svg"></a>
 </div>
 
@@ -41,8 +41,8 @@
   </p>
   <p align="center">
     <br>
-    <a href="https://github.com/ts-boilerplate-land/boilermanager/releases"><img src="https://img.shields.io/github/v/release/djcb/mu.svg" /></a>
-    <a href="https://github.com/ts-boilerplate-land/boilermanager/tags" target="_blank"><img src="https://img.shields.io/github/tag/sulu/sulu.svg" alt="GitHub tag (latest SemVer)"></a>
+    <a href="https://github.com/ts-boilerplate-land/boilermanager/releases"><img src="https://img.shields.io/github/v/release/ts-boilerplate-land/boilermanager.svg" /></a>
+    <a href="https://github.com/ts-boilerplate-land/boilermanager/tags" target="_blank"><img src="https://img.shields.io/github/tag/ts-boilerplate-land/boilermanager.svg" alt="GitHub tag (latest SemVer)"></a>
     <br>
     <a href="https://github.com/ts-boilerplate-land/boilermanager/pulls" target="_blank"><img src="https://badgen.net/github/prs/ts-boilerplate-land/boilermanager?label=open%20PR" alt="GitHub"></a>
     <a href="https://github.com/ts-boilerplate-land/boilermanager/commits/master" target="_blank"><img src="https://badgen.net/github/commits/ts-boilerplate-land/boilermanager" alt="GitHub"></a>
@@ -105,7 +105,7 @@
   </p>
 </details>
 
-<a src="#"><img src="./.github/images/divider.png" /></a>
+<a href="#"><img src="./.github/images/divider.png" /></a>
 
 ## :trumpet: Overview
 
@@ -409,7 +409,7 @@ Also, in order to have this integration working correctly, I buld a [script](../
 
 > **Warning** :warning: This project does not have tests yet, but you in the future we will be adding some.
 
-<a src="#"><img src="./.github/images/divider.png" /></a>
+<a href="#"><img src="./.github/images/divider.png" /></a>
 
 ## :pray: Help<a href="#TOC"><img align="right" src="./.github/images/up_arrow.png" width="22"></a>
 
@@ -423,7 +423,7 @@ The first point of call should be our [Github discussions](https://github.com/ts
 Ask your questions about bugs or specific use cases, and someone from the [core team](https://github.com/orgs/ts-boilerplate-land/people) will respond.
 Or, if you prefer, [open an issue](https://github.com/ts-boilerplate-land/boilermanager/issues) on our GitHub repo.
 
-<a src="#"><img src="./.github/images/divider.png" /></a>
+<a href="#"><img src="./.github/images/divider.png" /></a>
 
 ## :books: About<a href="#TOC"><img align="right" src="./.github/images/up_arrow.png" width="22"></a>
 
@@ -448,7 +448,7 @@ The most related links to this project are:
 
 **Boilermanager** is distributed under the terms of the MIT License Version 2.0. A complete version of the license is available in the [LICENSE](LICENSE) file in this repository. Any contribution made to this project will be licensed under the MIT License Version 2.0.
 
-<a src="#"><img src="./.github/images/divider.png" /></a>
+<a href="#"><img src="./.github/images/divider.png" /></a>
 
 ## :family: Community<a href="#TOC"><img align="right" src="./.github/images/up_arrow.png" width="22"></a>
 

@@ -1,5 +1,5 @@
-import { copyFileSync, lstatSync, mkdirSync, readdirSync, statSync, readdir } from 'node:fs';
-import { join, resolve } from 'node:path';
+import { copyFileSync, lstatSync, mkdirSync, readdirSync, statSync } from 'node:fs';
+import { join } from 'node:path';
 
 function copyFolderSync(from: string, to: string) {
   mkdirSync(to);

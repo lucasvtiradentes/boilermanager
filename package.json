@@ -26,7 +26,7 @@
     "bpm": "./lib/src/index.js"
   },
   "scripts": {
-    "postinstall": "husky install",
+    "prepare": "husky install",
     "commit": "cz",
     "prebuild": "rimraf ./lib",
     "build": "tsc",
