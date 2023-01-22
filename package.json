@@ -14,12 +14,12 @@
     "type": "git",
     "url": "https://github.com/ts-boilerplate-land/boilermanager.git"
   },
+  "bugs": {
+    "url": "https://github.com/ts-boilerplate-land/boilermanager/issues"
+  },
   "author": {
     "name": "Lucas Vieira",
     "email": "lucasvtiradentes@gmail.com"
-  },
-  "bugs": {
-    "url": "https://github.com/ts-boilerplate-land/boilermanager/issues"
   },
   "types": "./lib/src/index.d.ts",
   "bin": {
