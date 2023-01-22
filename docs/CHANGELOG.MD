@@ -1,5 +1,12 @@
 # CHANGELOG HISTORY
 
+## [1.1.0](https://github.com/ts-boilerplate-land/boilermanager/compare/v1.0.2...v1.1.0) (2023-01-22)
+
+
+### ✨ feature:
+
+* get package details from package.json ([#22](https://github.com/ts-boilerplate-land/boilermanager/issues/22)) ([39cb8ee](https://github.com/ts-boilerplate-land/boilermanager/commit/39cb8ee9473de81aa5c0deb8735799b5606a096a))
+
 ## [1.0.2](https://github.com/ts-boilerplate-land/boilermanager/compare/v1.0.1...v1.0.2) (2023-01-22)
 
 ### 🐛 bugfix:
