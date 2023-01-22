@@ -1,13 +1,13 @@
 #! /usr/bin/env bash
 
+bpm_='npx ts-node src/index.ts'
 folder='C:\Users\lucasvtiradentes\wsl\_lucasvtiradentes\other projects\development-utils\boilerplate-projects'
-bpm_='ts-node --esm src/index.ts'
 
 # $bpm_                 # DEFAULT EXEC
-# $bpm_ -V            # VERSION
+$bpm_ -V            # VERSION
 # $bpm_ -fb           # FAMOUS BOILERPLATES
 # $bpm_ -sb           # STARRED BOILERPLATES
-$bpm_ -pb "$folder" # BOILERPLATES FROM PATH
+# $bpm_ -pb "$folder" # BOILERPLATES FROM PATH
 # $bpm_ -f ts         # FILTERING WORDS
 # $bpm_ -l            # LISTING CURRENT BOILERPLATES
 # $bpm_ -l            # LISTING CURRENT BOILERPLATES WITH DETAILS
