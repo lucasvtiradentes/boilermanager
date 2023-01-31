@@ -1,5 +1,12 @@
 # CHANGELOG HISTORY
 
+## [1.2.0](https://github.com/ts-boilerplate-land/boilermanager/compare/v1.1.2...v1.2.0) (2023-01-31)
+
+
+### ✨ feature:
+
+* add unix support ([eb430b8](https://github.com/ts-boilerplate-land/boilermanager/commit/eb430b8e1ca4a262bc0c2773e7bdc318283b1ea1))
+
 ## [1.1.2](https://github.com/ts-boilerplate-land/boilermanager/compare/v1.1.1...v1.1.2) (2023-01-22)
 
 
