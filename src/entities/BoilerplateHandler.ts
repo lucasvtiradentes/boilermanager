@@ -41,23 +41,27 @@ class GithubStrategy implements BoilerplateHandlerStrategy {
   async list(repoLink: string): Promise<BoilerplateItem[]> {
     // const folderUrl = `https://api.github.com/repos/${repo}/contents/`;
     const treeUrl = `https://api.github.com/repos/${repoLink}/git/trees/master?recursive=1`;
-    const boilerplateList = await axios.get(treeUrl);
-    const parsedResults = boilerplateList.data.tree
-      .filter((item: any) => {
-        const pathArr = item.path.split('/');
-        return pathArr.length === 3 && pathArr[0] === 'boilerplates' && item.type === 'tree';
-      })
-      .map((item: any) => item.path);
-    const finalResults = parsedResults.map((item: string) => {
-      return {
-        origin: 'github',
-        source: repoLink,
-        category: item.split('/')[1],
-        name: item.split('/')[2],
-        description: ''
-      };
-    });
-    return finalResults;
+    try {
+      const boilerplateList = await axios.get(treeUrl);
+      const parsedResults = boilerplateList.data.tree
+        .filter((item: any) => {
+          const pathArr = item.path.split('/');
+          return pathArr.length === 3 && pathArr[0] === 'boilerplates' && item.type === 'tree';
+        })
+        .map((item: any) => item.path);
+      const finalResults = parsedResults.map((item: string) => {
+        return {
+          origin: 'github',
+          source: repoLink,
+          category: item.split('/')[1],
+          name: item.split('/')[2],
+          description: ''
+        };
+      });
+      return finalResults;
+    } catch (e: any) {
+      return [];
+    }
   }
 
   async choose(source: string, name: string): Promise<boolean> {
