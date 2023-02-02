@@ -1,5 +1,12 @@
 # CHANGELOG HISTORY
 
+## [1.2.2](https://github.com/ts-boilerplate-land/boilermanager/compare/v1.2.1...v1.2.2) (2023-02-02)
+
+
+### 🐛 bugfix:
+
+* move repository to new location ([#27](https://github.com/ts-boilerplate-land/boilermanager/issues/27)) ([2b1657e](https://github.com/ts-boilerplate-land/boilermanager/commit/2b1657e32c4919fbb5f9edda25e0f01eb9b34dcf))
+
 ## [1.2.1](https://github.com/ts-boilerplate-land/boilermanager/compare/v1.2.0...v1.2.1) (2023-02-02)
 
 
