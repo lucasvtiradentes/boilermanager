@@ -1,5 +1,12 @@
 # CHANGELOG HISTORY
 
+## [1.2.1](https://github.com/ts-boilerplate-land/boilermanager/compare/v1.2.0...v1.2.1) (2023-02-02)
+
+
+### 🐛 bugfix:
+
+* error when choosing boilerplate ([#26](https://github.com/ts-boilerplate-land/boilermanager/issues/26)) ([522edf6](https://github.com/ts-boilerplate-land/boilermanager/commit/522edf67b682e11f7ecfcbbb35d7616c77b4802c))
+
 ## [1.1.2](https://github.com/ts-boilerplate-land/boilermanager/compare/v1.1.1...v1.1.2) (2023-01-22)
 
 
