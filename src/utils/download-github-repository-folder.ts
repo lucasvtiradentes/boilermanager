@@ -1,7 +1,7 @@
 import { execSync } from 'node:child_process';
 import { randomUUID } from 'node:crypto';
 import { existsSync, mkdirSync, rmSync } from 'node:fs';
-import { tmpdir } from 'node:os';
+import { tmpdir, platform } from 'node:os';
 import { join } from 'node:path';
 import { copyFolderSync, getDirectoriesRecursive } from '../utils/fs-utils';
 import { logger } from '../utils/logger';
@@ -9,7 +9,7 @@ import { logger } from '../utils/logger';
 function downloadGithubRepositoryFolder(repositoryName: string, folder: string) {
   const defaultExecConfigs = { encoding: 'utf8', timeout: 10000 } as any;
 
-  const isGitInstalled = execSync('git -v', defaultExecConfigs).search('git version') > -1;
+  const isGitInstalled = execSync('git --version', defaultExecConfigs).search('git version') > -1;
   if (!isGitInstalled) {
     logger.error('git is not installed in this computer!');
     return false;
@@ -43,8 +43,19 @@ function downloadGithubRepositoryFolder(repositoryName: string, folder: string) 
     }
   }
 
-  const filteredArr = getDirectoriesRecursive(tmpFolder).filter((item) => item.split('\\')[item.split('\\').length - 1] === folder);
-  const downloadedFolder = filteredArr.length > 0 ? filteredArr[0] : '';
+  const separator = platform() === 'win32' ? '\\' : '/';
+
+  const allFolders = getDirectoriesRecursive(tmpFolder)
+    .filter((folder: string) => folder.search('.git') === -1)
+    .map((folder) => folder.replace(tmpFolder, ''))
+    .reverse(); // solves the problem of boilerplate with the same name as its category
+
+  const filteredArr = allFolders.filter((item) => {
+    const tmpArr = item.split(separator);
+    return tmpArr[tmpArr.length - 1] === folder;
+  });
+
+  const downloadedFolder = filteredArr.length > 0 ? join(tmpFolder, filteredArr[0]) : '';
 
   if (!existsSync(downloadedFolder)) {
     rmSync(tmpFolder, { recursive: true });
