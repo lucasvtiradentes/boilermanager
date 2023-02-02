@@ -22,7 +22,7 @@ async function initBoilerplateManager() {
     boilerplatesArr: []
   };
 
-  console.log(chalk.red(figlet.textSync(APP_NAME, { horizontalLayout: 'full' })));
+  console.log(chalk.red(figlet.textSync(APP_NAME, { horizontalLayout: 'default' })));
   program.name(APP_NAME).version(APP_VERSION).description(APP_DESCRIPTION);
   program
     .option('-fb, --famous', 'use only famous boilerplates')

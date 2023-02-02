@@ -7,10 +7,10 @@
 <div align="center">
   <a href="https://www.npmjs.com/package/boilermanager"><img src="https://img.shields.io/npm/v/boilermanager.svg?style=flat" alt="npm version"></a>
   <a href="https://nodejs.org/en/"><img src="https://img.shields.io/badge/made%20with-node-1f425f?logo=node.js&.svg" /></a>
-  <a href="https://www.github.com/ts-boilerplate-land/boilermanager/commits/master"><img src="https://img.shields.io/github/last-commit/ts-boilerplate-land/boilermanager?color=green&label=updated"></a>
+  <a href="https://www.github.com/lucasvtiradentes/boilermanager/commits/master"><img src="https://img.shields.io/github/last-commit/lucasvtiradentes/boilermanager?color=green&label=updated"></a>
   <br>
   <a href="https://www.github.com/lucasvtiradentes"><img src="https://img.shields.io/badge/maintainer-%40lucasvtiradentes-yellow"></a>
-  <a href="https://github.com/ts-boilerplate-land/boilermanager#contributing"><img src="https://img.shields.io/badge/contributions-welcome-brightgreen.svg?style=flat" alt="contributions" /></a>
+  <a href="https://github.com/lucasvtiradentes/boilermanager#contributing"><img src="https://img.shields.io/badge/contributions-welcome-brightgreen.svg?style=flat" alt="contributions" /></a>
   <a href="https://gitter.im/ts_boilerplate_land/community"><img src="https://badges.gitter.im/Join%20Chat.svg"></a>
 </div>
 
@@ -23,11 +23,11 @@
   <p align="center">
     <br>
     <a href="#"><img src="https://img.shields.io/badge/maintained%3F-yes-green.svg" alt="maintance" /></a>
-    <a href="https://github.com/ts-boilerplate-land/boilermanager/graphs/contributors"><img src="https://img.shields.io/github/contributors/ts-boilerplate-land/boilermanager.svg" /></a>
+    <a href="https://github.com/lucasvtiradentes/boilermanager/graphs/contributors"><img src="https://img.shields.io/github/contributors/lucasvtiradentes/boilermanager.svg" /></a>
     <br>
     <a href="#"><img src="https://badges.frapsoft.com/os/v2/open-source.svg?v=103"></a>
     <a href="https://saythanks.io/to/lucasvtiradentes"><img src="https://img.shields.io/badge/Say%20Thanks-!-1EAEDB.svg"></a>
-    <a href="#"><img src="https://img.shields.io/github/sponsors/boilermanager?label=Github%20Sponsors" /></a>
+    <a href="#"><img src="https://img.shields.io/github/sponsors/lucasvtiradentes?label=Github%20Sponsors" /></a>
   </p>
   <p align="center">
     <br>
@@ -41,13 +41,13 @@
   </p>
   <p align="center">
     <br>
-    <a href="https://github.com/ts-boilerplate-land/boilermanager/releases"><img src="https://img.shields.io/github/v/release/ts-boilerplate-land/boilermanager.svg" /></a>
-    <a href="https://github.com/ts-boilerplate-land/boilermanager/tags" target="_blank"><img src="https://img.shields.io/github/tag/ts-boilerplate-land/boilermanager.svg" alt="GitHub tag (latest SemVer)"></a>
+    <a href="https://github.com/lucasvtiradentes/boilermanager/releases"><img src="https://img.shields.io/github/v/release/lucasvtiradentes/boilermanager.svg" /></a>
+    <a href="https://github.com/lucasvtiradentes/boilermanager/tags" target="_blank"><img src="https://img.shields.io/github/tag/lucasvtiradentes/boilermanager.svg" alt="GitHub tag (latest SemVer)"></a>
     <br>
-    <a href="https://github.com/ts-boilerplate-land/boilermanager/pulls" target="_blank"><img src="https://badgen.net/github/prs/ts-boilerplate-land/boilermanager?label=open%20PR" alt="GitHub"></a>
-    <a href="https://github.com/ts-boilerplate-land/boilermanager/commits/master" target="_blank"><img src="https://badgen.net/github/commits/ts-boilerplate-land/boilermanager" alt="GitHub"></a>
-    <a href="https://github.com/ts-boilerplate-land/boilermanager/issues"><img src="https://img.shields.io/github/issues-raw/ts-boilerplate-land/boilermanager" /></a>
-    <a href="https://github.com/ts-boilerplate-land/boilermanager/issues?q=is%3Aissue+is%3Aclosed"><img src="https://img.shields.io/github/issues-closed-raw/ts-boilerplate-land/boilermanager" /></a>
+    <a href="https://github.com/lucasvtiradentes/boilermanager/pulls" target="_blank"><img src="https://badgen.net/github/prs/lucasvtiradentes/boilermanager?label=open%20PR" alt="GitHub"></a>
+    <a href="https://github.com/lucasvtiradentes/boilermanager/commits/master" target="_blank"><img src="https://badgen.net/github/commits/lucasvtiradentes/boilermanager" alt="GitHub"></a>
+    <a href="https://github.com/lucasvtiradentes/boilermanager/issues"><img src="https://img.shields.io/github/issues-raw/lucasvtiradentes/boilermanager" /></a>
+    <a href="https://github.com/lucasvtiradentes/boilermanager/issues?q=is%3Aissue+is%3Aclosed"><img src="https://img.shields.io/github/issues-closed-raw/lucasvtiradentes/boilermanager" /></a>
   </p>
 </details>
 
@@ -123,7 +123,7 @@ The `main goal` of boilermanager is to provide a way to start projects with `alm
 - specifying ignored files; .gitignore, .prettierignore, .eslintignore;
 - writting beutiful and descriptive files: **package.json**, **README.md**.
 
-All this, while providing a way to the `user also have the freedom to make his own boilerplate lists`, with his own projects and settings.
+All this, while providing a way to the `user also have the freedom to make his own boilerplate lists`, with his own projects and settings. The default provided boilerplates are available in [ts-boilerplates](https://github.com/lucasvtiradentes/ts-boilerplates).
 
 ## :dart: Features<a href="#TOC"><img align="right" src="./.github/images/up_arrow.png" width="22"></a>
 
@@ -154,7 +154,7 @@ To install boilermanager in your computer, simple run this command:
 
 ```bash
 # install the boilermanager npm package
-$ npm install boilermanager
+$ npm install -g boilermanager
 ```
 
 After that you will be able to use the cli commands, through `bpm`.
@@ -244,7 +244,7 @@ To setup this project in your computer, download it in this link or run the foll
 
 ```bash
 # Clone this repository
-$ git clone https://github.com/ts-boilerplate-land/boilermanager
+$ git clone https://github.com/lucasvtiradentes/boilermanager
 
 # Go into the repository
 $ cd boilermanager
@@ -419,9 +419,9 @@ You can check our most common questions and awnsers in this [link](./docs/FAQ.MD
 
 ## Docs and support
 
-The first point of call should be our [Github discussions](https://github.com/ts-boilerplate-land/boilermanager/discussions).
+The first point of call should be our [Github discussions](https://github.com/lucasvtiradentes/boilermanager/discussions).
 Ask your questions about bugs or specific use cases, and someone from the [core team](https://github.com/orgs/ts-boilerplate-land/people) will respond.
-Or, if you prefer, [open an issue](https://github.com/ts-boilerplate-land/boilermanager/issues) on our GitHub repo.
+Or, if you prefer, [open an issue](https://github.com/lucasvtiradentes/boilermanager/issues) on our GitHub repo.
 
 <a href="#"><img src="./.github/images/divider.png" /></a>
 
@@ -435,7 +435,7 @@ In the near future we intend to add these features:
 - [ ] correct some english mistakes I might have made;
 - [ ] maybe extend suport of this tool to other languages, such as go, python, etc.
 
-Also, you can check our [issues](https://github.com/ts-boilerplate-land/boilermanager/issues) to see other in development features.
+Also, you can check our [issues](https://github.com/lucasvtiradentes/boilermanager/issues) to see other in development features.
 
 ## Related
 
@@ -456,7 +456,7 @@ The most related links to this project are:
 
 If you are a typescript developer, we would kind and happy accept your help:
 
-- The best way to get started is to select any issue from the [`good-first-issue` label](https://github.com/ts-boilerplate-land/boilermanager/labels/good%20first%20issue);
+- The best way to get started is to select any issue from the [`good-first-issue` label](https://github.com/lucasvtiradentes/boilermanager/labels/good%20first%20issue);
 - If you would like to contribute, please review our [Contributing Guide](docs/CONTRIBUTING.md) for all relevant details.
 
 Another ways to positivily impact this project is to:
@@ -470,7 +470,7 @@ Another ways to positivily impact this project is to:
 
 Any questions or suggestions? You are welcome to discuss it on:
 
-- [Github discussions](https://github.com/ts-boilerplate-land/boilermanager/discussions)
+- [Github discussions](https://github.com/lucasvtiradentes/boilermanager/discussions)
 - [Gitter](https://gitter.im/ts_boilerplate_land/community)
 - [Email](mailto:lucasvtiradentes@gmail.com)
 
