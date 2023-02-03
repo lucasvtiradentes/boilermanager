@@ -24,15 +24,13 @@ if (NODE_ENV === 'production' && checkUpdate()) {
     }, 1500)
   ).then(() => initBoilerplateManager());
 } else {
-  checkUpdate();
   initBoilerplateManager();
 }
 
 function checkUpdate() {
   logger.info(`checking if there is a newer boilermanager version`);
   const pkg = PACKAGE_JSON as Settings['pkg'];
-  const intervalCheckedTime = 1000 * 60 * 60 * 24 * 1;
-  const notifier = updateNotifier({ pkg, updateCheckInterval: intervalCheckedTime });
+  const notifier = updateNotifier({ pkg });
   if (notifier.update) {
     notifier.notify();
     return true;
@@ -56,19 +54,13 @@ async function initBoilerplateManager() {
     .option('-l, --list', 'show the current boilerplate list')
     .option('-ld, --list-detailed', 'show the current boilerplate list with descriptions')
     .option('-as, --add-starred', 'shows the current boilerplate list in order to starred some of them')
-    .option('-ms, --manage-starred', 'manage the current starred boilerplate list in order to remove the unused ones')
-    .option('-u, --update', `check if there's update in the boilermanager`);
+    .option('-ms, --manage-starred', 'manage the current starred boilerplate list in order to remove the unused ones');
 
   program.parse();
   const options = program.opts();
   // console.log('options: ', options)
 
   /* ========================================================================== */
-
-  if (options.update) {
-    checkUpdate();
-    return;
-  }
 
   if (options.famous) {
     runtimeObj.sourceType = 'famous';
