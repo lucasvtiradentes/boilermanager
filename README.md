@@ -210,7 +210,7 @@ The boilermanager comes with the following commands list:
     <td>Shows you starred boilerplate list in order to <b>manage them</b>, and remove the no longer used ones.</td>
   </tr>
   <tr>
-    <td rowspan="3">Other</td>
+    <td rowspan="4">Other</td>
     <td><code>bpm -f [word]</code></td>
     <td><b>Filter</b> the current boilerplate list to show only boilerplate that have the searched word in its name or description.</td>
   </tr>
@@ -223,6 +223,11 @@ The boilermanager comes with the following commands list:
     <!-- <td rowspan="3">Other</td> -->
     <td><code>bpm -ld</code></td>
     <td>Shows the current boilerplate <b>list options with description</b>.</td>
+  </tr>
+  <tr>
+    <!-- <td rowspan="3">Other</td> -->
+    <td><code>bpm -u</code></td>
+    <td>Shows if there is a <b>new version of boilerplate</b> available.</td>
   </tr>
 </table>
 

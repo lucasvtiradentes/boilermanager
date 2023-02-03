@@ -16,13 +16,24 @@ import { starBoilerplates } from './interaction/star-boilerplates';
 import { logger } from './utils/logger';
 
 if (NODE_ENV === 'production') {
+  if (checkUpdate()) {
+    new Promise<void>((resolve) =>
+      setTimeout(() => {
+        resolve();
+      }, 1500)
+    ).then(() => initBoilerplateManager());
+  } else {
+    initBoilerplateManager();
+  }
+}
+
+function checkUpdate() {
   const pkg = PACKAGE_JSON as Settings['pkg'];
-  const intervalCheckedTime = 1000; // 1000 * 60 * 60 * 24 * 1
+  const intervalCheckedTime = 1000 * 60 * 60 * 24 * 1;
   const notifier = updateNotifier({ pkg, updateCheckInterval: intervalCheckedTime });
   if (notifier.update) {
-    console.log(notifier.update);
     notifier.notify();
-    notifier.notify({ message: 'Run `{updateCommand}` to update.' });
+    return true;
   }
 }
 
@@ -44,13 +55,19 @@ async function initBoilerplateManager() {
     .option('-l, --list', 'show the current boilerplate list')
     .option('-ld, --list-detailed', 'show the current boilerplate list with descriptions')
     .option('-as, --add-starred', 'shows the current boilerplate list in order to starred some of them')
-    .option('-ms, --manage-starred', 'manage the current starred boilerplate list in order to remove the unused ones');
+    .option('-ms, --manage-starred', 'manage the current starred boilerplate list in order to remove the unused ones')
+    .option('-u, --update', `check if there's update in the boilermanager`);
 
   program.parse();
   const options = program.opts();
   // console.log('options: ', options)
 
   /* ========================================================================== */
+
+  if (options.update) {
+    checkUpdate();
+    return;
+  }
 
   if (options.famous) {
     runtimeObj.sourceType = 'famous';
@@ -141,5 +158,3 @@ async function initBoilerplateManager() {
     }
   }
 }
-
-initBoilerplateManager();
