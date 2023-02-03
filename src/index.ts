@@ -15,19 +15,21 @@ import { selectBoilerplate } from './interaction/select-boilerplate';
 import { starBoilerplates } from './interaction/star-boilerplates';
 import { logger } from './utils/logger';
 
-if (NODE_ENV === 'production') {
-  if (checkUpdate()) {
-    new Promise<void>((resolve) =>
-      setTimeout(() => {
-        resolve();
-      }, 1500)
-    ).then(() => initBoilerplateManager());
-  } else {
-    initBoilerplateManager();
-  }
+console.log(chalk.red(figlet.textSync(APP_NAME, { horizontalLayout: 'default' })));
+
+if (NODE_ENV === 'production' && checkUpdate()) {
+  new Promise<void>((resolve) =>
+    setTimeout(() => {
+      resolve();
+    }, 1500)
+  ).then(() => initBoilerplateManager());
+} else {
+  checkUpdate();
+  initBoilerplateManager();
 }
 
 function checkUpdate() {
+  logger.info(`checking if there is a newer boilermanager version`);
   const pkg = PACKAGE_JSON as Settings['pkg'];
   const intervalCheckedTime = 1000 * 60 * 60 * 24 * 1;
   const notifier = updateNotifier({ pkg, updateCheckInterval: intervalCheckedTime });
@@ -45,7 +47,6 @@ async function initBoilerplateManager() {
     boilerplatesArr: []
   };
 
-  console.log(chalk.red(figlet.textSync(APP_NAME, { horizontalLayout: 'default' })));
   program.name(APP_NAME).version(APP_VERSION).description(APP_DESCRIPTION);
   program
     .option('-fb, --famous', 'use only famous boilerplates')

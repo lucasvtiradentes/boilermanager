@@ -11,7 +11,6 @@
   <br>
   <a href="https://www.github.com/lucasvtiradentes"><img src="https://img.shields.io/badge/maintainer-%40lucasvtiradentes-yellow"></a>
   <a href="https://github.com/lucasvtiradentes/boilermanager#contributing"><img src="https://img.shields.io/badge/contributions-welcome-brightgreen.svg?style=flat" alt="contributions" /></a>
-  <a href="https://gitter.im/ts_boilerplate_land/community"><img src="https://badges.gitter.im/Join%20Chat.svg"></a>
 </div>
 
 <p align="center">
@@ -476,7 +475,6 @@ Another ways to positivily impact this project is to:
 Any questions or suggestions? You are welcome to discuss it on:
 
 - [Github discussions](https://github.com/lucasvtiradentes/boilermanager/discussions)
-- [Gitter](https://gitter.im/ts_boilerplate_land/community)
 - [Email](mailto:lucasvtiradentes@gmail.com)
 
 ## Acknowledgements
