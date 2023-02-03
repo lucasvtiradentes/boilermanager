@@ -7,65 +7,67 @@ import { copyFolderSync, getDirectoriesRecursive } from '../utils/fs-utils';
 import { logger } from '../utils/logger';
 
 function downloadGithubRepositoryFolder(repositoryName: string, folder: string) {
-  const defaultExecConfigs = { encoding: 'utf8', timeout: 10000 } as any;
+  try {
+    const defaultExecConfigs = { encoding: 'utf8', timeout: 10000 } as any;
 
-  const isGitInstalled = execSync('git --version', defaultExecConfigs).search('git version') > -1;
-  if (!isGitInstalled) {
-    logger.error('git is not installed in this computer!');
-    return false;
-  }
-
-  const tmpFolder = join(tmpdir(), `bpm-${randomUUID()}`);
-  if (existsSync(tmpFolder)) {
-    rmSync(tmpFolder, { recursive: true });
-  }
-
-  mkdirSync(tmpFolder);
-
-  const changeDirCommand = `cd ${tmpFolder}`;
-  // prettier-ignore
-  const commands = [
-    'git init',
-    `git remote add -f origin https://github.com/${repositoryName}.git`,
-    'git config core.sparseCheckout true',
-    `echo ${folder} >> .git/info/sparse-checkout`,
-    'git pull origin master'
-  ];
-
-  for (let x = 0; x < commands.length; x++) {
-    try {
-      const curCommand = `${changeDirCommand} && ${commands[x]}`;
-      execSync(curCommand, { ...defaultExecConfigs, stdio: 'ignore' });
-    } catch (e: any) {
-      rmSync(tmpFolder, { recursive: true });
-      logger.error(e.message);
-      return false;
+    const isGitInstalled = execSync('git --version', defaultExecConfigs).search('git version') > -1;
+    if (!isGitInstalled) {
+      throw new Error('git is not installed in this computer!');
     }
-  }
 
-  const separator = platform() === 'win32' ? '\\' : '/';
+    const tmpFolder = join(tmpdir(), `bpm-${randomUUID()}`);
+    if (existsSync(tmpFolder)) {
+      rmSync(tmpFolder, { recursive: true });
+    }
 
-  const allFolders = getDirectoriesRecursive(tmpFolder)
-    .filter((folder: string) => folder.search('.git') === -1)
-    .map((folder) => folder.replace(tmpFolder, ''))
-    .reverse(); // solves the problem of boilerplate with the same name as its category
+    mkdirSync(tmpFolder);
 
-  const filteredArr = allFolders.filter((item) => {
-    const tmpArr = item.split(separator);
-    return tmpArr[tmpArr.length - 1] === folder;
-  });
+    const changeDirCommand = `cd ${tmpFolder}`;
+    // prettier-ignore
+    const commands = [
+      'git init',
+      `git remote add -f origin https://github.com/${repositoryName}.git`,
+      'git config core.sparseCheckout true',
+      `echo ${folder} >> .git/info/sparse-checkout`,
+      'git pull origin master'
+    ];
 
-  const downloadedFolder = filteredArr.length > 0 ? join(tmpFolder, filteredArr[0]) : '';
+    for (let x = 0; x < commands.length; x++) {
+      try {
+        const curCommand = `${changeDirCommand} && ${commands[x]}`;
+        execSync(curCommand, { ...defaultExecConfigs, stdio: 'ignore' });
+      } catch (e: any) {
+        rmSync(tmpFolder, { recursive: true });
+        throw new Error(e.message);
+      }
+    }
 
-  if (!existsSync(downloadedFolder)) {
+    const separator = platform() === 'win32' ? '\\' : '/';
+
+    const allFolders = getDirectoriesRecursive(tmpFolder)
+      .filter((folder: string) => folder.search('.git') === -1)
+      .map((folder) => folder.replace(tmpFolder, ''))
+      .reverse(); // solves the problem of boilerplate with the same name as its category
+
+    const filteredArr = allFolders.filter((item) => {
+      const tmpArr = item.split(separator);
+      return tmpArr[tmpArr.length - 1] === folder;
+    });
+
+    const downloadedFolder = filteredArr.length > 0 ? join(tmpFolder, filteredArr[0]) : '';
+
+    if (!existsSync(downloadedFolder)) {
+      rmSync(tmpFolder, { recursive: true });
+      throw new Error('specified folder couldnt be downloaded!');
+    }
+
+    copyFolderSync(downloadedFolder, `./${folder}`);
     rmSync(tmpFolder, { recursive: true });
-    logger.error('specified folder couldnt be downloaded!');
+    return true;
+  } catch (e: any) {
+    logger.error(e.message);
     return false;
   }
-
-  copyFolderSync(downloadedFolder, `./${folder}`);
-  rmSync(tmpFolder, { recursive: true });
-  return true;
 }
 
 export { downloadGithubRepositoryFolder };
