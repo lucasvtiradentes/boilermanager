@@ -1,5 +1,12 @@
 # CHANGELOG HISTORY
 
+## [1.3.2](https://github.com/ts-boilerplate-land/boilermanager/compare/v1.3.1...v1.3.2) (2023-02-03)
+
+
+### 🐛 bugfix:
+
+* error when autoupdating ([#33](https://github.com/ts-boilerplate-land/boilermanager/issues/33)) ([7c31e84](https://github.com/ts-boilerplate-land/boilermanager/commit/7c31e84c49d8dcb3dbf1ea532f875077f901da0a))
+
 ## [1.3.1](https://github.com/ts-boilerplate-land/boilermanager/compare/v1.3.0...v1.3.1) (2023-02-03)
 
 
