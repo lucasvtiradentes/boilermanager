@@ -1,5 +1,12 @@
 # CHANGELOG HISTORY
 
+## [1.2.5](https://github.com/ts-boilerplate-land/boilermanager/compare/v1.2.4...v1.2.5) (2023-02-03)
+
+
+### 🐛 bugfix:
+
+* update some basic testing ([#30](https://github.com/ts-boilerplate-land/boilermanager/issues/30)) ([b324399](https://github.com/ts-boilerplate-land/boilermanager/commit/b3243993ad2febad499c02e4d471da0062c1cb56))
+
 ## [1.2.4](https://github.com/ts-boilerplate-land/boilermanager/compare/v1.2.3...v1.2.4) (2023-02-03)
 
 ## [1.2.3](https://github.com/ts-boilerplate-land/boilermanager/compare/v1.2.2...v1.2.3) (2023-02-02)
