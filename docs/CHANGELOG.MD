@@ -1,5 +1,12 @@
 # CHANGELOG HISTORY
 
+## [1.3.1](https://github.com/ts-boilerplate-land/boilermanager/compare/v1.3.0...v1.3.1) (2023-02-03)
+
+
+### 🐛 bugfix:
+
+* add basic unit tests ([#32](https://github.com/ts-boilerplate-land/boilermanager/issues/32)) ([6cdac0d](https://github.com/ts-boilerplate-land/boilermanager/commit/6cdac0d2d89da9414072989e67853ec67e22fc1c))
+
 ## [1.3.0](https://github.com/ts-boilerplate-land/boilermanager/compare/v1.2.5...v1.3.0) (2023-02-03)
 
 
