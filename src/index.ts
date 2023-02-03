@@ -5,7 +5,8 @@ import { program } from 'commander';
 import figlet from 'figlet';
 import { existsSync } from 'node:fs';
 import { resolve } from 'node:path';
-import { APP_DESCRIPTION, APP_NAME, APP_VERSION, GITHUB_BOILERPLATES_REPOSITORY } from './configs/configs';
+import updateNotifier, { Settings } from 'update-notifier';
+import { APP_DESCRIPTION, APP_NAME, APP_VERSION, GITHUB_BOILERPLATES_REPOSITORY, NODE_ENV, PACKAGE_JSON } from './configs/configs';
 import { BoilerplateHandlerContext, githubStrategy, localpathStrategy } from './entities/BoilerplateHandler';
 import { BoilerplateItem } from './entities/BoilerplateItem';
 import { RuntimeSettings } from './entities/RuntimeSettings';
@@ -13,6 +14,17 @@ import { manageStarredBoilerplates } from './interaction/manage-starred-boilerpl
 import { selectBoilerplate } from './interaction/select-boilerplate';
 import { starBoilerplates } from './interaction/star-boilerplates';
 import { logger } from './utils/logger';
+
+if (NODE_ENV === 'production') {
+  const pkg = PACKAGE_JSON as Settings['pkg'];
+  const intervalCheckedTime = 1000; // 1000 * 60 * 60 * 24 * 1
+  const notifier = updateNotifier({ pkg, updateCheckInterval: intervalCheckedTime });
+  if (notifier.update) {
+    console.log(notifier.update);
+    notifier.notify();
+    notifier.notify({ message: 'Run `{updateCommand}` to update.' });
+  }
+}
 
 async function initBoilerplateManager() {
   const runtimeObj: RuntimeSettings = {
