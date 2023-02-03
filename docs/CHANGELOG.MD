@@ -1,5 +1,12 @@
 # CHANGELOG HISTORY
 
+## [1.3.0](https://github.com/ts-boilerplate-land/boilermanager/compare/v1.2.5...v1.3.0) (2023-02-03)
+
+
+### ✨ feature:
+
+* add autoupdate support ([#31](https://github.com/ts-boilerplate-land/boilermanager/issues/31)) ([1da6baf](https://github.com/ts-boilerplate-land/boilermanager/commit/1da6bafbae4f020984713c93cd8e90601867798b))
+
 ## [1.2.5](https://github.com/ts-boilerplate-land/boilermanager/compare/v1.2.4...v1.2.5) (2023-02-03)
 
 
