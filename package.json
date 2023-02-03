@@ -1,6 +1,6 @@
 {
   "name": "boilermanager",
-  "version": "1.3.2",
+  "version": "1.3.3",
   "description": "zap quickstart your nodejs based projects by choosing a pre setted up boilerplate, as well as manage yours.",
   "license": "MIT",
   "keywords": [

@@ -1,5 +1,12 @@
 # CHANGELOG HISTORY
 
+## [1.3.3](https://github.com/ts-boilerplate-land/boilermanager/compare/v1.3.2...v1.3.3) (2023-02-03)
+
+
+### 🐛 bugfix:
+
+* error in detect updates ([#33](https://github.com/ts-boilerplate-land/boilermanager/issues/33)) ([df28ede](https://github.com/ts-boilerplate-land/boilermanager/commit/df28ede018fc0a4832ca46730042f41c3582e930))
+
 ## [1.3.2](https://github.com/ts-boilerplate-land/boilermanager/compare/v1.3.1...v1.3.2) (2023-02-03)
 
 
