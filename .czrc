@@ -9,142 +9,154 @@
       ],
       "types": [
         {
-          "emoji": "🎉",
-          "code": ":tada:",
           "name": "init",
-          "description": "Begin a project."
+          "description": "Begin a project.",
+          "code": ":tada:",
+          "emoji": "🎉"
         },
         {
-          "emoji": "✨",
-          "code": ":sparkles:",
           "name": "feature",
-          "description": "Introduce new features."
+          "description": "Introduce new features.",
+          "code": ":sparkles:",
+          "emoji": "✨"
         },
         {
-          "emoji": "✅",
-          "code": ":white_check_mark:",
           "name": "tests",
-          "description": "Add, update, or pass tests."
+          "description": "Add, update, or pass tests.",
+          "code": ":white_check_mark:",
+          "emoji": "✅"
         },
         {
-          "emoji": "📝",
-          "code": ":memo:",
           "name": "docs",
-          "description": "Add or update documentation."
+          "description": "Add or update documentation.",
+          "code": ":memo:",
+          "emoji": "📝"
         },
         {
-          "emoji": "🏷️",
-          "code": ":label:",
           "name": "types",
-          "description": "Add or update types."
+          "description": "Add or update types.",
+          "code": ":label:",
+          "emoji": "🏷️"
         },
         {
-          "emoji": "🔧",
-          "code": ":wrench:",
           "name": "config",
-          "description": "Add or update configuration files."
+          "description": "Add or update configuration files.",
+          "code": ":wrench:",
+          "emoji": "🔧"
         },
         {
-          "emoji": "🔨",
-          "code": ":hammer:",
           "name": "devscripts",
-          "description": "Add or update development scripts."
+          "description": "Add or update development scripts.",
+          "code": ":hammer:",
+          "emoji": "🔨"
         },
         {
-          "emoji": "📦️",
-          "code": ":package:",
           "name": "binary",
-          "description": "Add or update compiled files or packages."
+          "description": "Add or update compiled files or packages.",
+          "code": ":package:",
+          "emoji": "📦️"
         },
         {
-          "emoji": "🍱",
-          "code": ":bento:",
           "name": "assets",
-          "description": "Add or update assets."
+          "description": "Add or update assets.",
+          "code": ":bento:",
+          "emoji": "🍱"
         },
         {
-          "emoji": "💄",
-          "code": ":lipstick:",
           "name": "ui",
-          "description": "Add or update the UI and style files."
+          "description": "Add or update the UI and style files.",
+          "code": ":lipstick:",
+          "emoji": "💄"
         },
         {
-          "emoji": "🌐",
-          "code": ":globe_with_meridians:",
           "name": "i18n",
-          "description": "Internationalization and localization."
+          "description": "Internationalization and localization.",
+          "code": ":globe_with_meridians:",
+          "emoji": "🌐"
         },
         {
-          "emoji": "🐛",
-          "code": ":bug:",
           "name": "bugfix",
-          "description": "Fix a bug."
+          "description": "Fix a bug.",
+          "code": ":bug:",
+          "emoji": "🐛"
         },
         {
-          "emoji": "🚑️",
-          "code": ":ambulance:",
           "name": "hotfix",
-          "description": "Critical hotfix."
+          "description": "Critical hotfix.",
+          "code": ":ambulance:",
+          "emoji": "🚑️"
         },
         {
-          "emoji": "🩹",
-          "code": ":adhesive_bandage:",
           "name": "fix",
-          "description": "Simple fix for a non-critical issue."
+          "description": "Simple fix for a non-critical issue.",
+          "code": ":adhesive_bandage:",
+          "emoji": "🩹"
         },
         {
-          "emoji": "🥅",
-          "code": ":goal_net:",
           "name": "detect",
-          "description": "Catch errors."
+          "description": "Catch errors.",
+          "code": ":goal_net:",
+          "emoji": "🥅"
         },
         {
-          "emoji": "🏗️",
-          "code": ":building_construction:",
           "name": "arch",
-          "description": "Make architectural changes."
+          "description": "Make architectural changes.",
+          "code": ":building_construction:",
+          "emoji": "🏗️"
         },
         {
-          "emoji": "🎨",
-          "code": ":art:",
           "name": "codestyle",
-          "description": "Improve structure / format of the code."
+          "description": "Improve structure / format of the code.",
+          "code": ":art:",
+          "emoji": "🎨"
         },
         {
-          "emoji": "♻️",
-          "code": ":recycle:",
           "name": "refactor",
-          "description": "Refactor code."
+          "description": "Refactor code.",
+          "code": ":recycle:",
+          "emoji": "♻️"
         },
         {
-          "emoji": "🚀",
-          "code": ":rocket:",
           "name": "deploy",
-          "description": "Deploy stuff."
+          "description": "Deploy stuff.",
+          "code": ":rocket:",
+          "emoji": "🚀"
         },
         {
-          "emoji": "💚",
-          "code": ":green_heart:",
+          "name": "ci",
+          "description": "Add or update CI build system.",
+          "code": ":construction_worker:",
+          "emoji": "👷"
+        },
+        {
           "name": "fixci",
-          "description": "Fix CI Build."
+          "description": "Fix CI Build.",
+          "code": ":green_heart:",
+          "emoji": "💚"
         },
         {
-          "emoji": "⏪️",
-          "code": ":rewind:",
           "name": "revert",
-          "description": "Revert changes."
+          "description": "Revert changes.",
+          "code": ":rewind:",
+          "emoji": "⏪️"
         },
         {
-          "emoji": "🔀",
-          "code": ":twisted_rightwards_arrows:",
           "name": "merge",
-          "description": "Merge branches."
+          "description": "Merge branches.",
+          "code": ":twisted_rightwards_arrows:",
+          "emoji": "🔀"
         },
         {
-          "emoji": "💥",
-          "code": ":boom:",
           "name": "breaking",
-          "description": "Introduce breaking changes."
+          "description": "Introduce breaking changes.",
+          "code": ":boom:",
+          "emoji": "💥"
+        },
+        {
+          "name": "tags",
+          "description": "Release / Version tags.",
+          "code": ":bookmark:",
+          "emoji": "🔖"
         }
       ]
     }

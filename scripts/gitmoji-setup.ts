@@ -1,11 +1,10 @@
+/* eslint-disable @typescript-eslint/no-explicit-any */
 // Utility for updating gitmoji commits in these tools: commitzen, commitlint and semantic-release.
-// REFS: https://gitmoji.dev/ | https://github.com/carloscuesta/gitmoji/blob/master/packages/gitmojis/src/gitmojis.json
-
-import { existsSync, readFileSync, writeFileSync } from 'node:fs';
-import { join, resolve } from 'node:path';
 
 const ALL_GITMOJI_ARR = [...getEmojiCommitTypesArr()] as const;
 type IEmojiCommitTypes = (typeof ALL_GITMOJI_ARR)[number]['type'];
+
+type ExportFormat = 'specified' | 'commitzen' | 'commitlint' | 'semantic-release-commit-analyzer' | 'semantic-release-changelog';
 
 class GitmojiUtils {
   private allgitmojiArr: typeof ALL_GITMOJI_ARR;
@@ -19,31 +18,71 @@ class GitmojiUtils {
     this.usedCommits = [...new Set(usedCommits)];
   }
 
-  private getOnlySpecifiedTypesItems() {
+  private getSpecifiedTypesArray() {
     const validCommits = [...this.usedCommits].filter((type) => this.allgitmojiArr.find((gitMojiItem) => gitMojiItem.type === type) !== null);
     return validCommits;
+  }
+
+  getOnlySpecifiedTypesItems() {
+    const usedCommits = this.usedCommits
+      .map((item) => {
+        return [...this.allgitmojiArr].find((it) => it.type === item);
+      })
+      .filter((item) => (item ? true : false));
+
+    return usedCommits.map((item) => ({
+      emoji: item?.emoji,
+      type: item?.type,
+      description: item?.description
+    }));
+  }
+
+  getOnlyRemainingTypesItems() {
+    const remainingCommits = [...this.allgitmojiArr].filter((item) => {
+      const usedCommits = this.usedCommits as string[];
+      const curCommitType = item.type as string;
+      return item.type !== null && usedCommits.includes(curCommitType) === false;
+    });
+
+    return remainingCommits.map((item) => ({
+      emoji: item.emoji,
+      type: item.type,
+      description: item.description
+    }));
+  }
+
+  getEmojiConversionArray() {
+    [...this.allgitmojiArr].forEach((item) => {
+      console.log(`'${item.code}': '${item.emoji}',`);
+    });
   }
 
   /* ======================================================================== */
 
   private getCommitlintTypesArray() {
-    return this.usedCommits;
+    return [...this.getSpecifiedTypesArray()].map((type) => {
+      const gitmojiItem = this.allgitmojiArr.find((gitMojiItem) => gitMojiItem.type === type);
+      return {
+        type: gitmojiItem?.type,
+        code: gitmojiItem?.code
+      };
+    });
   }
 
   private getCommitzenTypesArray() {
-    return [...this.getOnlySpecifiedTypesItems()].map((type) => {
+    return [...this.getSpecifiedTypesArray()].map((type) => {
       const gitmojiItem = this.allgitmojiArr.find((gitMojiItem) => gitMojiItem.type === type);
       return {
-        emoji: gitmojiItem?.emoji,
-        code: gitmojiItem?.code,
         name: gitmojiItem?.type,
-        description: gitmojiItem?.description
+        description: gitmojiItem?.description,
+        code: gitmojiItem?.code,
+        emoji: gitmojiItem?.emoji
       };
     });
   }
 
   private getSemanicReleaseCommitAnalyzerTypesArray() {
-    return [...this.getOnlySpecifiedTypesItems()]
+    return [...this.getSpecifiedTypesArray()]
       .filter((type) => {
         const gitmojiItem = this.allgitmojiArr.find((gitMojiItem) => gitMojiItem.type === type);
         return gitmojiItem?.semver !== null;
@@ -58,7 +97,7 @@ class GitmojiUtils {
   }
 
   private getSemanicReleaseChangelogTypesArray() {
-    return [...this.getOnlySpecifiedTypesItems()]
+    return [...this.getSpecifiedTypesArray()]
       .filter((type) => {
         const gitmojiItem = this.allgitmojiArr.find((gitMojiItem) => gitMojiItem.type === type);
         return gitmojiItem?.semver !== null;
@@ -73,12 +112,10 @@ class GitmojiUtils {
       });
   }
 
-  exportConfigs(to: 'specified' | 'commitzen' | 'commitlint' | 'semantic-release-commit-analyzer' | 'semantic-release-changelog', jsonFormat?: true) {
+  exportConfigs(to: ExportFormat, jsonFormat?: true) {
     let resultArr: any[] = [];
 
-    if (to === 'specified') {
-      resultArr = this.getOnlySpecifiedTypesItems();
-    } else if (to === 'commitlint') {
+    if (to === 'commitlint') {
       resultArr = this.getCommitlintTypesArray();
     } else if (to === 'commitzen') {
       resultArr = this.getCommitzenTypesArray();
@@ -90,88 +127,22 @@ class GitmojiUtils {
 
     return jsonFormat ? JSON.stringify(resultArr, null, 2) : resultArr;
   }
-
-  /* ======================================================================== */
-
-  private updateJsonContent(file: string, cb: (content: string) => Promise<any>) {
-    if (!existsSync(file)) {
-      console.log(`${file} file was not found!`);
-      return;
-    }
-    cb(JSON.parse(readFileSync(file, 'utf8'))).then((updatedContent: string) => {
-      writeFileSync(file, JSON.stringify(updatedContent, null, 2));
-    });
-  }
-
-  private updateCommitizenConfigs() {
-    const commitlintFile = resolve(join('.czrc'));
-    this.updateJsonContent(commitlintFile, (content: any) => {
-      return new Promise((resolve) => {
-        content.config.commitizenEmoji.types = this.getCommitzenTypesArray();
-        resolve(content);
-        console.log('updated commitizen configs!');
-      });
-    });
-  }
-
-  private updateCommitlintConfigs() {
-    const commitlintFile = resolve(join('.commitlintrc'));
-    this.updateJsonContent(commitlintFile, (content: any) => {
-      return new Promise((resolve) => {
-        content.rules['type-enum'] = [2, 'always', this.getCommitlintTypesArray()];
-        resolve(content);
-        console.log('updated commitlint configs!');
-      });
-    });
-  }
-
-  updateConfigs(to: 'commitzen' | 'commitlint') {
-    if (to === 'commitlint') {
-      this.updateCommitlintConfigs();
-    } else if (to === 'commitzen') {
-      this.updateCommitizenConfigs();
-    }
-  }
 }
 
 /* ########################################################################## */
 
 const gitmoji = new GitmojiUtils(ALL_GITMOJI_ARR);
 
-gitmoji.setupUsedTypes([
-  'init',
-  'feature',
-  'tests',
-  'docs',
-  'types',
-  'config',
-  'devscripts',
-  'binary',
-  'assets',
-  'ui',
-  'i18n',
-  'bugfix',
-  'hotfix',
-  'fix',
-  'detect',
-  'arch',
-  'codestyle',
-  'refactor',
-  'deploy',
-  'fixci',
-  'revert',
-  'merge',
-  'breaking'
-]);
+gitmoji.setupUsedTypes(['init', 'feature', 'tests', 'docs', 'types', 'config', 'devscripts', 'binary', 'assets', 'ui', 'i18n', 'bugfix', 'hotfix', 'fix', 'detect', 'arch', 'codestyle', 'refactor', 'deploy', 'ci', 'fixci', 'revert', 'merge', 'breaking', 'tags']);
 
-console.log(gitmoji.exportConfigs('specified'));
 console.log(gitmoji.exportConfigs('commitzen', true));
 console.log(gitmoji.exportConfigs('commitlint', true));
 console.log(gitmoji.exportConfigs('semantic-release-commit-analyzer'));
 console.log(gitmoji.exportConfigs('semantic-release-changelog'));
 
-gitmoji.updateConfigs('commitlint');
-gitmoji.updateConfigs('commitzen');
+// gitmoji.getEmojiConversionArray()
+// console.table(gitmoji.getOnlyRemainingTypesItems());
+// console.table(gitmoji.getOnlySpecifiedTypesItems());
 
 /* ########################################################################## */
 

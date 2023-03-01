@@ -1,3 +1,4 @@
+/* eslint-disable @typescript-eslint/no-explicit-any */
 // Utility for show github repository issues [open, closed, all] may it be public or private [need auth token with repo permission from github].
 
 // uncomment this piece of code when working with private repositories:
@@ -8,7 +9,7 @@
 
 import { existsSync, readFileSync } from 'node:fs';
 import { join } from 'node:path';
-import https from 'node:https';
+import * as https from 'node:https';
 
 const repoName = getCurrentProjectGithubRepo() ?? 'lucasvtiradentes/life-organizer';
 getIssuesFromRepo(repoName, 'open')
@@ -33,9 +34,9 @@ async function getJsonFromRequest(url: string, githubToken?: string) {
   const requestUrl = new URL(url);
 
   const headers = !githubToken
-    ? { 'User-Agent': 'ts-boilermanager' }
+    ? { 'User-Agent': 'ts-dyn-markdown' }
     : {
-        'User-Agent': 'ts-boilermanager',
+        'User-Agent': 'ts-dyn-markdown',
         Authorization: `Bearer ${githubToken}`
       };
 

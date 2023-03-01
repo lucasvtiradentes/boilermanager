@@ -6,7 +6,7 @@ class Logger {
   }
 
   info(msg: string) {
-    console.log(chalk.blue('info : ') + msg);
+    console.log(chalk.blue('info: ') + msg);
   }
 }
 
