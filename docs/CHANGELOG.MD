@@ -1,5 +1,12 @@
 # CHANGELOG HISTORY
 
+## [1.4.1](https://github.com/lucasvtiradentes/boilermanager/compare/v1.4.0...v1.4.1) (2023-03-02)
+
+
+### 🐛 bugfix:
+
+* auto update feature ([#36](https://github.com/lucasvtiradentes/boilermanager/issues/36)) ([fa69788](https://github.com/lucasvtiradentes/boilermanager/commit/fa69788e4313b0c58c0df3e7e0525fee99befe38))
+
 ## [1.4.0](https://github.com/lucasvtiradentes/boilermanager/compare/v1.3.4...v1.4.0) (2023-03-02)
 
 
