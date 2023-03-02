@@ -1,6 +1,6 @@
 {
   "name": "boilermanager",
-  "description": "zap quickstart your nodejs based projects by choosing a pre setted up boilerplate, as well as manage yours.",
+  "description": "⚡ quickstart your nodejs projects with zero time spent on configuring frequently used tools while also having the ability to manage your own boilerplates.",
   "version": "1.3.4",
   "license": "MIT",
   "keywords": [
@@ -34,14 +34,11 @@
     "pub:check": "npm publish --dry-run",
     "pub:build": "npm pack && tar -xvzf *.tgz",
     "start": "node ./lib/src/index.js",
-    "dev1": "ts-node ./src/index.ts -p \"/home/lucas/Desktop/projects/2 - open source projects/boilermanager-boilerplates/boilerplates\"",
-    "dev": "ts-node ./src/index.ts -r \"lucasvtiradentes/ts-boilerplates\"",
+    "dev": "ts-node ./src/index.ts",
     "dev:install": "npm install -g .",
 
     "test": "jest --passWithNoTests",
-    "test:commands": "bash ./tests/test-commands.sh",
     "test:watch": "jest --passWithNoTests --watchAll",
-    "test:staged": "jest --passWithNoTests --findRelatedTests",
     "test:coverage": "jest --passWithNoTests --coverage",
     "prettier:check": "prettier --check .",
     "prettier:fix": "prettier --write .",
