@@ -1,5 +1,19 @@
 # CHANGELOG HISTORY
 
+## [1.4.0](https://github.com/lucasvtiradentes/boilermanager/compare/v1.3.4...v1.4.0) (2023-03-02)
+
+
+### ⚠ BREAKING CHANGES
+
+* this is going to break because change a lot of things
+
+See issues: 34
+
+### ✨ feature:
+
+* add local folder strategy ([#6](https://github.com/lucasvtiradentes/boilermanager/issues/6)) ([9ef06f6](https://github.com/lucasvtiradentes/boilermanager/commit/9ef06f6bc2479bb461f67c8c93c29cbff7489fd3))
+* add search in boilerplate list ([#34](https://github.com/lucasvtiradentes/boilermanager/issues/34)) ([3264635](https://github.com/lucasvtiradentes/boilermanager/commit/32646350ecfa352a943c2d1dc8bf25dea25044ec))
+
 ## [1.3.4](https://github.com/ts-boilerplate-land/boilermanager/compare/v1.3.3...v1.3.4) (2023-02-03)
 
 
