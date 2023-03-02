@@ -2,7 +2,7 @@ import chalk from 'chalk';
 import { existsSync } from 'node:fs';
 import { join, resolve } from 'node:path';
 import { BOILERPLATES_DEFAULT_INFO_FILE } from '../configs/configs';
-import { Boilerplate } from '../types/Boilerplate';
+import { BoilerplateInfo } from '../types/Boilerplate';
 import { RuntimeSettings } from '../types/RuntimeSettings';
 import { copyFolderSync } from '../utils/fs-utils';
 import { logger } from '../utils/logger';
@@ -10,9 +10,9 @@ import { readJson } from '../utils/read-json';
 import { BoilerplateHandlerStrategy } from './BoilerplateHandler';
 
 class PathStrategy implements BoilerplateHandlerStrategy {
-  async list(path: string): Promise<Boilerplate[]> {
+  async list(path: string): Promise<BoilerplateInfo[]> {
     logger.info(`folder: ${chalk.blue(path)}`);
-    const allBoilerplatesInfo = readJson(`${path}/${BOILERPLATES_DEFAULT_INFO_FILE}`) as Boilerplate[];
+    const allBoilerplatesInfo = readJson(`${path}/${BOILERPLATES_DEFAULT_INFO_FILE}`) as BoilerplateInfo[];
     return new Promise((resolve) => resolve(allBoilerplatesInfo));
   }
 

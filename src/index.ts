@@ -14,7 +14,7 @@ import { APP_DESCRIPTION, APP_NAME, APP_VERSION, GITHUB_BOILERPLATES_REPOSITORY,
 import { BoilerplateHandlerContext } from './entities/BoilerplateHandler';
 import { githubStrategy } from './entities/GithubStrategy';
 import { pathStrategy } from './entities/PathStrategy';
-import { Boilerplate } from './types/Boilerplate';
+import { BoilerplateInfo } from './types/Boilerplate';
 import { RuntimeSettings } from './types/RuntimeSettings';
 import { deleteFolder } from './utils/fs-utils';
 import { logger } from './utils/logger';
@@ -119,7 +119,7 @@ async function initBoilerplateManager() {
   });
 
   if (options.list) {
-    console.table(bpmInstance.boilerplatesArr.map((item) => ({ category: item.category, name: item.name, lastUpdate: item.lastUpdate })));
+    console.table(bpmInstance.boilerplatesArr.map((item) => ({ category: item.category, name: item.name })));
     process.exit(0);
   }
 
@@ -137,10 +137,11 @@ async function initBoilerplateManager() {
   inquirer.registerPrompt('autocomplete', inquirerPrompt);
 
   inquirer.prompt(promptQuestions).then(async (answers) => {
-    const selectedBoilerplate: Boilerplate = answers.boilerplate;
+    const selectedBoilerplate: BoilerplateInfo = answers.boilerplate;
+    const optionsArr = selectedBoilerplate.options;
 
-    if (selectedBoilerplate.options.length > 0) {
-      const optionsQuestions = selectedBoilerplate.options.map((item) => {
+    if (optionsArr.length > 0) {
+      const parsedBoilerplateQuestions = optionsArr.map((item) => {
         return {
           type: 'list',
           name: item.name,
@@ -149,15 +150,18 @@ async function initBoilerplateManager() {
         };
       });
 
-      inquirer.prompt(optionsQuestions).then(async (options) => {
+      inquirer.prompt(parsedBoilerplateQuestions).then(async (options) => {
         await createBoilerplate(selectedBoilerplate.name);
         const boilerplateFolder = resolve(`./${selectedBoilerplate.name}`);
 
         logger.info(`applying the specified customizations`);
 
+        const getStringWithoutLastNewLine = (str: string) => str.substring(0, str.lastIndexOf('\n')) + str.substring(str.lastIndexOf('\n') + 1);
+
         Object.keys(options).forEach((key: string) => {
           const optionFile = options[key].file;
           const finalFilePath = resolve(join(boilerplateFolder, optionFile));
+
           if (!existsSync(finalFilePath)) {
             deleteFolder(boilerplateFolder);
             handleError(`boilerplate does not contain the selected option script file: [${chalk.red(optionFile)}]`);
@@ -169,7 +173,7 @@ async function initBoilerplateManager() {
           }
 
           const result = execSync(`node "${finalFilePath}"`).toString();
-          console.log(result);
+          console.log(getStringWithoutLastNewLine(result));
         });
 
         logger.info(`boilerplate was customized according to the selected options ✅`);

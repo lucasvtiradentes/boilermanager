@@ -1,5 +1,5 @@
 import { BoilerplateHandlerStrategy } from '../types/BoilerplateStrategy';
-import { Boilerplate } from '../types/Boilerplate';
+import { BoilerplateInfo } from '../types/Boilerplate';
 import { RuntimeSettings } from '../types/RuntimeSettings';
 
 class BoilerplateHandlerContext {
@@ -11,7 +11,7 @@ class BoilerplateHandlerContext {
     this.strategy = strategy;
   }
 
-  async list(source: string): Promise<Boilerplate[]> {
+  async list(source: string): Promise<BoilerplateInfo[]> {
     return this.strategy.list(source);
   }
 

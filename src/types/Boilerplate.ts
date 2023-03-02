@@ -1,24 +1,28 @@
-export type BoilerplateCommand = {
+type BoilerplateCommand = {
   description: string;
   command: string;
 };
 
-export type BoilerplateImage = {
+type BoilerplateImage = {
   src: string;
   width: string;
   height: string;
 };
 
-export type BoilerplateOption = {
-  name: string;
-  message: string;
-  list: {
-    title: string;
-    file: string;
-  }[];
+type BoilerplateOptionItem = {
+  title: string;
+  file: string;
 };
 
-export type RepoInfo = {
+type BoilerplateOption = {
+  name: string;
+  message: string;
+  list: BoilerplateOptionItem[];
+};
+
+/* -------------------------------------------------------------------------- */
+
+export type RepositoryInfo = {
   description: string;
   image: BoilerplateImage;
   app_features: string[];
@@ -30,11 +34,8 @@ export type RepoInfo = {
   project_techs: string[];
 };
 
-type AditionalInfo = {
+export type BoilerplateInfo = {
   name: string;
   category: string;
-  folder: string;
-  lastUpdate: string;
+  options: BoilerplateOption[];
 };
-
-export type Boilerplate = RepoInfo & AditionalInfo;

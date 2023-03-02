@@ -33,9 +33,9 @@ function downloadGithubRepositoryFolder(repositoryName: string, folder: string) 
     ];
 
     for (let x = 0; x < commands.length; x++) {
+      const curCommand = `${changeDirCommand} && ${commands[x]}`;
       try {
-        const curCommand = `${changeDirCommand} && ${commands[x]}`;
-        execSync(curCommand, { ...defaultExecConfigs, stdio: 'ignore' });
+        execSync(curCommand, { ...defaultExecConfigs, detached: true, stdio: 'ignore' });
       } catch (e: any) {
         rmSync(tmpFolder, { recursive: true });
         throw new Error(e.message);
@@ -68,6 +68,9 @@ function downloadGithubRepositoryFolder(repositoryName: string, folder: string) 
     return existsSync(finalFolder);
   } catch (e: any) {
     logger.error(e.message);
+    if (e.message === 'spawnSync /bin/sh ETIMEDOUT') {
+      // handle strange error
+    }
     return false;
   }
 }
