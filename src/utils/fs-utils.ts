@@ -23,15 +23,4 @@ function getDirectoriesRecursive(srcpath: string): string[] {
   ];
 }
 
-// async function getAllFolderFiles(dir: string) {
-//   const dirents = await readdir(dir, { withFileTypes: true });
-//   const files: any = await Promise.all(
-//     dirents.map((dirent: any) => {
-//       const res = resolve(dir, dirent.name);
-//       return dirent.isDirectory() ? getAllFolderFiles(res) : res;
-//     })
-//   );
-//   return Array.prototype.concat(...files);
-// }
-
 export { copyFolderSync, getDirectoriesRecursive };

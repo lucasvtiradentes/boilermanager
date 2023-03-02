@@ -1,5 +1,6 @@
 import { BoilerplateHandlerStrategy } from '../types/BoilerplateStrategy';
 import { Boilerplate } from '../types/Boilerplate';
+import { RuntimeSettings } from '../types/RuntimeSettings';
 
 class BoilerplateHandlerContext {
   constructor(private strategy: BoilerplateHandlerStrategy) {
@@ -14,8 +15,8 @@ class BoilerplateHandlerContext {
     return this.strategy.list(source);
   }
 
-  async choose(source: string, name: string): Promise<boolean> {
-    return this.strategy.choose(source, name);
+  async choose(runTime: RuntimeSettings, name: string): Promise<boolean> {
+    return this.strategy.choose(runTime, name);
   }
 }
 

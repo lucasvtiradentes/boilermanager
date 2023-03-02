@@ -1,6 +1,8 @@
+/* eslint-disable no-undef */
+
 module.exports = {
   branches: ['master'],
-  repository: 'https://github.com/ts-boilerplate-land/boilermanager',
+  repository: 'https://github.com/lucasvtiradentes/boilermanager',
   plugins: [
     [
       '@semantic-release/commit-analyzer',
@@ -23,7 +25,7 @@ module.exports = {
           { type: 'breaking', release: 'major' }
         ],
         parserOpts: {
-          headerPattern: /^(?:(:\w*:)\s)?(\w*)(?:\((.*)\))?!?:\s(.*)$/,
+          headerPattern: /^(:\w*:)\s?(\w*)(?:\((.*)\))?!?:\s(.*)$/,
           headerCorrespondence: ['emoji', 'type', 'scope', 'subject'],
           noteKeywords: ['BREAKING CHANGE', 'BREAKING CHANGES']
         }
@@ -41,7 +43,7 @@ module.exports = {
       {
         preset: 'conventionalcommits',
         parserOpts: {
-          headerPattern: /^(?:(:\w*:)\s)?(\w*)(?:\((.*)\))?!?:\s(.*)$/,
+          headerPattern: /^(:\w*:)\s?(\w*)(?:\((.*)\))?!?:\s(.*)$/,
           headerCorrespondence: ['emoji', 'type', 'scope', 'subject'],
           noteKeywords: ['BREAKING CHANGE', 'BREAKING CHANGES']
         },
@@ -71,8 +73,8 @@ module.exports = {
     [
       '@semantic-release/git',
       {
-        assets: ['docs/CHANGELOG.MD', 'package.json'],
-        message: ':memo: docs: update changelog files ${nextRelease.version} [skip ci]\n\n${nextRelease.notes}'
+        assets: ['docs/CHANGELOG.MD', 'package.json', 'README.md', 'dist/TickSync.min.js'],
+        message: ':bookmark: tags: new version release ${nextRelease.version} [skip ci]\n\n${nextRelease.notes}'
       }
     ]
   ]

@@ -2,7 +2,7 @@ import { execSync } from 'node:child_process';
 import { randomUUID } from 'node:crypto';
 import { existsSync, mkdirSync, rmSync } from 'node:fs';
 import { tmpdir, platform } from 'node:os';
-import { join } from 'node:path';
+import { join, resolve } from 'node:path';
 import { copyFolderSync, getDirectoriesRecursive } from '../utils/fs-utils';
 import { logger } from '../utils/logger';
 
@@ -61,9 +61,11 @@ function downloadGithubRepositoryFolder(repositoryName: string, folder: string) 
       throw new Error('specified folder couldnt be downloaded!');
     }
 
-    copyFolderSync(downloadedFolder, `./${folder}`);
+    const finalFolder = resolve(`./${folder}`);
+    copyFolderSync(downloadedFolder, finalFolder);
+
     rmSync(tmpFolder, { recursive: true });
-    return true;
+    return existsSync(finalFolder);
   } catch (e: any) {
     logger.error(e.message);
     return false;

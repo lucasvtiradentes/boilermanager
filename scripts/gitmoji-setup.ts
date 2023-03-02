@@ -133,7 +133,33 @@ class GitmojiUtils {
 
 const gitmoji = new GitmojiUtils(ALL_GITMOJI_ARR);
 
-gitmoji.setupUsedTypes(['init', 'feature', 'tests', 'docs', 'types', 'config', 'devscripts', 'binary', 'assets', 'ui', 'i18n', 'bugfix', 'hotfix', 'fix', 'detect', 'arch', 'codestyle', 'refactor', 'deploy', 'ci', 'fixci', 'revert', 'merge', 'breaking', 'tags']);
+gitmoji.setupUsedTypes([
+  'init',
+  'feature',
+  'tests',
+  'docs',
+  'types',
+  'config',
+  'devscripts',
+  'binary',
+  'assets',
+  'ui',
+  'i18n',
+  'bugfix',
+  'hotfix',
+  'fix',
+  'detect',
+  'arch',
+  'codestyle',
+  'refactor',
+  'deploy',
+  'ci',
+  'fixci',
+  'revert',
+  'merge',
+  'breaking',
+  'tags'
+]);
 
 console.log(gitmoji.exportConfigs('commitzen', true));
 console.log(gitmoji.exportConfigs('commitlint', true));

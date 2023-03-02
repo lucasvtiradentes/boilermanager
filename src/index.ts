@@ -3,13 +3,16 @@
 import chalk from 'chalk';
 import { program } from 'commander';
 import figlet from 'figlet';
+import { existsSync } from 'node:fs';
 import fuse from 'fuse.js';
 import inquirer, { Question } from 'inquirer';
 import inquirerPrompt from 'inquirer-autocomplete-prompt';
+import { resolve } from 'node:path';
 import updateNotifier, { Settings } from 'update-notifier';
 import { APP_DESCRIPTION, APP_NAME, APP_VERSION, GITHUB_BOILERPLATES_REPOSITORY, NODE_ENV, PACKAGE_JSON } from './configs/configs';
-import { BoilerplateHandlerContext } from './strategies/BoilerplateHandler';
-import { githubStrategy } from './strategies/GithubStrategy';
+import { BoilerplateHandlerContext } from './entities/BoilerplateHandler';
+import { githubStrategy } from './entities/GithubStrategy';
+import { pathStrategy } from './entities/PathStrategy';
 import { RuntimeSettings } from './types/RuntimeSettings';
 import { logger } from './utils/logger';
 
@@ -40,18 +43,20 @@ async function initBoilerplateManager() {
     source: GITHUB_BOILERPLATES_REPOSITORY,
     sourceType: 'default',
     context: new BoilerplateHandlerContext(githubStrategy),
-    boilerplatesArr: []
+    boilerplatesArr: [],
+    options: {}
   };
 
   program.name(APP_NAME).version(APP_VERSION).description(APP_DESCRIPTION);
+  // prettier-ignore
   program
-    .option('-r, --repository <repo>', 'use your github boilerplates')
-    .option('-p, --path <folder>', 'use only boilerplates from a specific local folder')
-    .option('-f, --famous', 'use only famous boilerplates')
-    .option('-l, --list', 'show the current boilerplate list');
+  .option('-r, --repository <repo>', 'use your github boilerplates')
+  .option('-p, --path <folder>', 'use only boilerplates from a specific local folder')
+  .option('-l, --list', 'show the current boilerplate list');
 
   program.parse();
   const options = program.opts();
+  bpmInstance.options = options;
 
   /* ------------------------------------------------------------------------ */
 
@@ -59,11 +64,30 @@ async function initBoilerplateManager() {
     bpmInstance.source = options.repository;
     bpmInstance.sourceType = 'repository';
     bpmInstance.context = new BoilerplateHandlerContext(githubStrategy);
+
+    logger.info(`using boilerplates from [custom repository]`);
+    bpmInstance.boilerplatesArr = await bpmInstance.context.list(bpmInstance.source);
+  }
+
+  if (options.path) {
+    bpmInstance.source = '';
+    bpmInstance.sourceType = 'path';
+    bpmInstance.context = new BoilerplateHandlerContext(pathStrategy);
+
+    const folderPath = resolve(options.path);
+    if (!existsSync(folderPath)) {
+      logger.error(`folder path [${options.path}] does not exists`);
+      process.exit(1);
+    }
+
+    logger.info(`using boilerplates from [local folder]`);
+    const localBoilerplatesArr = await bpmInstance.context.list(folderPath);
+    bpmInstance.boilerplatesArr = localBoilerplatesArr;
   }
 
   /* ------------------------------------------------------------------------ */
 
-  if (['default', 'repository'].includes(bpmInstance.sourceType)) {
+  if (bpmInstance.sourceType === 'default') {
     bpmInstance.boilerplatesArr = await bpmInstance.context.list(bpmInstance.source);
   }
 
@@ -106,82 +130,10 @@ async function initBoilerplateManager() {
     }
   ];
 
-  inquirer.prompt(promptQuestions).then((answers) => {
-    console.log(`answers: `, answers);
-    bpmInstance.context.choose(bpmInstance.source, answers.boilerplate.name);
+  inquirer.prompt(promptQuestions).then(async (answers) => {
+    const createdBoilerplate = await bpmInstance.context.choose(bpmInstance, answers.boilerplate.name);
+    if (createdBoilerplate) {
+      logger.info(`boilerplate [${answers.boilerplate.name}] was created!\n`);
+    }
   });
 }
-
-/*
-
-  if (options.famous) {
-    bpmInstance.sourceType = 'famous';
-    bpmInstance.boilerplatesArr = [];
-    logger.info('using [famous] boilerplates');
-  }
-
-  if (options.starred) {
-    bpmInstance.sourceType = 'starred';
-    bpmInstance.boilerplatesArr = [];
-    logger.info('using [starred] boilerplates');
-  }
-
-  if (options.path) {
-    const folderPath = resolve(options.path);
-    if (!existsSync(folderPath)) {
-      logger.error(`folder path [${options.path}] does not exists`);
-      process.exit(1);
-    }
-
-    bpmInstance.sourceType = `path`;
-    bpmInstance.context.setStrategy(localpathStrategy);
-
-    const localBoilerplatesArr = (await bpmInstance.context.list(folderPath)) ?? [];
-    if (localBoilerplatesArr.length === 0) {
-      logger.error('no boilerplates were found in the specified path.');
-      process.exit(1);
-    }
-
-    bpmInstance.boilerplatesArr = localBoilerplatesArr;
-    logger.info(`using boilerplates from folder: [${options.path}]`);
-  }
-
-  if (options.filter) {
-    // prettier-ignore
-    const filteredBoilerplates = bpmInstance.boilerplatesArr.filter((item: BoilerplateItem) => {
-      const foundOnName = item.name.search(options.filter) > -1
-      const foundOnCategory = item.category.search(options.filter) > -1
-      const foundOnDescription = (item.description && item.description.search(options.filter) > -1)
-      return foundOnName || foundOnCategory || foundOnDescription
-    });
-
-    bpmInstance.boilerplatesArr = filteredBoilerplates;
-    logger.info(`filtered boilerplates with: [${options.filter}]`);
-  }
-
-  if (options.manageStarred) {
-    console.log('');
-    manageStarredBoilerplates();
-  } else {
-    if (bpmInstance.sourceType === `default`) {
-      bpmInstance.boilerplatesArr = await bpmInstance.context.list(bpmInstance.source);
-    }
-
-    console.log(bpmInstance.boilerplatesArr);
-
-    if (bpmInstance.boilerplatesArr.length === 0) {
-      logger.error('current boilerplate list has no items!');
-      process.exit(1);
-    }
-
-    logger.info(`current boilerplate list: [${bpmInstance.sourceType}]`);
-    console.log('');
-
-    if (options.addStarred) {
-      starBoilerplates(bpmInstance);
-    } else {
-      selectBoilerplate(bpmInstance);
-    }
-  }
-
-*/

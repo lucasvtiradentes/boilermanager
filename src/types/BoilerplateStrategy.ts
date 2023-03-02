@@ -1,6 +1,7 @@
 import { Boilerplate } from './Boilerplate';
+import { RuntimeSettings } from './RuntimeSettings';
 
 export interface BoilerplateHandlerStrategy {
   list(source: string): Promise<Boilerplate[]>;
-  choose(source: string, name: string): Promise<boolean>;
+  choose(runTime: RuntimeSettings, name: string): Promise<boolean>;
 }
