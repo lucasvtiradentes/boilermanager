@@ -1,3 +1,4 @@
+import chalk from 'chalk';
 import { existsSync } from 'node:fs';
 import { join, resolve } from 'node:path';
 import { BOILERPLATES_DEFAULT_INFO_FILE } from '../configs/configs';
@@ -10,14 +11,14 @@ import { BoilerplateHandlerStrategy } from './BoilerplateHandler';
 
 class PathStrategy implements BoilerplateHandlerStrategy {
   async list(path: string): Promise<Boilerplate[]> {
-    logger.info(`local path: [${path}]`);
+    logger.info(`folder: [${chalk.magenta(path)}]`);
     const allBoilerplatesInfo = readJson(`${path}/${BOILERPLATES_DEFAULT_INFO_FILE}`) as Boilerplate[];
     return new Promise((resolve) => resolve(allBoilerplatesInfo));
   }
 
   choose(runTime: RuntimeSettings, name: string): Promise<boolean> {
     const choosedBoilerplate = runTime.boilerplatesArr.find((item) => item.name === name);
-    const folderPath = resolve(join(runTime.options.path, choosedBoilerplate?.folder ?? ''));
+    const folderPath = resolve(join(runTime.options.folder, choosedBoilerplate?.folder ?? ''));
 
     if (!existsSync(folderPath)) {
       logger.error(`folder path [${folderPath}] does not exists`);

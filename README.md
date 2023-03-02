@@ -102,39 +102,39 @@ The boilermanager comes with the following commands list:
 
 <table>
   <tr>
-    <th>Scope</th>
-    <th>Command</th>
-    <th>Description</th>
+    <th width="100">Scope</th>
+    <th width="250">Command</th>
+    <th width="auto">Description</th>
   </tr>
   <tr>
-    <td rowspan="2">General</td>
-    <td><code>bpm -h</code></td>
-    <td>Shows the <b>help</b> menu.</td>
+    <td width="100" rowspan="2">General</td>
+    <td width="250"><code>bpm -h</code></td>
+    <td>Shows the <b>help</b> menu with all available commands.</td>
   </tr>
   <tr>
     <!-- <td rowspan="2">General</td> -->
-    <td><code>bpm -v</code></td>
+    <td width="250"><code>bpm -V</code></td>
     <td>Shows the current installed <b>version</b>.</td>
   </tr>
   <tr>
-    <td rowspan="3">Select list</td>
-    <td><code>bpm -r [user/repository]</code></td>
-    <td>Set the boilerplate source list to use <b>github repository</b>.</td>
+    <td width="100" rowspan="3">Select list</td>
+    <td width="250"><code>bpm</code></td>
+    <td>Set the boilerplate source list to use the <a href="https://github.com/lucasvtiradentes/boilermanager-boilerplates">default boilerplates</a>.</td>
+  </tr>
+  <tr>
+    <!-- <td width="100" rowspan="3">Select list</td> -->
+    <td width="250"><code>bpm -r [user/repository]</code></td>
+    <td>Set the boilerplate source list to use <b>github repository</b>. You can create your own boilerplates repository by forking <a href="https://github.com/lucasvtiradentes/boilermanager-boilerplates-template">boilermanager boilerplates template</a>.</td>
   </tr>
   <tr>
     <!-- <td rowspan="3">Select list</td> -->
-    <td><code>bpm -p [folder]</code></td>
-    <td>Set the boilerplate source list to use the <b>boilerplates from specified folder</b></td>
+    <td width="250"><code>bpm -f [folder]</code></td>
+    <td>Set the boilerplate source list to use the <b>boilerplates from a specified folder</b>. You can create your one by forking <a href="https://github.com/lucasvtiradentes/boilermanager-boilerplates-template">boilermanager boilerplates template</a>.</td>
   </tr>
   <tr>
-    <!-- <td rowspan="3">Select list</td> -->
-    <td><code>bpm</code></td>
-    <td>If you dont specify any boilerplate source list option, the <b>default boilerplate list</b> will be used..</td>
-  </tr>
-  <tr>
-    <td rowspan="1">Other</td>
-    <td><code>bpm -l</code></td>
-    <td>Shows the <b>current boilerplate list</b> options.</td>
+    <td width="100" rowspan="1">Other</td>
+    <td width="250"><code>bpm -l</code></td>
+    <td>Shows the <b>current boilerplate list</b> options with additional information on a table.</td>
   </tr>
 </table>
 

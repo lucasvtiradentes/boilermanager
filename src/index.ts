@@ -3,10 +3,10 @@
 import chalk from 'chalk';
 import { program } from 'commander';
 import figlet from 'figlet';
-import { existsSync } from 'node:fs';
 import fuse from 'fuse.js';
 import inquirer, { Question } from 'inquirer';
 import inquirerPrompt from 'inquirer-autocomplete-prompt';
+import { existsSync } from 'node:fs';
 import { resolve } from 'node:path';
 import updateNotifier, { Settings } from 'update-notifier';
 import { APP_DESCRIPTION, APP_NAME, APP_VERSION, GITHUB_BOILERPLATES_REPOSITORY, NODE_ENV, PACKAGE_JSON } from './configs/configs';
@@ -16,26 +16,32 @@ import { pathStrategy } from './entities/PathStrategy';
 import { RuntimeSettings } from './types/RuntimeSettings';
 import { logger } from './utils/logger';
 
-console.log(chalk.red(figlet.textSync(APP_NAME, { horizontalLayout: 'default' })));
+(async () => {
+  console.log(chalk.red(figlet.textSync(APP_NAME, { horizontalLayout: 'default' })));
 
-if (NODE_ENV === 'production' && hasNewerVersion()) {
-  new Promise<void>((resolve) =>
-    setTimeout(() => {
-      resolve();
-    }, 1500)
-  ).then(() => initBoilerplateManager());
-} else {
-  initBoilerplateManager();
-}
+  if (NODE_ENV !== 'production') {
+    const newVersion = getNewerVersion();
+    if (newVersion) {
+      logger.info(`new version [${chalk.green(newVersion.latest)}] available, update by running: ${chalk.green(`npm install -g ${APP_NAME}`)}`);
+    } else {
+      logger.info(`you are running the latest ${APP_NAME} version [${chalk.gray(APP_VERSION)}]`);
+    }
+  }
 
-function hasNewerVersion() {
+  await initBoilerplateManager();
+})();
+
+/* -------------------------------------------------------------------------- */
+
+function getNewerVersion() {
   logger.info(`checking if there is a newer ${APP_NAME} version`);
   const pkg = PACKAGE_JSON as Settings['pkg'];
-  const notifier = updateNotifier({ pkg });
-  if (notifier.update) {
-    notifier.notify();
-    return true;
-  }
+  const notifier = updateNotifier({
+    pkg,
+    updateCheckInterval: 1000 * 60 * 1 // 1 minuto
+  });
+
+  return notifier.update;
 }
 
 async function initBoilerplateManager() {
@@ -51,43 +57,40 @@ async function initBoilerplateManager() {
   // prettier-ignore
   program
   .option('-r, --repository <repo>', 'use your github boilerplates')
-  .option('-p, --path <folder>', 'use only boilerplates from a specific local folder')
+  .option('-f, --folder <folder>', 'use only boilerplates from a specific local folder')
   .option('-l, --list', 'show the current boilerplate list');
 
   program.parse();
   const options = program.opts();
   bpmInstance.options = options;
 
-  /* ------------------------------------------------------------------------ */
-
   if (options.repository) {
     bpmInstance.source = options.repository;
     bpmInstance.sourceType = 'repository';
     bpmInstance.context = new BoilerplateHandlerContext(githubStrategy);
 
-    logger.info(`using boilerplates from [custom repository]`);
+    logger.info(`using boilerplates from: ${chalk.magenta('custom repository')}`);
     bpmInstance.boilerplatesArr = await bpmInstance.context.list(bpmInstance.source);
   }
 
-  if (options.path) {
+  if (options.folder) {
     bpmInstance.source = '';
     bpmInstance.sourceType = 'path';
     bpmInstance.context = new BoilerplateHandlerContext(pathStrategy);
 
-    const folderPath = resolve(options.path);
+    const folderPath = resolve(options.folder);
     if (!existsSync(folderPath)) {
-      logger.error(`folder path [${options.path}] does not exists`);
+      logger.error(`folder path [${options.folder}] does not exists`);
       process.exit(1);
     }
 
-    logger.info(`using boilerplates from [local folder]`);
+    logger.info(`using boilerplates from: ${chalk.magenta('local folder')}`);
     const localBoilerplatesArr = await bpmInstance.context.list(folderPath);
     bpmInstance.boilerplatesArr = localBoilerplatesArr;
   }
 
-  /* ------------------------------------------------------------------------ */
-
   if (bpmInstance.sourceType === 'default') {
+    logger.info(`using boilerplates from: ${chalk.magenta('default repository')}`);
     bpmInstance.boilerplatesArr = await bpmInstance.context.list(bpmInstance.source);
   }
 
@@ -108,16 +111,10 @@ async function initBoilerplateManager() {
     keys: ['name']
   });
 
-  /* ------------------------------------------------------------------------ */
-
   if (options.list) {
     console.table(bpmInstance.boilerplatesArr.map((item) => ({ category: item.category, name: item.name, lastUpdate: item.lastUpdate })));
     process.exit(0);
   }
-
-  /* ------------------------------------------------------------------------ */
-
-  inquirer.registerPrompt('autocomplete', inquirerPrompt);
 
   const promptQuestions: Question[] = [
     {
@@ -130,10 +127,14 @@ async function initBoilerplateManager() {
     }
   ];
 
+  inquirer.registerPrompt('autocomplete', inquirerPrompt);
+
   inquirer.prompt(promptQuestions).then(async (answers) => {
     const createdBoilerplate = await bpmInstance.context.choose(bpmInstance, answers.boilerplate.name);
     if (createdBoilerplate) {
-      logger.info(`boilerplate [${answers.boilerplate.name}] was created!\n`);
+      logger.info(`boilerplate [${chalk.green(answers.boilerplate.name)}] was created ✅\n`);
+    } else {
+      logger.error(`boilerplate [${chalk.red(answers.boilerplate.name)}] was not created ❌\n`);
     }
   });
 }
