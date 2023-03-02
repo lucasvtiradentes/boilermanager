@@ -16,7 +16,6 @@ src/
 
 # FILES #################################
 
-.commitlintrc
 .czrc
 .editorconfig
 .eslintignore
@@ -26,8 +25,12 @@ src/
 .npmignore
 .prettierignore
 .prettierrc.json
+commitlint.config.js
 jest.config.js
+# LICENSE
 # package.json
-pnpm-lock.yaml
+# README.md
 release.config.js
 tsconfig.json
+
+pnpm-lock.yaml

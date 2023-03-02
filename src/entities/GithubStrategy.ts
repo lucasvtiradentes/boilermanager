@@ -9,7 +9,7 @@ import chalk from 'chalk';
 
 class GithubStrategy implements BoilerplateHandlerStrategy {
   async list(githubRepository: string): Promise<Boilerplate[]> {
-    logger.info(`repository: [${chalk.magenta(githubRepository)}]`);
+    logger.info(`repository: ${chalk.blue(githubRepository)}`);
 
     const link = `https://raw.githubusercontent.com/${githubRepository}/master/${BOILERPLATES_INFO_FILE}`;
 

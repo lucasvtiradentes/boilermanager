@@ -1,33 +1,40 @@
-type BoilerplateImage = {
+export type BoilerplateCommand = {
+  description: string;
+  command: string;
+};
+
+export type BoilerplateImage = {
   src: string;
   width: string;
   height: string;
 };
 
-type BoilerplateCommand = {
-  description: string;
-  command: string;
+export type BoilerplateOption = {
+  name: string;
+  message: string;
+  list: {
+    title: string;
+    file: string;
+  }[];
 };
 
-type Boilerplate = {
-  name: string;
-  image: BoilerplateImage;
+export type RepoInfo = {
   description: string;
+  image: BoilerplateImage;
+  app_features: string[];
+  project_features: string[];
+  commands: BoilerplateCommand[];
+  options: BoilerplateOption[];
+  resources: string[];
+  app_techs: string[];
+  project_techs: string[];
+};
+
+type AditionalInfo = {
+  name: string;
   category: string;
   folder: string;
   lastUpdate: string;
-  app_features: string[];
-  project_features: string[];
-  app_techs: string[];
-  project_techs: string[];
-  commands: BoilerplateCommand[];
-  resources: string[];
 };
 
-// origin: string;
-// source: string;
-// category: string;
-// name: string;
-// description?: string;
-
-export { Boilerplate };
+export type Boilerplate = RepoInfo & AditionalInfo;

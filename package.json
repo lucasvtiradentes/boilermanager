@@ -26,6 +26,7 @@
     "prepare": "husky install",
     "precommit": "npm run script:issues",
     "commit": "cz",
+
     "prebuild": "rimraf ./lib",
     "build": "tsc",
     "build:check": "tsc --noEmit",
@@ -33,8 +34,9 @@
     "pub:check": "npm publish --dry-run",
     "pub:build": "npm pack && tar -xvzf *.tgz",
     "start": "node ./lib/src/index.js",
-    "dev": "ts-node ./src/index.ts -f \"/home/lucas/Desktop/projects/2 - open source projects/boilermanager-boilerplates/boilerplates\"",
+    "dev": "ts-node ./src/index.ts",
     "dev:install": "npm install -g .",
+
     "test": "jest --passWithNoTests",
     "test:watch": "jest --passWithNoTests --watchAll",
     "test:coverage": "jest --passWithNoTests --coverage",

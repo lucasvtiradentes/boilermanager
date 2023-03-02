@@ -1,5 +1,11 @@
-import { copyFileSync, lstatSync, mkdirSync, readdirSync, statSync } from 'node:fs';
+import { copyFileSync, existsSync, lstatSync, mkdirSync, readdirSync, rmSync, statSync } from 'node:fs';
 import { join } from 'node:path';
+
+function deleteFolder(path: string) {
+  if (existsSync(path)) {
+    rmSync(path, { recursive: true });
+  }
+}
 
 function copyFolderSync(from: string, to: string) {
   mkdirSync(to);
@@ -23,4 +29,4 @@ function getDirectoriesRecursive(srcpath: string): string[] {
   ];
 }
 
-export { copyFolderSync, getDirectoriesRecursive };
+export { deleteFolder, copyFolderSync, getDirectoriesRecursive };

@@ -11,7 +11,7 @@ import { BoilerplateHandlerStrategy } from './BoilerplateHandler';
 
 class PathStrategy implements BoilerplateHandlerStrategy {
   async list(path: string): Promise<Boilerplate[]> {
-    logger.info(`folder: [${chalk.magenta(path)}]`);
+    logger.info(`folder: ${chalk.blue(path)}`);
     const allBoilerplatesInfo = readJson(`${path}/${BOILERPLATES_DEFAULT_INFO_FILE}`) as Boilerplate[];
     return new Promise((resolve) => resolve(allBoilerplatesInfo));
   }

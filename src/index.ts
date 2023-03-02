@@ -6,14 +6,17 @@ import figlet from 'figlet';
 import fuse from 'fuse.js';
 import inquirer, { Question } from 'inquirer';
 import inquirerPrompt from 'inquirer-autocomplete-prompt';
+import { execSync } from 'node:child_process';
 import { existsSync } from 'node:fs';
-import { resolve } from 'node:path';
+import { extname, join, resolve } from 'node:path';
 import updateNotifier, { Settings } from 'update-notifier';
 import { APP_DESCRIPTION, APP_NAME, APP_VERSION, GITHUB_BOILERPLATES_REPOSITORY, NODE_ENV, PACKAGE_JSON } from './configs/configs';
 import { BoilerplateHandlerContext } from './entities/BoilerplateHandler';
 import { githubStrategy } from './entities/GithubStrategy';
 import { pathStrategy } from './entities/PathStrategy';
+import { Boilerplate } from './types/Boilerplate';
 import { RuntimeSettings } from './types/RuntimeSettings';
+import { deleteFolder } from './utils/fs-utils';
 import { logger } from './utils/logger';
 
 (async () => {
@@ -38,10 +41,15 @@ function getNewerVersion() {
   const pkg = PACKAGE_JSON as Settings['pkg'];
   const notifier = updateNotifier({
     pkg,
-    updateCheckInterval: 1000 * 60 * 1 // 1 minuto
+    updateCheckInterval: 1000 * 60 * 1 // 1 minute
   });
 
   return notifier.update;
+}
+
+function handleError(errorMsg: string) {
+  logger.error(errorMsg);
+  process.exit(1);
 }
 
 async function initBoilerplateManager() {
@@ -69,7 +77,7 @@ async function initBoilerplateManager() {
     bpmInstance.sourceType = 'repository';
     bpmInstance.context = new BoilerplateHandlerContext(githubStrategy);
 
-    logger.info(`using boilerplates from: ${chalk.magenta('custom repository')}`);
+    logger.info(`using boilerplates from: ${chalk.blue('custom repository')}`);
     bpmInstance.boilerplatesArr = await bpmInstance.context.list(bpmInstance.source);
   }
 
@@ -84,19 +92,18 @@ async function initBoilerplateManager() {
       process.exit(1);
     }
 
-    logger.info(`using boilerplates from: ${chalk.magenta('local folder')}`);
+    logger.info(`using boilerplates from: ${chalk.blue('local folder')}`);
     const localBoilerplatesArr = await bpmInstance.context.list(folderPath);
     bpmInstance.boilerplatesArr = localBoilerplatesArr;
   }
 
   if (bpmInstance.sourceType === 'default') {
-    logger.info(`using boilerplates from: ${chalk.magenta('default repository')}`);
+    logger.info(`using boilerplates from: ${chalk.blue('default repository')}`);
     bpmInstance.boilerplatesArr = await bpmInstance.context.list(bpmInstance.source);
   }
 
   if (bpmInstance.boilerplatesArr.length === 0) {
-    logger.error('current boilerplate list has no items!');
-    process.exit(1);
+    handleError('current boilerplate list has no items!');
   }
 
   const maxBoilerplateLength = Math.max(...bpmInstance.boilerplatesArr.map((item) => item.name.length));
@@ -130,11 +137,55 @@ async function initBoilerplateManager() {
   inquirer.registerPrompt('autocomplete', inquirerPrompt);
 
   inquirer.prompt(promptQuestions).then(async (answers) => {
-    const createdBoilerplate = await bpmInstance.context.choose(bpmInstance, answers.boilerplate.name);
-    if (createdBoilerplate) {
-      logger.info(`boilerplate [${chalk.green(answers.boilerplate.name)}] was created ✅\n`);
+    const selectedBoilerplate: Boilerplate = answers.boilerplate;
+
+    if (selectedBoilerplate.options.length > 0) {
+      const optionsQuestions = selectedBoilerplate.options.map((item) => {
+        return {
+          type: 'list',
+          name: item.name,
+          message: item.message,
+          choices: item.list.map((it) => ({ name: it.title, value: it }))
+        };
+      });
+
+      inquirer.prompt(optionsQuestions).then(async (options) => {
+        await createBoilerplate(selectedBoilerplate.name);
+        const boilerplateFolder = resolve(`./${selectedBoilerplate.name}`);
+
+        logger.info(`applying the specified customizations`);
+
+        Object.keys(options).forEach((key: string) => {
+          const optionFile = options[key].file;
+          const finalFilePath = resolve(join(boilerplateFolder, optionFile));
+          if (!existsSync(finalFilePath)) {
+            deleteFolder(boilerplateFolder);
+            handleError(`boilerplate does not contain the selected option script file: [${chalk.red(optionFile)}]`);
+          }
+
+          if (extname(finalFilePath) !== '.js') {
+            deleteFolder(boilerplateFolder);
+            handleError(`option script [${chalk.red(optionFile)}] is not a javascript file.`);
+          }
+
+          const result = execSync(`node "${finalFilePath}"`).toString();
+          console.log(result);
+        });
+
+        logger.info(`boilerplate was customized according to the selected options ✅`);
+      });
     } else {
-      logger.error(`boilerplate [${chalk.red(answers.boilerplate.name)}] was not created ❌\n`);
+      await createBoilerplate(selectedBoilerplate.name);
+      logger.info(`boilerplate [${chalk.green(selectedBoilerplate.name)}] was created ✅`);
     }
   });
+
+  async function createBoilerplate(boilerplateName: string) {
+    logger.info(`creating the selected boilerplate`);
+    const hasCreatedBoilerplate = await bpmInstance.context.choose(bpmInstance, boilerplateName);
+
+    if (!hasCreatedBoilerplate) {
+      handleError(`boilerplate [${chalk.red(boilerplateName)}] was not created ❌`);
+    }
+  }
 }
