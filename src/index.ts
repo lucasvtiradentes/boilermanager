@@ -25,7 +25,7 @@ import { errorHandler } from './utils/error-handler';
 (async () => {
   console.log(chalk.red(figlet.textSync(APP_NAME, { horizontalLayout: 'default' })));
 
-  if (NODE_ENV !== 'production') {
+  if (NODE_ENV === 'production') {
     const newVersion = getNewerVersion();
     if (newVersion) {
       logger.info(`new version [${chalk.green(newVersion.latest)}] available, update by running: ${chalk.green(`npm install -g ${APP_NAME}`)}`);

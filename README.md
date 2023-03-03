@@ -67,9 +67,9 @@ The default boilerplates are available in [boilermanager-boilerplates](https://g
 
 ## :dart: Features<a href="#TOC"><img align="right" src="./.github/images/up_arrow.png" width="22"></a>
 
-&nbsp;&nbsp;&nbsp;✔️ choose which boilerplate to start from: the available options are listed in [boilermanager-boilerplates](https://github.com/lucasvtiradentes/boilermanager-boilerplates);<br>
+&nbsp;&nbsp;&nbsp;✔️ choose which boilerplate to start from: the default available options are listed in [boilermanager-boilerplates](https://github.com/lucasvtiradentes/boilermanager-boilerplates);<br>
 &nbsp;&nbsp;&nbsp;✔️ choose the boilerplate source from three options: default, github repository and local folder;<br>
-&nbsp;&nbsp;&nbsp;✔️ filter boilerplates list with a term.<br>
+&nbsp;&nbsp;&nbsp;✔️ supports filtering while choosing the boilerplate.<br>
 
 ## :warning: Requirements<a href="#TOC"><img align="right" src="./.github/images/up_arrow.png" width="22"></a>
 
