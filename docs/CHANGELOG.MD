@@ -1,5 +1,12 @@
 # CHANGELOG HISTORY
 
+## [1.6.0](https://github.com/lucasvtiradentes/boilermanager/compare/v1.5.1...v1.6.0) (2023-03-03)
+
+
+### ✨ feature:
+
+* add schema validation with zod ([#41](https://github.com/lucasvtiradentes/boilermanager/issues/41)) ([d1673f7](https://github.com/lucasvtiradentes/boilermanager/commit/d1673f7ee75757f6e34e1365b6448382272326eb))
+
 ## [1.5.1](https://github.com/lucasvtiradentes/boilermanager/compare/v1.5.0...v1.5.1) (2023-03-03)
 
 
