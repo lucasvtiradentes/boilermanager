@@ -1,5 +1,12 @@
 # CHANGELOG HISTORY
 
+## [1.6.1](https://github.com/lucasvtiradentes/boilermanager/compare/v1.6.0...v1.6.1) (2023-03-03)
+
+
+### 🐛 bugfix:
+
+* fix long terminal texts ([#42](https://github.com/lucasvtiradentes/boilermanager/issues/42)) ([8ce4b3b](https://github.com/lucasvtiradentes/boilermanager/commit/8ce4b3bd67553e30bb5b75236858d96268eb6d63))
+
 ## [1.6.0](https://github.com/lucasvtiradentes/boilermanager/compare/v1.5.1...v1.6.0) (2023-03-03)
 
 
