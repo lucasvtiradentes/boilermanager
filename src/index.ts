@@ -28,7 +28,7 @@ import { errorHandler } from './utils/error-handler';
   if (NODE_ENV === 'production') {
     const newVersion = getNewerVersion();
     if (newVersion) {
-      logger.info(`new version [${chalk.green(newVersion.latest)}] available, update by running: ${chalk.green(`npm install -g ${APP_NAME}`)}`);
+      logger.info(`new version [${chalk.green(newVersion.latest)}] available: ${chalk.green(`npm install -g ${APP_NAME}`)}`);
     } else {
       logger.info(`you are running the latest ${APP_NAME} version [${chalk.gray(APP_VERSION)}]`);
     }
@@ -124,7 +124,7 @@ async function initBoilerplateManager() {
     {
       type: 'autocomplete',
       name: 'boilerplate',
-      message: 'Choose the desired boilerplate to start with: ',
+      message: 'Choose the desired boilerplate: ',
       // eslint-disable-next-line @typescript-eslint/ban-ts-comment
       // @ts-ignore
       source: (_, query) => Promise.resolve(query ? fuzzy.search(query).map((it) => it.item) : parsedBoilerplates)
