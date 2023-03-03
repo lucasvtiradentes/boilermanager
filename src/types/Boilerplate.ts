@@ -1,16 +1,20 @@
-type BoilerplateOptionItem = {
-  title: string;
-  file: string;
-};
+import z from 'zod';
 
-type BoilerplateOption = {
-  name: string;
-  message: string;
-  list: BoilerplateOptionItem[];
-};
+const BoilerplateOptionItemSchema = z.object({
+  title: z.string(),
+  file: z.string()
+});
 
-export type BoilerplateInfo = {
-  name: string;
-  category: string;
-  options: BoilerplateOption[];
-};
+const BoilerplateOptionSchema = z.object({
+  name: z.string(),
+  message: z.string(),
+  list: z.array(BoilerplateOptionItemSchema)
+});
+
+export const BoilerplateSchema = z.object({
+  name: z.string(),
+  category: z.string(),
+  options: z.array(BoilerplateOptionSchema)
+});
+
+export type BoilerplateInfo = z.infer<typeof BoilerplateSchema>;

@@ -57,7 +57,7 @@
 
 ## :trumpet: Overview
 
-quickstart your nodejs projects with zero time spent on configuring frequently used tools while also having the ability to manage your own boilerplates.
+Quickstart your nodejs projects with zero time spent on configuring frequently used tools while also having the ability to manage your own boilerplates.
 
 <p align="center">
   <img alt="posthoglogo" src="./.github/images/demo.webp" width="650">
@@ -69,6 +69,7 @@ The default boilerplates are available in [boilermanager-boilerplates](https://g
 
 &nbsp;&nbsp;&nbsp;✔️ choose which boilerplate to start from: the default available options are listed in [boilermanager-boilerplates](https://github.com/lucasvtiradentes/boilermanager-boilerplates);<br>
 &nbsp;&nbsp;&nbsp;✔️ choose the boilerplate source from three options: default, github repository and local folder;<br>
+&nbsp;&nbsp;&nbsp;✔️ create your own boilerplates by following [boilerplates-template](https://github.com/lucasvtiradentes/boilermanager-boilerplates-template);<br>
 &nbsp;&nbsp;&nbsp;✔️ supports filtering while choosing the boilerplate.<br>
 
 ## :warning: Requirements<a href="#TOC"><img align="right" src="./.github/images/up_arrow.png" width="22"></a>

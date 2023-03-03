@@ -54,7 +54,7 @@ async function initBoilerplateManager() {
   const bpmInstance: RuntimeSettings = {
     source: GITHUB_BOILERPLATES_REPOSITORY,
     sourceType: 'default',
-    context: new BoilerplateHandler(new GithubStrategy(GITHUB_DOWNLOAD_FOLDER_STRATEGY)),
+    boilerplateHandler: new BoilerplateHandler(new GithubStrategy(GITHUB_DOWNLOAD_FOLDER_STRATEGY)),
     boilerplatesArr: [],
     options: {}
   };
@@ -73,16 +73,16 @@ async function initBoilerplateManager() {
   if (options.repository) {
     bpmInstance.source = options.repository;
     bpmInstance.sourceType = 'repository';
-    bpmInstance.context = new BoilerplateHandler(new GithubStrategy(GITHUB_DOWNLOAD_FOLDER_STRATEGY));
+    bpmInstance.boilerplateHandler = new BoilerplateHandler(new GithubStrategy(GITHUB_DOWNLOAD_FOLDER_STRATEGY));
 
     logger.info(`using boilerplates from: ${chalk.blue('custom repository')}`);
-    bpmInstance.boilerplatesArr = await bpmInstance.context.list(bpmInstance.source);
+    bpmInstance.boilerplatesArr = await bpmInstance.boilerplateHandler.list(bpmInstance.source);
   }
 
   if (options.folder) {
     bpmInstance.source = '';
     bpmInstance.sourceType = 'path';
-    bpmInstance.context = new BoilerplateHandler(new PathStrategy());
+    bpmInstance.boilerplateHandler = new BoilerplateHandler(new PathStrategy());
 
     const folderPath = resolve(options.folder);
     if (!existsSync(folderPath)) {
@@ -90,13 +90,13 @@ async function initBoilerplateManager() {
     }
 
     logger.info(`using boilerplates from: ${chalk.blue('local folder')}`);
-    const localBoilerplatesArr = await bpmInstance.context.list(folderPath);
+    const localBoilerplatesArr = await bpmInstance.boilerplateHandler.list(folderPath);
     bpmInstance.boilerplatesArr = localBoilerplatesArr;
   }
 
   if (bpmInstance.sourceType === 'default') {
     logger.info(`using boilerplates from: ${chalk.blue('default repository')}`);
-    bpmInstance.boilerplatesArr = await bpmInstance.context.list(bpmInstance.source);
+    bpmInstance.boilerplatesArr = await bpmInstance.boilerplateHandler.list(bpmInstance.source);
   }
 
   if (bpmInstance.boilerplatesArr.length === 0) {
@@ -181,13 +181,13 @@ async function initBoilerplateManager() {
     }
   });
 
-  async function createBoilerplate(boilerplateName: string) {
+  async function createBoilerplate(boilerplateCompleteName: string) {
     logger.info(`creating the selected boilerplate`);
     const tmpFolder = createTempFolder();
-    const hasCreatedBoilerplate = await bpmInstance.context.choose(bpmInstance, boilerplateName, tmpFolder);
+    const hasCreatedBoilerplate = await bpmInstance.boilerplateHandler.choose(bpmInstance, boilerplateCompleteName, tmpFolder);
 
     if (!hasCreatedBoilerplate) {
-      errorHandler(`boilerplate [${chalk.red(boilerplateName)}] was not created ❌`);
+      errorHandler(`boilerplate [${chalk.red(boilerplateCompleteName)}] was not created ❌`);
     }
   }
 

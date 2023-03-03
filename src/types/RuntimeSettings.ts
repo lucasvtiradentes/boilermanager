@@ -7,7 +7,7 @@ type sourceOptions = 'default' | 'repository' | 'path';
 type RuntimeSettings = {
   sourceType: sourceOptions;
   source: string;
-  context: BoilerplateHandler;
+  boilerplateHandler: BoilerplateHandler;
   boilerplatesArr: BoilerplateInfo[];
   options: OptionValues;
 };
