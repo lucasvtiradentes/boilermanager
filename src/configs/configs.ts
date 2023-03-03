@@ -1,5 +1,6 @@
 import { join } from 'node:path';
 import { readJson } from '../utils/read-json';
+import { GitCloneStrategy } from '../strategies/downloadGithubFolder/gitCloneStrategy';
 
 const isTsnode = process.argv[0].search('ts-node') > -1;
 const NODE_ENV = isTsnode ? 'development' : 'production';
@@ -16,4 +17,21 @@ const BOILERPLATES_DEFAULT_FOLDER = 'boilerplates';
 const BOILERPLATES_DEFAULT_INFO_FILE = 'boilerplates.json';
 const BOILERPLATES_INFO_FILE = `${BOILERPLATES_DEFAULT_FOLDER}/${BOILERPLATES_DEFAULT_INFO_FILE}`;
 
-export { APP_NAME, APP_DESCRIPTION, APP_VERSION, GITHUB_BOILERPLATES_REPOSITORY, BOILERPLATES_DEFAULT_FOLDER, BOILERPLATES_DEFAULT_INFO_FILE, BOILERPLATES_INFO_FILE, NODE_ENV, PACKAGE_JSON };
+const GITHUB_DOWNLOAD_FOLDER_STRATEGY = new GitCloneStrategy(); // GithubApiStrategy
+
+// prettier-ignore
+export {
+  NODE_ENV,
+  PACKAGE_JSON,
+
+  APP_NAME,
+  APP_DESCRIPTION,
+  APP_VERSION,
+
+  GITHUB_BOILERPLATES_REPOSITORY,
+  BOILERPLATES_DEFAULT_FOLDER,
+  BOILERPLATES_DEFAULT_INFO_FILE,
+  BOILERPLATES_INFO_FILE,
+
+  GITHUB_DOWNLOAD_FOLDER_STRATEGY,
+};

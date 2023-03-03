@@ -7,17 +7,20 @@ import fuse from 'fuse.js';
 import inquirer, { Question } from 'inquirer';
 import inquirerPrompt from 'inquirer-autocomplete-prompt';
 import { execSync } from 'node:child_process';
-import { existsSync } from 'node:fs';
+import { randomUUID } from 'node:crypto';
+import { existsSync, mkdirSync, rmSync } from 'node:fs';
+import { tmpdir } from 'node:os';
 import { extname, join, resolve } from 'node:path';
 import updateNotifier, { Settings } from 'update-notifier';
-import { APP_DESCRIPTION, APP_NAME, APP_VERSION, GITHUB_BOILERPLATES_REPOSITORY, NODE_ENV, PACKAGE_JSON } from './configs/configs';
-import { BoilerplateHandlerContext } from './entities/BoilerplateHandler';
-import { githubStrategy } from './entities/GithubStrategy';
-import { pathStrategy } from './entities/PathStrategy';
+import { APP_DESCRIPTION, APP_NAME, APP_VERSION, GITHUB_BOILERPLATES_REPOSITORY, GITHUB_DOWNLOAD_FOLDER_STRATEGY, NODE_ENV, PACKAGE_JSON } from './configs/configs';
+import { BoilerplateHandler } from './strategies/boilerplateHandler/BoilerplateHandler';
+import { GithubStrategy } from './strategies/boilerplateHandler/GithubStrategy';
+import { PathStrategy } from './strategies/boilerplateHandler/PathStrategy';
 import { BoilerplateInfo } from './types/Boilerplate';
 import { RuntimeSettings } from './types/RuntimeSettings';
 import { deleteFolder } from './utils/fs-utils';
 import { logger } from './utils/logger';
+import { errorHandler } from './utils/error-handler';
 
 (async () => {
   console.log(chalk.red(figlet.textSync(APP_NAME, { horizontalLayout: 'default' })));
@@ -47,16 +50,11 @@ function getNewerVersion() {
   return notifier.update;
 }
 
-function handleError(errorMsg: string) {
-  logger.error(errorMsg);
-  process.exit(1);
-}
-
 async function initBoilerplateManager() {
   const bpmInstance: RuntimeSettings = {
     source: GITHUB_BOILERPLATES_REPOSITORY,
     sourceType: 'default',
-    context: new BoilerplateHandlerContext(githubStrategy),
+    context: new BoilerplateHandler(new GithubStrategy(GITHUB_DOWNLOAD_FOLDER_STRATEGY)),
     boilerplatesArr: [],
     options: {}
   };
@@ -75,7 +73,7 @@ async function initBoilerplateManager() {
   if (options.repository) {
     bpmInstance.source = options.repository;
     bpmInstance.sourceType = 'repository';
-    bpmInstance.context = new BoilerplateHandlerContext(githubStrategy);
+    bpmInstance.context = new BoilerplateHandler(new GithubStrategy(GITHUB_DOWNLOAD_FOLDER_STRATEGY));
 
     logger.info(`using boilerplates from: ${chalk.blue('custom repository')}`);
     bpmInstance.boilerplatesArr = await bpmInstance.context.list(bpmInstance.source);
@@ -84,12 +82,11 @@ async function initBoilerplateManager() {
   if (options.folder) {
     bpmInstance.source = '';
     bpmInstance.sourceType = 'path';
-    bpmInstance.context = new BoilerplateHandlerContext(pathStrategy);
+    bpmInstance.context = new BoilerplateHandler(new PathStrategy());
 
     const folderPath = resolve(options.folder);
     if (!existsSync(folderPath)) {
-      logger.error(`folder path [${options.folder}] does not exists`);
-      process.exit(1);
+      errorHandler(`folder path [${options.folder}] does not exists`);
     }
 
     logger.info(`using boilerplates from: ${chalk.blue('local folder')}`);
@@ -103,7 +100,7 @@ async function initBoilerplateManager() {
   }
 
   if (bpmInstance.boilerplatesArr.length === 0) {
-    handleError('current boilerplate list has no items!');
+    errorHandler('current boilerplate list has no items!');
   }
 
   const maxBoilerplateLength = Math.max(...bpmInstance.boilerplatesArr.map((item) => item.name.length));
@@ -151,7 +148,7 @@ async function initBoilerplateManager() {
       });
 
       inquirer.prompt(parsedBoilerplateQuestions).then(async (options) => {
-        await createBoilerplate(selectedBoilerplate.name);
+        await createBoilerplate(`${selectedBoilerplate.category}/${selectedBoilerplate.name}`);
         const boilerplateFolder = resolve(`./${selectedBoilerplate.name}`);
 
         logger.info(`applying the specified customizations`);
@@ -164,12 +161,12 @@ async function initBoilerplateManager() {
 
           if (!existsSync(finalFilePath)) {
             deleteFolder(boilerplateFolder);
-            handleError(`boilerplate does not contain the selected option script file: [${chalk.red(optionFile)}]`);
+            errorHandler(`boilerplate does not contain the selected option script file: [${chalk.red(optionFile)}]`);
           }
 
           if (extname(finalFilePath) !== '.js') {
             deleteFolder(boilerplateFolder);
-            handleError(`option script [${chalk.red(optionFile)}] is not a javascript file.`);
+            errorHandler(`option script [${chalk.red(optionFile)}] is not a javascript file.`);
           }
 
           const result = execSync(`node "${finalFilePath}"`).toString();
@@ -179,17 +176,28 @@ async function initBoilerplateManager() {
         logger.info(`boilerplate was customized according to the selected options ✅`);
       });
     } else {
-      await createBoilerplate(selectedBoilerplate.name);
+      await createBoilerplate(`${selectedBoilerplate.category}/${selectedBoilerplate.name}`);
       logger.info(`boilerplate [${chalk.green(selectedBoilerplate.name)}] was created ✅`);
     }
   });
 
   async function createBoilerplate(boilerplateName: string) {
     logger.info(`creating the selected boilerplate`);
-    const hasCreatedBoilerplate = await bpmInstance.context.choose(bpmInstance, boilerplateName);
+    const tmpFolder = createTempFolder();
+    const hasCreatedBoilerplate = await bpmInstance.context.choose(bpmInstance, boilerplateName, tmpFolder);
 
     if (!hasCreatedBoilerplate) {
-      handleError(`boilerplate [${chalk.red(boilerplateName)}] was not created ❌`);
+      errorHandler(`boilerplate [${chalk.red(boilerplateName)}] was not created ❌`);
     }
+  }
+
+  function createTempFolder() {
+    const tmpFolder = join(tmpdir(), `bpm-${randomUUID()}`);
+    if (existsSync(tmpFolder)) {
+      rmSync(tmpFolder, { recursive: true });
+    }
+
+    mkdirSync(tmpFolder);
+    return resolve(tmpFolder);
   }
 }

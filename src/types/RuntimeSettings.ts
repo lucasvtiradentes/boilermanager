@@ -1,14 +1,14 @@
 import { OptionValues } from 'commander';
-import { BoilerplateHandlerContext } from '../entities/BoilerplateHandler';
-import { Boilerplate } from './Boilerplate';
+import { BoilerplateHandler } from '../strategies/boilerplateHandler/BoilerplateHandler';
+import { BoilerplateInfo } from './Boilerplate';
 
 type sourceOptions = 'default' | 'repository' | 'path';
 
 type RuntimeSettings = {
   sourceType: sourceOptions;
   source: string;
-  context: BoilerplateHandlerContext;
-  boilerplatesArr: Boilerplate[];
+  context: BoilerplateHandler;
+  boilerplatesArr: BoilerplateInfo[];
   options: OptionValues;
 };
 
