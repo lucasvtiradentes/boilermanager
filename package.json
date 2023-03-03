@@ -36,7 +36,7 @@
     "start": "node ./lib/src/index.js",
     "dev": "ts-node ./src/index.ts",
     "dev:install": "npm install -g .",
-
+    
     "test": "jest --passWithNoTests",
     "test:watch": "jest --passWithNoTests --watchAll",
     "test:coverage": "jest --passWithNoTests --coverage",
@@ -49,7 +49,6 @@
     "script:issues": "ts-node ./scripts/github-issues.ts"
   },
   "dependencies": {
-    "@octokit/rest": "^19.0.7",
     "axios": "^1.2.2",
     "chalk": "^4.1.2",
     "commander": "^9.5.0",

@@ -1,11 +1,9 @@
-name: 'ci/cd npm package publish'
+name: 'publish npm package'
 
 on:
   push:
     branches:
       - master
-  pull_request:
-    branches: '*'
 
 permissions:
   actions: write
@@ -16,8 +14,6 @@ permissions:
   packages: write
   pull-requests: write
   repository-projects: write
-  security-events: write
-  statuses: write
 
 env:
   NPM_TOKEN: ${{ secrets.NPM_TOKEN }}
@@ -25,26 +21,23 @@ env:
 
 jobs:
 
-  pre_publish:
-    runs-on: ubuntu-latest
-    steps:
-      - name: show importante variables
-        run: echo ${{ github.ref }}
-
   publish:
     runs-on: ubuntu-latest
     if: github.ref == 'refs/heads/master'
-    needs: [pre_publish]
     steps:
       - name: setup-checkout
         uses: actions/checkout@v2
+
       - name: setup-node
         uses: actions/setup-node@v2
         with:
           node-version: 16
-      - name: build-scripts
-        run: |
-          npm install
-          npm run build
-      - name: publish things
+
+      - name: install dependencies
+        run:  npm install
+
+      - name: build package
+        run: npm run build
+
+      - name: publish package
         run: HUSKY=0 npm run pub
