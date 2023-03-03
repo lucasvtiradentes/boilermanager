@@ -1,5 +1,12 @@
 # CHANGELOG HISTORY
 
+## [1.5.0](https://github.com/lucasvtiradentes/boilermanager/compare/v1.4.1...v1.5.0) (2023-03-03)
+
+
+### ✨ feature:
+
+* add way to handle customizable boilerplates ([#13](https://github.com/lucasvtiradentes/boilermanager/issues/13)) ([22caefa](https://github.com/lucasvtiradentes/boilermanager/commit/22caefa0ba681ae60bbd2f24671abade2f6e8dc8))
+
 ## [1.4.1](https://github.com/lucasvtiradentes/boilermanager/compare/v1.4.0...v1.4.1) (2023-03-02)
 
 

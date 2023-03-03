@@ -1,7 +1,7 @@
 {
   "name": "boilermanager",
   "description": "⚡ quickstart your nodejs projects with zero time spent on configuring frequently used tools while also having the ability to manage your own boilerplates.",
-  "version": "1.4.1",
+  "version": "1.5.0",
   "license": "MIT",
   "keywords": [
     "cli",
@@ -26,7 +26,6 @@
     "prepare": "husky install",
     "precommit": "npm run script:issues",
     "commit": "cz",
-
     "prebuild": "rimraf ./lib",
     "build": "tsc",
     "build:check": "tsc --noEmit",
@@ -36,7 +35,6 @@
     "start": "node ./lib/src/index.js",
     "dev": "ts-node ./src/index.ts",
     "dev:install": "npm install -g .",
-    
     "test": "jest --passWithNoTests",
     "test:watch": "jest --passWithNoTests --watchAll",
     "test:coverage": "jest --passWithNoTests --coverage",
