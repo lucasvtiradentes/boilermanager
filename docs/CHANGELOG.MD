@@ -1,5 +1,12 @@
 # CHANGELOG HISTORY
 
+## [1.5.1](https://github.com/lucasvtiradentes/boilermanager/compare/v1.5.0...v1.5.1) (2023-03-03)
+
+
+### ✅ tests:
+
+* auto-update feature in production ([#40](https://github.com/lucasvtiradentes/boilermanager/issues/40)) ([f7d904f](https://github.com/lucasvtiradentes/boilermanager/commit/f7d904f647eeec025e7e89061ab6d9f9ef73a8a2))
+
 ## [1.5.0](https://github.com/lucasvtiradentes/boilermanager/compare/v1.4.1...v1.5.0) (2023-03-03)
 
 
