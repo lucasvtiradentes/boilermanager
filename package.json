@@ -1,7 +1,7 @@
 {
   "name": "boilermanager",
   "description": "⚡ quickstart your nodejs projects with zero time spent on configuring frequently used tools while also having the ability to manage your own boilerplates.",
-  "version": "1.6.1",
+  "version": "1.7.0",
   "license": "MIT",
   "keywords": [
     "cli",

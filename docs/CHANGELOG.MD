@@ -1,5 +1,12 @@
 # CHANGELOG HISTORY
 
+## [1.7.0](https://github.com/lucasvtiradentes/boilermanager/compare/v1.6.1...v1.7.0) (2023-03-12)
+
+
+### ✨ feature:
+
+* add flag to use an alt download strategy ([#45](https://github.com/lucasvtiradentes/boilermanager/issues/45)) ([2c4d8fb](https://github.com/lucasvtiradentes/boilermanager/commit/2c4d8fb215030314a101cb1b4c1642f7ac7d7f36))
+
 ## [1.6.1](https://github.com/lucasvtiradentes/boilermanager/compare/v1.6.0...v1.6.1) (2023-03-03)
 
 
