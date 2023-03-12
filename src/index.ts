@@ -12,15 +12,17 @@ import { existsSync, mkdirSync, rmSync } from 'node:fs';
 import { tmpdir } from 'node:os';
 import { extname, join, resolve } from 'node:path';
 import updateNotifier, { Settings } from 'update-notifier';
-import { APP_DESCRIPTION, APP_NAME, APP_VERSION, GITHUB_BOILERPLATES_REPOSITORY, GITHUB_DOWNLOAD_FOLDER_STRATEGY, NODE_ENV, PACKAGE_JSON } from './configs/configs';
+import { APP_DESCRIPTION, APP_NAME, APP_VERSION, GITHUB_BOILERPLATES_REPOSITORY, NODE_ENV, PACKAGE_JSON } from './configs/configs';
 import { BoilerplateHandler } from './strategies/boilerplateHandler/BoilerplateHandler';
 import { GithubStrategy } from './strategies/boilerplateHandler/GithubStrategy';
 import { PathStrategy } from './strategies/boilerplateHandler/PathStrategy';
+import { GitCloneStrategy } from './strategies/downloadGithubFolder/gitCloneStrategy';
+import { GithubApiStrategy } from './strategies/downloadGithubFolder/githubApiStrategy';
 import { BoilerplateInfo } from './types/Boilerplate';
 import { RuntimeSettings } from './types/RuntimeSettings';
+import { errorHandler } from './utils/error-handler';
 import { deleteFolder } from './utils/fs-utils';
 import { logger } from './utils/logger';
-import { errorHandler } from './utils/error-handler';
 
 (async () => {
   console.log(chalk.red(figlet.textSync(APP_NAME, { horizontalLayout: 'default' })));
@@ -51,29 +53,34 @@ function getNewerVersion() {
 }
 
 async function initBoilerplateManager() {
-  const bpmInstance: RuntimeSettings = {
-    source: GITHUB_BOILERPLATES_REPOSITORY,
-    sourceType: 'default',
-    boilerplateHandler: new BoilerplateHandler(new GithubStrategy(GITHUB_DOWNLOAD_FOLDER_STRATEGY)),
-    boilerplatesArr: [],
-    options: {}
-  };
-
   program.name(APP_NAME).version(APP_VERSION).description(APP_DESCRIPTION);
   // prettier-ignore
   program
   .option('-r, --repository <repo>', 'use your github boilerplates')
   .option('-f, --folder <folder>', 'use only boilerplates from a specific local folder')
-  .option('-l, --list', 'show the current boilerplate list');
+  .option('-l, --list', 'show the current boilerplate list')
+  .option('-a, --alt', 'uses an alternative strategy to download the boilerplates from github');
 
   program.parse();
   const options = program.opts();
-  bpmInstance.options = options;
+
+  const downloadGithubFolderStrategy = options.alt ? new GithubApiStrategy() : new GitCloneStrategy();
+  if (options.alt) {
+    logger.info('using alternative download github folder strategy');
+  }
+
+  const bpmInstance: RuntimeSettings = {
+    source: GITHUB_BOILERPLATES_REPOSITORY,
+    sourceType: 'default',
+    boilerplateHandler: new BoilerplateHandler(new GithubStrategy(downloadGithubFolderStrategy)),
+    boilerplatesArr: [],
+    options: options
+  };
 
   if (options.repository) {
     bpmInstance.source = options.repository;
     bpmInstance.sourceType = 'repository';
-    bpmInstance.boilerplateHandler = new BoilerplateHandler(new GithubStrategy(GITHUB_DOWNLOAD_FOLDER_STRATEGY));
+    bpmInstance.boilerplateHandler = new BoilerplateHandler(new GithubStrategy(downloadGithubFolderStrategy));
 
     logger.info(`using boilerplates from: ${chalk.blue('custom repository')}`);
     bpmInstance.boilerplatesArr = await bpmInstance.boilerplateHandler.list(bpmInstance.source);

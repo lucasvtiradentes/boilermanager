@@ -33,7 +33,7 @@
     "pub:check": "npm publish --dry-run",
     "pub:build": "npm pack && tar -xvzf *.tgz",
     "start": "node ./lib/src/index.js",
-    "dev": "ts-node ./src/index.ts",
+    "dev": "ts-node ./src/index.ts --alt",
     "dev:install": "npm install -g .",
     "test": "jest --passWithNoTests",
     "test:watch": "jest --passWithNoTests --watchAll",

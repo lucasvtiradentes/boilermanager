@@ -3,10 +3,10 @@
 <div align="center">
   <a href="https://www.npmjs.com/package/boilermanager"><img src="https://img.shields.io/npm/v/boilermanager.svg?style=flat" alt="npm version"></a>
   <a href="https://nodejs.org/en/"><img src="https://img.shields.io/badge/made%20with-node-1f425f?logo=node.js&.svg" /></a>
-  <a href="https://www.github.com/lucasvtiradentes/boilermanager/commits/master"><img src="https://img.shields.io/github/last-commit/lucasvtiradentes/boilermanager?color=green&label=updated"></a>
-  <br>
-  <a href="https://www.github.com/lucasvtiradentes"><img src="https://img.shields.io/badge/maintainer-%40lucasvtiradentes-yellow"></a>
   <a href="https://github.com/lucasvtiradentes/boilermanager#contributing"><img src="https://img.shields.io/badge/contributions-welcome-brightgreen.svg?style=flat" alt="contributions" /></a>
+  <br>
+  <a href="https://github.com/semantic-release/semantic-release"><img src="https://img.shields.io/badge/%20%20%F0%9F%93%A6%F0%9F%9A%80-semantic--release-e10079.svg?style=flat-square" alt="semantic-release"/></a>
+  <a href="https://gitmoji.dev"><img src="https://img.shields.io/badge/gitmoji-%20😜%20😍-FFDD67.svg?style=flat-square" alt="Gitmoji" /></a>
 </div>
 
 <p align="center">
@@ -99,7 +99,7 @@ After that you will be able to use the cli commands, through `boilermanager` or 
 
 ### Commands
 
-The boilermanager comes with the following commands list:
+The boilermanager has the following commands:
 
 <table>
   <tr>
@@ -133,9 +133,14 @@ The boilermanager comes with the following commands list:
     <td>Set the boilerplate source list to use the <b>boilerplates from a specified folder</b>. You can create your one by forking <a href="https://github.com/lucasvtiradentes/boilermanager-boilerplates-template">boilermanager boilerplates template</a>.</td>
   </tr>
   <tr>
-    <td width="100" rowspan="1">Other</td>
+    <td width="100" rowspan="2">Other</td>
     <td width="250"><code>bpm -l</code></td>
     <td>Shows the <b>current boilerplate list</b> options with additional information on a table.</td>
+  </tr>
+  <tr>
+    <!-- <td width="100" rowspan="1">Other</td> -->
+    <td width="250"><code>bpm -a</code></td>
+    <td>sets an <b>alternative strategy</b> to download github folders.</td>
   </tr>
 </table>
 

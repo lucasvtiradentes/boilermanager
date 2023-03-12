@@ -36,7 +36,11 @@ class GitCloneStrategy implements DownloadGithubFolderStrategy {
       try {
         execSync(curCommand, { ...this.defaultExecConfigs, detached: true, stdio: 'ignore' });
       } catch (e: any) {
-        logger.info(e.message);
+        if (e.message.search('ETIMEDOUT') > -1) {
+          logger.error(`an error occurred when downloading the boilerplate, please run again using the "--alt" flag.`);
+        } else {
+          logger.error(e.message);
+        }
         return false;
       }
     }
