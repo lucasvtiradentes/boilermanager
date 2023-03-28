@@ -57,18 +57,20 @@
 
 ## :trumpet: Overview
 
-Quickstart your nodejs projects with zero time spent on configuring frequently used tools while also having the ability to manage your own boilerplates.
+Quickstart your projects with zero time spent on configuring frequently used tools while also being able to manage your own boilerplates.
 
 <p align="center">
   <img alt="posthoglogo" src="./.github/images/demo.webp" width="650">
 </p>
 
-The default boilerplates are available in [boilermanager-boilerplates](https://github.com/lucasvtiradentes/boilermanager-boilerplates) and if you wish you can create your own according to [boilerplates-template](https://github.com/lucasvtiradentes/boilermanager-boilerplates-template).
+The default boilerplates are available in [js-boilerplates](https://github.com/lucasvtiradentes/js-boilerplates) and if you wish you can create your own according to [boilerplates-template](https://github.com/lucasvtiradentes/boilermanager-boilerplates-template).
+
+This tool was originally meant to be used only in js based projects, but it in fact can work with boilerplates from every other languages, such as [go-boilerplates](https://github.com/lucasvtiradentes/go-boilerplates).
 
 ## :dart: Features<a href="#TOC"><img align="right" src="./.github/images/up_arrow.png" width="22"></a>
 
-&nbsp;&nbsp;&nbsp;✔️ choose which boilerplate to start from: the default available options are listed in [boilermanager-boilerplates](https://github.com/lucasvtiradentes/boilermanager-boilerplates);<br>
-&nbsp;&nbsp;&nbsp;✔️ choose the boilerplate source from three options: default, github repository and local folder;<br>
+&nbsp;&nbsp;&nbsp;✔️ choose which boilerplate to start from: the default available options are listed in [js-boilerplates](https://github.com/lucasvtiradentes/js-boilerplates);<br>
+&nbsp;&nbsp;&nbsp;✔️ choose the boilerplate source from three options: default, github repository or local folder;<br>
 &nbsp;&nbsp;&nbsp;✔️ create your own boilerplates by following [boilerplates-template](https://github.com/lucasvtiradentes/boilermanager-boilerplates-template);<br>
 &nbsp;&nbsp;&nbsp;✔️ supports filtering while choosing the boilerplate.<br>
 

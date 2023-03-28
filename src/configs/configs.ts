@@ -11,7 +11,7 @@ const APP_NAME = PACKAGE_JSON.name;
 const APP_DESCRIPTION = PACKAGE_JSON.description;
 const APP_VERSION = PACKAGE_JSON.version;
 
-const GITHUB_BOILERPLATES_REPOSITORY = 'lucasvtiradentes/boilermanager-boilerplates';
+const GITHUB_BOILERPLATES_REPOSITORY = 'lucasvtiradentes/js-boilerplates';
 const BOILERPLATES_DEFAULT_FOLDER = 'boilerplates';
 const BOILERPLATES_DEFAULT_INFO_FILE = 'boilerplates.json';
 const BOILERPLATES_INFO_FILE = `${BOILERPLATES_DEFAULT_FOLDER}/${BOILERPLATES_DEFAULT_INFO_FILE}`;
