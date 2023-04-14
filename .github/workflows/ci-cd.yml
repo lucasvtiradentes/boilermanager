@@ -36,5 +36,6 @@ jobs:
       run: npm run test:coverage
 
     - name: 6 - deploy package to npm
+      continue-on-error: true
       if: ${{ github.ref == 'refs/heads/master' }}
       run: HUSKY=0 npm run pub
