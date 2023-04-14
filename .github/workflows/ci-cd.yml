@@ -1,0 +1,43 @@
+name: 'CI'
+
+on:
+  push:
+  pull_request:
+    types: [opened]
+
+permissions:
+  contents: write
+  issues: write
+  pull-requests: write
+
+env:
+  GITHUB_TOKEN: ${{ secrets.GITHUB_TOKEN }}
+  NPM_TOKEN: ${{ secrets.NPM_TOKEN }}
+
+jobs:
+  nodejs-ci:
+    runs-on: ubuntu-latest
+    steps:
+    - name: 1 - checkout the repository
+      uses: actions/checkout@v3
+
+    - name: 2 - Use Node.js 16.x
+      uses: actions/setup-node@v3
+      with:
+        node-version: 16.x
+
+    - name: 3 - install dependencies
+      run: npm install
+
+    - name: 4 - build package
+      run: npm run build
+
+    - name: 5 - run tests
+      run: npm run test:coverage
+
+    - name: 6 - Upload coverage reports to Codecov
+      uses: codecov/codecov-action@v3
+
+    - name: 7 - deploy package to npm
+      if: ${{ github.ref == 'refs/heads/master' }}
+      run: HUSKY=0 npm run pub

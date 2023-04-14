@@ -1,5 +1,3 @@
-/* eslint-disable no-undef */
-
 module.exports = {
   branches: ['master'],
   repository: 'https://github.com/lucasvtiradentes/boilermanager',
@@ -73,7 +71,7 @@ module.exports = {
     [
       '@semantic-release/git',
       {
-        assets: ['docs/CHANGELOG.MD', 'package.json', 'README.md', 'dist/TickSync.min.js'],
+        assets: ['docs/CHANGELOG.MD', 'package.json'],
         message: ':bookmark: tags: new version release ${nextRelease.version} [skip ci]\n\n${nextRelease.notes}'
       }
     ]
