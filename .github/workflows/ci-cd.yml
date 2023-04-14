@@ -35,9 +35,6 @@ jobs:
     - name: 5 - run tests
       run: npm run test:coverage
 
-    - name: 6 - Upload coverage reports to Codecov
-      uses: codecov/codecov-action@v3
-
-    - name: 7 - deploy package to npm
+    - name: 6 - deploy package to npm
       if: ${{ github.ref == 'refs/heads/master' }}
       run: HUSKY=0 npm run pub

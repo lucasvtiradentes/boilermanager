@@ -1,24 +1,22 @@
 <a name="TOC"></a>
 
 <div align="center">
-  <a href="https://www.npmjs.com/package/boilermanager"><img src="https://img.shields.io/npm/v/boilermanager.svg?style=flat" alt="npm version"></a>
   <a href="https://nodejs.org/en/"><img src="https://img.shields.io/badge/made%20with-node-1f425f?logo=node.js&.svg" /></a>
   <a href="https://github.com/lucasvtiradentes/boilermanager#contributing"><img src="https://img.shields.io/badge/contributions-welcome-brightgreen.svg?style=flat" alt="contributions" /></a>
   <br>
-  <a href="https://github.com/semantic-release/semantic-release"><img src="https://img.shields.io/badge/%20%20%F0%9F%93%A6%F0%9F%9A%80-semantic--release-e10079.svg?style=flat-square" alt="semantic-release"/></a>
-  <a href="https://gitmoji.dev"><img src="https://img.shields.io/badge/gitmoji-%20😜%20😍-FFDD67.svg?style=flat-square" alt="Gitmoji" /></a>
+  <a href="https://www.npmjs.com/package/boilermanager"><img src="https://img.shields.io/npm/v/boilermanager.svg?style=flat" alt="npm version"></a>
+  <a href="https://github.com/lucasvtiradentes/boilermanager/actions/workflows/ci-cd.yml"><img src="https://github.com/lucasvtiradentes/boilermanager/workflows/CI/badge.svg"/></a>
 </div>
 
 <p align="center">
-  <a href="#dart-features">Features</a> • <a href="#warning-requirements">Requirements</a> • <a href="#bulb-usage">Usage</a> • <a href="#wrench-development">Development</a> • <a href="#books-about">About</a> • <a href="#family-community">Community</a>
+  <a href="#dart-features">Features</a> • <a href="#warning-requirements">Requirements</a> • <a href="#bulb-usage">Usage</a> • <a href="#wrench-development">Development</a> • <a href="#books-about">About</a>
 </p>
 
 <details>
   <summary align="center"><span>see <b>table of content</b></span></summary>
   <p align="center">
     <ul>
-      <!-- <li><a href="#trumpet-overview">Overview</a></li> -->
-      <!-- <li><a href="#pushpin-table-of-contents">TOC</a></li> -->
+      <li><a href="#trumpet-overview">Overview</a></li>
       <li><a href="#dart-features">Features</a></li>
       <li><a href="#warning-requirements">Requirements</a></li>
       <li>
@@ -40,12 +38,6 @@
         <ul>
           <li><a href="#related">Related</a></li>
           <li><a href="#license">License</a></li>
-        </ul>
-      </li>
-      <li>
-        <a href="#family-community">Community</a>
-        <ul>
-          <li><a href="#contributing">Contributing</a></li>
           <li><a href="#feedback">Feedback</a></li>
         </ul>
       </li>
@@ -57,22 +49,23 @@
 
 ## :trumpet: Overview
 
-Quickstart your projects with zero time spent on configuring frequently used tools while also being able to manage your own boilerplates.
+Quickstart your projects by using a pre-configured boilerplate while also being able to manage and use your own boilerplates.
 
 <p align="center">
   <img alt="posthoglogo" src="./.github/images/demo.webp" width="650">
 </p>
 
-The default boilerplates are available in [js-boilerplates](https://github.com/lucasvtiradentes/js-boilerplates) and if you wish you can create your own according to [boilerplates-template](https://github.com/lucasvtiradentes/boilermanager-boilerplates-template).
+The default boilerplates available are listed from [js-boilerplates](https://github.com/lucasvtiradentes/js-boilerplates) and if you wish you can create your own according to [boilerplates-template](https://github.com/lucasvtiradentes/boilermanager-template).
 
-This tool was originally meant to be used only in js based projects, but it in fact can work with boilerplates from every other languages, such as [go-boilerplates](https://github.com/lucasvtiradentes/go-boilerplates).
+This tool was originally meant to be used only in javascript based projects, but it in fact can handle boilerplates from every other languages, such as [golang-boilerplates](https://github.com/lucasvtiradentes/golang-boilerplates).
 
 ## :dart: Features<a href="#TOC"><img align="right" src="./.github/images/up_arrow.png" width="22"></a>
 
-&nbsp;&nbsp;&nbsp;✔️ choose which boilerplate to start from: the default available options are listed in [js-boilerplates](https://github.com/lucasvtiradentes/js-boilerplates);<br>
+&nbsp;&nbsp;&nbsp;✔️ choose which boilerplate to start from: the default available options are listed from [js-boilerplates](https://github.com/lucasvtiradentes/js-boilerplates);<br>
 &nbsp;&nbsp;&nbsp;✔️ choose the boilerplate source from three options: default, github repository or local folder;<br>
-&nbsp;&nbsp;&nbsp;✔️ create your own boilerplates by following [boilerplates-template](https://github.com/lucasvtiradentes/boilermanager-boilerplates-template);<br>
-&nbsp;&nbsp;&nbsp;✔️ supports filtering while choosing the boilerplate.<br>
+&nbsp;&nbsp;&nbsp;✔️ create your own boilerplates by following [boilerplates-template](https://github.com/lucasvtiradentes/boilermanager-boilerplates-template) folder structure;<br>
+&nbsp;&nbsp;&nbsp;✔️ supports filtering while choosing the boilerplate;<br>
+&nbsp;&nbsp;&nbsp;✔️ shows if there is a new version available at every run.<br>
 
 ## :warning: Requirements<a href="#TOC"><img align="right" src="./.github/images/up_arrow.png" width="22"></a>
 
@@ -81,16 +74,11 @@ In order to use this project in your computer, you need to have the following it
 - [npm](https://www.npmjs.com/): To install the package. Npm is installed alongside nodejs;
 - [nodejs](https://nodejs.org/en/): To actually run the package.
 
-If you want to make changes to the source code, it is recommended to also install the following items:
-
-- [git](https://git-scm.com/): To work with version controlling;
-- [vscode](https://code.visualstudio.com/): Useful for editing the code. You can choose a similar editor as you wish.
-
 ## :bulb: Usage<a href="#TOC"><img align="right" src="./.github/images/up_arrow.png" width="22"></a>
 
 ### Installation
 
-To install boilermanager in your computer, simple run this command:
+To install `boilermanager` in your computer, simple run this command:
 
 ```bash
 # install the boilermanager npm package
@@ -150,19 +138,15 @@ The boilermanager has the following commands:
 
 ### Development setup
 
-To setup this project in your computer, run the following commands:
+if you want to [contribute](./docs/CONTRIBUTING.md) to this project, setup this project in your computer by run the following commands:
 
 ```bash
 # Clone this repository
 $ git clone https://github.com/lucasvtiradentes/boilermanager
 
-# Go into the repository
+# Go into the repository folder
 $ cd boilermanager
-```
 
-After download it, go to the project folder and run these commands:
-
-```bash
 # Install dependencies
 $ npm install
 
@@ -172,7 +156,7 @@ $ npm run dev
 
 ### Used technologies
 
-Boilermanager uses the following thechnologies:
+This project uses the following thechnologies:
 
 <div align="center">
   <table>
@@ -226,39 +210,18 @@ Boilermanager uses the following thechnologies:
 
 ## Related
 
-The most related links to this project are:
-
-- [inquire](https://www.npmjs.com/package/inquirer): a tool to get user interaction and store into variables;
-- [commander](https://www.npmjs.com/package/commander): a tool to set and show cli help really easy.
+- [js-boilerplates](https://github.com/lucasvtiradentes/js-boilerplates): default javascript boilerplates available;
+- [golang-boilerplates](https://github.com/lucasvtiradentes/golang-boilerplates): golang boilerplates;
+- [boilermanager-template](https://github.com/lucasvtiradentes/boilermanager-template): template repository for you create and use your own boilerplates in boilermanager;
+- [boilr](https://github.com/tmrts/boilr): boilerplate template manager that generates files or directories from template repositories.
 
 ## License
 
-**Boilermanager** is distributed under the terms of the MIT License Version 2.0. A complete version of the license is available in the [LICENSE](LICENSE) file in this repository. Any contribution made to this project will be licensed under the MIT License Version 2.0.
-
-<a href="#"><img src="./.github/images/divider.png" /></a>
-
-## :family: Community<a href="#TOC"><img align="right" src="./.github/images/up_arrow.png" width="22"></a>
-
-## Contributing
-
-If you are a typescript developer, we would kind and happy accept your help:
-
-- The best way to get started is to select any issue from the [`good-first-issue` label](https://github.com/lucasvtiradentes/boilermanager/labels/good%20first%20issue);
-- If you would like to contribute, please review our [contributing guide](docs/CONTRIBUTING.md) for all relevant details.
-
-Another ways to positivily impact this project is to:
-
-- **:star: Star this repository**: my goal is to impact the maximum number of developers around the world;
-- ✍️ **Fix english mistakes** I might have made in this project, may it be in the DOCS or even in the code (I'm a portuguese natural speaker);
-- [:heart: Say thanks](https://saythanks.io/to/lucasvtiradentes): kind words have a huge impact in anyone's life;
-- [💰 Donate](https://github.com/sponsors/lucasvtiradentes): if you want to support my work even more, consider make a small donation. I would be really happy!
+This project is distributed under the terms of the MIT License Version 2.0. A complete version of the license is available in the [LICENSE](LICENSE) file in this repository. Any contribution made to this project will be licensed under the MIT License Version 2.0.
 
 ## Feedback
 
-Any questions or suggestions? You are welcome to discuss it on:
-
-- [Github discussions](https://github.com/lucasvtiradentes/boilermanager/discussions)
-- [Email](mailto:lucasvtiradentes@gmail.com)
+If you have any questions or suggestions you are welcome to discuss it on [github issues](https://github.com/lucasvtiradentes/boilermanager/issues) or, if you prefer, you can reach me in my social media provided bellow.
 
 <a href="#"><img src="./.github/images/divider.png" /></a>
 
